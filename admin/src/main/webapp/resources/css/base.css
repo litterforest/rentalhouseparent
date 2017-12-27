@@ -1,0 +1,12 @@
+div.header{
+	height: 30px;
+	line-height: 30px;
+}
+
+.error{
+	color: red;
+}
+
+.success{
+	color: green;
+}

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cobee.rentalhouse.core.dao.impl.RentalOrderMapper">
+	
+	<sql id="selectFromClause">
+		a.id,
+		a.create_Date,
+		a.create_By,
+		a.update_Date,
+		a.update_By,
+		a.remarks,
+		a.year,
+		a.month,
+		a.rental_Amount,
+		a.electricity_Amount,
+		a.power_Consumption,
+		a.total_Amount,
+		a.rental_Type,
+		a.status,
+		a.last_Power_Consumption,
+		a.del_Flag,
+		a.deduction_Amount,
+		a.diff_Power_Consumption,
+		a.user_id,
+		b.realname as "baseUser.realname",
+		c.standard_Renting_Electricity as "secureUser.sysVariables.standardRentingElectricity",
+		c.standard_Berth_Electricity as "secureUser.sysVariables.standardBerthElectricity"
+		from rental_order a
+		left join secure_user b on b.id = a.user_id
+		left join sys_variables c on c.user_id = b.id
+	</sql>
+	
+	<select id="list" resultType="RentalOrder" >
+	
+		select <include refid="selectFromClause" />
+		<where>
+			a.del_flag = 0
+			<if test="status != null">
+				and a.status = #{status}
+			</if>
+			
+			<if test="rentalType != null">
+				and a.rental_Type = #{rentalType}
+			</if>
+			
+			<if test="year != null">
+				and a.year = #{year}
+			</if>
+		</where>
+		
+		<choose>
+			<when test="pageRequest != null and pageRequest.orderByClause != null and pageRequest.orderByClause != ''">
+				${pageRequest.orderByClause}
+			</when>
+			<otherwise>
+				order by a.year desc, a.month desc
+			</otherwise>
+		</choose>
+		
+		<if test="pageRequest != null and pageRequest.limitClause != null and pageRequest.limitClause != ''">
+			${pageRequest.limitClause}
+		</if>
+	
+	</select>
+	
+	<select id="get" resultType="RentalOrder" parameterType="integer" >
+	
+		select <include refid="selectFromClause" /> where a.id = #{id}
+		
+	</select>
+	
+	<select id="queryByCount" resultType="integer" >
+	
+		select count(1) from rental_order a
+		<where>
+			<trim prefixOverrides="and" >
+			
+				<if test="status != null">
+					and a.status = #{status}
+				</if>
+				
+				<if test="rentalType != null">
+					and a.rental_Type = #{rentalType}
+				</if>
+				
+			</trim>
+		</where>
+		
+	</select>
+	
+	<update id="delete" parameterType="integer" >
+	
+		delete from rental_order where id = #{id}
+		
+	</update>
+	
+	<update id="insertBySelective" parameterType="RentalOrder">
+		
+		insert into rental_order
+		(
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date,
+				</if>
+				<if test="createBy != null">
+					create_by,
+				</if>
+				<if test="updateDate != null">
+					update_date,
+				</if>
+				<if test="updateBy != null">
+					update_by,
+				</if>
+				<if test="remarks != null">
+					remarks,
+				</if>
+				<if test="year != null">
+					year,
+				</if>
+				<if test="month != null">
+					month,
+				</if>
+				<if test="rentalAmount != null">
+					rental_amount,
+				</if>
+				<if test="electricityAmount != null">
+					electricity_amount,
+				</if>
+				<if test="powerConsumption != null">
+					power_consumption,
+				</if>
+				<if test="totalAmount != null">
+					total_amount,
+				</if>
+				<if test="rentalType != null">
+					rental_type,
+				</if>
+				<if test="status != null">
+					status,
+				</if>
+				<if test="lastPowerConsumption != null">
+					last_Power_Consumption,
+				</if>
+				<if test="deductionAmount != null">
+					deduction_Amount,
+				</if>
+				<if test="diffPowerConsumption != null">
+					diff_Power_Consumption,
+				</if>
+				<if test="userId != null">
+					user_Id,
+				</if>
+			</trim>
+		) values (
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					#{createDate},
+				</if>
+				<if test="createBy != null">
+					#{createBy},
+				</if>
+				<if test="updateDate != null">
+					#{updateDate},
+				</if>
+				<if test="updateBy != null">
+					#{updateBy},
+				</if>
+				<if test="remarks != null">
+					#{remarks},
+				</if>
+				<if test="year != null">
+					#{year},
+				</if>
+				<if test="month != null">
+					#{month},
+				</if>
+				<if test="rentalAmount != null">
+					#{rentalAmount},
+				</if>
+				<if test="electricityAmount != null">
+					#{electricityAmount},
+				</if>
+				<if test="powerConsumption != null">
+					#{powerConsumption},
+				</if>
+				<if test="totalAmount != null">
+					#{totalAmount},
+				</if>
+				<if test="rentalType != null">
+					#{rentalType},
+				</if>
+				<if test="status != null">
+					#{status},
+				</if>
+				<if test="lastPowerConsumption != null">
+					#{lastPowerConsumption},
+				</if>
+				<if test="deductionAmount != null">
+					#{deductionAmount},
+				</if>
+				<if test="diffPowerConsumption != null">
+					#{diffPowerConsumption},
+				</if>
+				<if test="userId != null">
+					#{userId},
+				</if>
+			</trim>
+		)
+	
+	</update>
+	
+	<update id="updateBySelective" parameterType="RentalOrder">
+		
+		update rental_order set 
+		
+		<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+				<if test="createBy != null">
+					create_by = #{createBy},
+				</if>
+				<if test="updateDate != null">
+					update_date = #{updateDate},
+				</if>
+				<if test="updateBy != null">
+					update_by = #{updateBy},
+				</if>
+				<if test="remarks != null">
+					remarks = #{remarks},
+				</if>
+				<if test="year != null">
+					year = #{year},
+				</if>
+				<if test="month != null">
+					month = #{month},
+				</if>
+				<if test="rentalAmount != null">
+					rental_amount = #{rentalAmount},
+				</if>
+				<if test="electricityAmount != null">
+					electricity_amount = #{electricityAmount},
+				</if>
+				<if test="powerConsumption != null">
+					power_consumption = #{powerConsumption},
+				</if>
+				<if test="totalAmount != null">
+					total_amount = #{totalAmount},
+				</if>
+				<if test="rentalType != null">
+					rental_type = #{rentalType},
+				</if>
+				<if test="status != null">
+					status = #{status},
+				</if>
+				<if test="lastPowerConsumption != null">
+					last_Power_Consumption = #{lastPowerConsumption},
+				</if>
+				<if test="deductionAmount != null">
+					deduction_Amount = #{deductionAmount},
+				</if>
+				<if test="diffPowerConsumption != null">
+					diff_Power_Consumption = #{diffPowerConsumption},
+				</if>
+				<if test="delFlag != null">
+					del_flag = #{delFlag},
+				</if>
+			</trim>
+		
+		where id = #{id}
+	
+	</update>
+	
+	
+</mapper>

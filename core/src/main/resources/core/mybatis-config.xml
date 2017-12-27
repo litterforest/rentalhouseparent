@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC  "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings>  
+          <setting name="mapUnderscoreToCamelCase" value="true" />  
+     </settings>
+
+	<typeAliases>
+	
+		<typeAlias type="com.cobee.rentalhouse.core.entity.logical.RentalOrderLogic" alias="RentalOrder" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.SysVariables" alias="SysVariables" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.SecureUser" alias="SecureUser" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.SecureRole" alias="SecureRole" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.logical.SecureResourcesLogic" alias="SecureResources" />
+		
+	</typeAliases>
+</configuration>
