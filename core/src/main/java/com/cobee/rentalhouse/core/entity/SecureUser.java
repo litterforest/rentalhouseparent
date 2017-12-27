@@ -4,7 +4,6 @@ import java.util.Set;
 
 import com.cobee.rentalhouse.core.entity.support.BaseEntity;
 
-
 public class SecureUser extends BaseEntity {
 
 	/**
@@ -18,6 +17,8 @@ public class SecureUser extends BaseEntity {
 	private Integer isRememberMe;
 	// 是否为管理员 0不是 1是
 	private Integer isAdmin;
+	// 0二手房东 1房东 2二手房东和房东
+	private Integer userType;
 
 	private SysVariables sysVariables;
 	private Set<SecureRole> roleSet;
@@ -25,6 +26,14 @@ public class SecureUser extends BaseEntity {
 
 	public SecureUser() {
 		super();
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
 	}
 
 	public Integer getIsAdmin() {
