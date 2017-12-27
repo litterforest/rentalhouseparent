@@ -36,7 +36,7 @@ public class MenuTag extends TagSupport {
 	public int doEndTag() throws JspTagException {
 		
 		try {
-			JspWriter out = this.pageContext.getOut();
+			JspWriter out = pageContext.getOut();
 			if(menus != null)
 			{
 				StringBuilder sbuff = new StringBuilder();
@@ -56,7 +56,7 @@ public class MenuTag extends TagSupport {
 	}
 
 	private void buildWebContent(StringBuilder sbuff, SecureResourcesLogic root) {
-		String ctxPath = this.pageContext.getServletContext().getContextPath();
+		String ctxPath = pageContext.getServletContext().getContextPath();
 		if (!NumericUtils.equal(root.getId(), 0)) {
 			sbuff.append("<ul>");
 			sbuff.append("<li><a href=\"" + ctxPath + root.getSrcurl() + "\" >" + root.getName() + "</a></li>");
