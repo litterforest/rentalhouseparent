@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cobee.rentalhouse.core.dao.impl.BaseAreaMapper">
+	
+	<select id="list" resultType="BaseArea" >
+	
+		select a.* from base_area a 
+		where a.del_flag = 0
+	
+	</select>
+	
+	<select id="get" resultType="BaseArea" parameterType="integer" >
+	
+		select a.* from base_area a where a.city_id = #{id}
+		
+	</select>
+	
+	<update id="delete" parameterType="integer" >
+	
+		delete from base_area where city_id = #{id}
+		
+	</update>
+	
+	<update id="deleteByLogic" parameterType="integer" >
+	
+		update base_area set del_flag = 1 where city_id = #{id} 
+		
+	</update>
+	
+	<update id="insertBySelective" parameterType="BaseArea">
+		insert into base_area
+		(
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date,
+				</if>
+				<if test="createBy != null">
+					create_by,
+				</if>
+				<if test="updateDate != null">
+					update_date,
+				</if>
+				<if test="updateBy != null">
+					update_by,
+				</if>
+				<if test="remarks != null">
+					remarks,
+				</if>
+				<if test="cityId != null">
+					city_id,
+				</if>
+				<if test="parentCityId != null">
+					parent_city_id,
+				</if>
+				<if test="cityName != null">
+					city_name,
+				</if>
+				<if test="cityCode != null">
+					city_code,
+				</if>
+				<if test="fullname != null">
+					fullname,
+				</if>
+				
+			</trim>
+		) values (
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					#{createDate},
+				</if>
+				<if test="createBy != null">
+					#{createBy},
+				</if>
+				<if test="updateDate != null">
+					#{updateDate},
+				</if>
+				<if test="updateBy != null">
+					#{updateBy},
+				</if>
+				<if test="remarks != null">
+					#{remarks},
+				</if>
+				<if test="cityId != null">
+					#{cityId},
+				</if>
+				<if test="parentCityId != null">
+					#{parentCityId},
+				</if>
+				<if test="cityName != null">
+					#{cityName},
+				</if>
+				<if test="cityCode != null">
+					#{cityCode},
+				</if>
+				<if test="fullname != null">
+					#{fullname},
+				</if>
+			</trim>
+		)
+	
+	</update>
+	
+	<update id="updateBySelective" parameterType="BaseArea">
+		
+		update base_area set 
+		
+		<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+				<if test="createBy != null">
+					create_by = #{createBy},
+				</if>
+				<if test="updateDate != null">
+					update_date = #{updateDate},
+				</if>
+				<if test="updateBy != null">
+					update_by = #{updateBy},
+				</if>
+				<if test="remarks != null">
+					remarks = #{remarks},
+				</if>
+				<if test="cityId != null">
+					city_Id = #{cityId},
+				</if>
+				<if test="parentCityId != null">
+					parent_City_Id = #{parentCityId},
+				</if>
+				<if test="cityName != null">
+					city_Name = #{cityName},
+				</if>
+				<if test="cityCode != null">
+					city_Code = #{cityCode},
+				</if>
+				<if test="fullname != null">
+					fullname = #{fullname},
+				</if>
+			</trim>
+		
+		where city_Id = #{cityId}
+	
+	</update>
+	
+	
+</mapper>

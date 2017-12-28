@@ -13,6 +13,8 @@
 		<typeAlias type="com.cobee.rentalhouse.core.entity.SecureUser" alias="SecureUser" />
 		<typeAlias type="com.cobee.rentalhouse.core.entity.SecureRole" alias="SecureRole" />
 		<typeAlias type="com.cobee.rentalhouse.core.entity.logical.SecureResourcesLogic" alias="SecureResources" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.BaseArea" alias="BaseArea" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.RentalHouseResource" alias="RentalHouseResource" />
 		
 	</typeAliases>
 </configuration>

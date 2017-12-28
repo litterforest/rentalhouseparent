@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cobee.rentalhouse.core.dao.impl.RentalHouseResourceMapper">
+	
+	<sql id="selectFromClause">
+		a.id,
+		a.create_date,
+		a.create_by,
+		a.update_date,
+		a.update_by,
+		a.remarks,
+		a.user_id,
+		a.city_id,
+		a.house_type,
+		a.rent_price,
+		a.status,
+		a.decoration_situation,
+		a.name,
+		a.parent_id,
+		a.house_code,
+		a.standard_elect_amount,
+		a.standard_water_amount
+		from rental_house_resource a
+	</sql>
+	
+	<select id="list" resultType="RentalHouseResource" >
+	
+		select <include refid="selectFromClause" />
+		<where>
+			a.del_flag = 0
+		</where>
+		
+		<choose>
+			<when test="pageRequest != null and pageRequest.orderByClause != null and pageRequest.orderByClause != ''">
+				${pageRequest.orderByClause}
+			</when>
+			<otherwise>
+				
+			</otherwise>
+		</choose>
+		
+		<if test="pageRequest != null and pageRequest.limitClause != null and pageRequest.limitClause != ''">
+			${pageRequest.limitClause}
+		</if>
+	
+	</select>
+	
+	<select id="get" resultType="RentalHouseResource" parameterType="integer" >
+	
+		select <include refid="selectFromClause" /> where a.id = #{id}
+		
+	</select>
+	
+	<select id="queryByCount" resultType="integer" >
+	
+		select count(1) from rental_house_resource a
+		<where>
+			<trim prefixOverrides="and" >
+			
+				
+			</trim>
+		</where>
+		
+	</select>
+	
+	<update id="delete" parameterType="integer" >
+	
+		delete from rental_house_resource where id = #{id}
+		
+	</update>
+	
+	<update id="deleteByLogic" parameterType="integer" >
+	
+		update rental_house_resource set del_flag = 1 where id = #{id}
+		
+	</update>
+	
+	<update id="insertBySelective" parameterType="RentalHouseResource">
+		
+		insert into rental_house_resource
+		(
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date,
+				</if>
+				<if test="createBy != null">
+					create_by,
+				</if>
+				<if test="updateDate != null">
+					update_date,
+				</if>
+				<if test="updateBy != null">
+					update_by,
+				</if>
+				<if test="remarks != null">
+					remarks,
+				</if>
+				<if test="userId != null">
+					user_id,
+				</if>
+				<if test="cityId != null">
+					city_id,
+				</if>
+				<if test="houseType != null">
+					house_type,
+				</if>
+				<if test="rentPrice != null">
+					rent_price,
+				</if>
+				<if test="status != null">
+					status,
+				</if>
+				<if test="decorationSituation != null">
+					decoration_situation,
+				</if>
+				<if test="name != null">
+					name,
+				</if>
+				<if test="parentId != null">
+					parent_id,
+				</if>
+				<if test="houseCode != null">
+					house_code,
+				</if>
+				<if test="standardElectAmount != null">
+					standard_elect_amount,
+				</if>
+				<if test="standardWaterAmount != null">
+					standard_water_amount,
+				</if>
+				
+			</trim>
+		) values (
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					#{createDate},
+				</if>
+				<if test="createBy != null">
+					#{createBy},
+				</if>
+				<if test="updateDate != null">
+					#{updateDate},
+				</if>
+				<if test="updateBy != null">
+					#{updateBy},
+				</if>
+				<if test="remarks != null">
+					#{remarks},
+				</if>
+				
+				<if test="userId != null">
+					#{userId},
+				</if>
+				<if test="cityId != null">
+					#{cityId},
+				</if>
+				<if test="houseType != null">
+					#{houseType},
+				</if>
+				<if test="rentPrice != null">
+					#{rentPrice},
+				</if>
+				<if test="status != null">
+					#{status},
+				</if>
+				<if test="decorationSituation != null">
+					#{decorationSituation},
+				</if>
+				<if test="name != null">
+					#{name},
+				</if>
+				<if test="parentId != null">
+					#{parentId},
+				</if>
+				<if test="houseCode != null">
+					#{houseCode},
+				</if>
+				<if test="standardElectAmount != null">
+					#{standardElectAmount},
+				</if>
+				<if test="standardWaterAmount != null">
+					#{standardWaterAmount},
+				</if>
+				
+			</trim>
+		)
+	
+	</update>
+	
+	<update id="updateBySelective" parameterType="RentalHouseResource">
+		
+		update rental_house_resource set 
+		
+		<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+				<if test="createBy != null">
+					create_by = #{createBy},
+				</if>
+				<if test="updateDate != null">
+					update_date = #{updateDate},
+				</if>
+				<if test="updateBy != null">
+					update_by = #{updateBy},
+				</if>
+				<if test="remarks != null">
+					remarks = #{remarks},
+				</if>
+				
+				
+				<if test="userId != null">
+					user_Id = #{userId},
+				</if>
+				<if test="cityId != null">
+					city_Id = #{cityId},
+				</if>
+				<if test="houseType != null">
+					house_Type = #{houseType},
+				</if>
+				<if test="rentPrice != null">
+					rent_Price = #{rentPrice},
+				</if>
+				<if test="status != null">
+					status = #{status},
+				</if>
+				<if test="decorationSituation != null">
+					decoration_Situation = #{decorationSituation},
+				</if>
+				<if test="name != null">
+					name = #{name},
+				</if>
+				<if test="parentId != null">
+					parent_Id = #{parentId},
+				</if>
+				<if test="houseCode != null">
+					house_Code = #{houseCode},
+				</if>
+				<if test="standardElectAmount != null">
+					standard_Elect_Amount = #{standardElectAmount},
+				</if>
+				<if test="standardWaterAmount != null">
+					standardWaterAmount = #{standard_Water_Amount},
+				</if>
+				
+			</trim>
+		
+		where id = #{id}
+	
+	</update>
+	
+	
+</mapper>
