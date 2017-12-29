@@ -10,6 +10,7 @@
 	<context:property-placeholder location="classpath:core/profiles/${profile.env}/core.properties,classpath:admin/profiles/${profile.env}/app.properties" />
 	
 	<import resource="classpath:core/applicationContext.xml" />
+	<import resource="classpath:admin/applicationContext-cache.xml" />
 	
 	<context:annotation-config></context:annotation-config>
 

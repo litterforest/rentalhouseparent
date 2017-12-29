@@ -37,7 +37,7 @@
 			<tr>
 				<td>房型</td>
 				<td>
-					
+					<appq:dictselect eleID="houseType" eleName="houseType" optionItems="${appfn:getDictList('rental_house_resource_house_type') }" />
 				</td>
 			</tr>
 			<tr>

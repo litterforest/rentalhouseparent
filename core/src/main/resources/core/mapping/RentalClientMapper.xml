@@ -26,7 +26,7 @@
 		<where>
 			<trim prefixOverrides="and" >
 				<if test="delFlag != null">
-					and a.del_flag = #{status}
+					and a.del_flag = #{delFlag}
 				</if>
 			</trim>
 		</where>
