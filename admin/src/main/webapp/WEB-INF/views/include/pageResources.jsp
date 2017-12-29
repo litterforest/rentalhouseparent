@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <link href="${ctx}/resources/css/base.css" rel="stylesheet" />
+<script type="text/javascript" src="${ctx}/resources/js/base.js" ></script>
 <script src="${ctx}/resources/js/jquery/jquery-3.2.1.min.js"></script>
 <!-- jqgrid 依懒库 -->
 <link rel="stylesheet" href="${ctx}/resources/js/jqgrid/4.6/css/ui.jqgrid.css" >

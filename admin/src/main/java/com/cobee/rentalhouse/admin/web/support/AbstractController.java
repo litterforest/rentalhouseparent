@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import com.cobee.rentalhouse.core.component.redis.JedisBean;
 import com.cobee.rentalhouse.core.entity.SecureUser;
-import com.cobee.rentalhouse.core.service.SecureResourcesService;
-import com.cobee.rentalhouse.core.service.SecureRoleService;
 
 
 public abstract class AbstractController {
@@ -23,10 +21,6 @@ public abstract class AbstractController {
 
 	@Autowired
 	protected JedisBean jedisBean;
-	@Autowired
-	protected SecureRoleService secureRoleService;
-	@Autowired
-	protected SecureResourcesService secureResourcesService;
 
 	/**
 	 * <pre>
