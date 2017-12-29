@@ -38,23 +38,24 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 		{
 			rentalOrder.setUserId(user.getId());
 		}
-		Double lastPowerConsumption = rentalOrder.getRentalType() == 0 ? dbSysVariables.getCurrentRentingPowerConsumption() : rentalOrder.getRentalType() == 1 ? dbSysVariables.getCurrentBerthPowerConsumption() : 0.0D;
-		rentalOrder.setLastPowerConsumption(lastPowerConsumption);
-		Double diffPowerConsumption = rentalOrder.getPowerConsumption() - lastPowerConsumption;
-		rentalOrder.setDiffPowerConsumption(diffPowerConsumption);
-		Double electricityAmount = 0.0;
-		if (NumericUtils.equal(rentalOrder.getRentalType(), 0))
-		{
-			electricityAmount = diffPowerConsumption * dbSysVariables.getStandardRentingElectricity();
-		}
-		else if(NumericUtils.equal(rentalOrder.getRentalType(), 1))
-		{
-			electricityAmount = diffPowerConsumption * dbSysVariables.getStandardBerthElectricity();
-		}
-		rentalOrder.setElectricityAmount(electricityAmount);
 		
-		Double totalAmount = rentalOrder.getRentalAmount() + rentalOrder.getElectricityAmount() - rentalOrder.getDeductionAmount();
-		rentalOrder.setTotalAmount(totalAmount);
+//		Double lastPowerConsumption = rentalOrder.getRentalType() == 0 ? dbSysVariables.getCurrentRentingPowerConsumption() : rentalOrder.getRentalType() == 1 ? dbSysVariables.getCurrentBerthPowerConsumption() : 0.0D;
+//		rentalOrder.setLastPowerConsumption(lastPowerConsumption);
+//		Double diffPowerConsumption = rentalOrder.getPowerConsumption() - lastPowerConsumption;
+//		rentalOrder.setDiffPowerConsumption(diffPowerConsumption);
+//		Double electricityAmount = 0.0;
+//		if (NumericUtils.equal(rentalOrder.getRentalType(), 0))
+//		{
+//			electricityAmount = diffPowerConsumption * dbSysVariables.getStandardRentingElectricity();
+//		}
+//		else if(NumericUtils.equal(rentalOrder.getRentalType(), 1))
+//		{
+//			electricityAmount = diffPowerConsumption * dbSysVariables.getStandardBerthElectricity();
+//		}
+//		rentalOrder.setElectricityAmount(electricityAmount);
+//		
+//		Double totalAmount = rentalOrder.getRentalAmount() + rentalOrder.getElectricityAmount() - rentalOrder.getDeductionAmount();
+//		rentalOrder.setTotalAmount(totalAmount);
 		
 		save(rentalOrder);
 		
@@ -79,14 +80,14 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 		{
 			SysVariables newSysVariables = new SysVariables();
 			newSysVariables.setId(sysVariablesList.get(0).getId());
-			if (dbRentalOrder.getRentalType() == 0)
-			{
-				newSysVariables.setCurrentRentingPowerConsumption(powerConsumption);
-			}
-			else if (dbRentalOrder.getRentalType() == 1)
-			{
-				newSysVariables.setCurrentBerthPowerConsumption(powerConsumption);
-			}
+//			if (dbRentalOrder.getRentalType() == 0)
+//			{
+//				newSysVariables.setCurrentRentingPowerConsumption(powerConsumption);
+//			}
+//			else if (dbRentalOrder.getRentalType() == 1)
+//			{
+//				newSysVariables.setCurrentBerthPowerConsumption(powerConsumption);
+//			}
 			sysVariablesService.updateBySelective(newSysVariables);
 		}
 		

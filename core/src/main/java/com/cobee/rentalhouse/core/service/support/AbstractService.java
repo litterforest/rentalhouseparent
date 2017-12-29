@@ -3,6 +3,7 @@ package com.cobee.rentalhouse.core.service.support;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cobee.rentalhouse.core.component.page.Page;
 import com.cobee.rentalhouse.core.dao.support.BaseDao;
+import com.cobee.rentalhouse.core.entity.SecureUser;
 import com.cobee.rentalhouse.core.entity.support.BaseEntity;
 
 
@@ -39,13 +41,18 @@ public abstract class AbstractService<T extends BaseEntity, E extends BaseDao<T>
 	@Transactional(readOnly = false)
 	@Override
 	public void save(T obj) {
+		SecureUser secureUser = (SecureUser) SecurityUtils.getSubject().getPrincipal();
 		if (obj.getId() != null)
 		{
+			obj.setUpdateBy(secureUser.getId().toString());
+			obj.setUpdateDate(new Date());
 			dao.updateBySelective(obj);
 		}
 		else
 		{
+			obj.setCreateBy(secureUser.getId().toString());
 			obj.setCreateDate(new Date());
+			obj.setUpdateBy(secureUser.getId().toString());
 			obj.setUpdateDate(new Date());
 			dao.insertBySelective(obj);
 		}
@@ -76,7 +83,6 @@ public abstract class AbstractService<T extends BaseEntity, E extends BaseDao<T>
 	@Override
 	@Transactional(readOnly = false)
 	public Integer updateBySelective(T obj) {
-		obj.setUpdateDate(new Date());
 		return dao.updateBySelective(obj);
 	}
 	

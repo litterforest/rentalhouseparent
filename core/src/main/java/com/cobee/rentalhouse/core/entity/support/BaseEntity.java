@@ -5,7 +5,6 @@ import java.util.Date;
 
 import com.cobee.rentalhouse.core.component.page.PageRequest;
 
-
 public abstract class BaseEntity implements Serializable {
 
 	/**
@@ -19,6 +18,8 @@ public abstract class BaseEntity implements Serializable {
 	private Date updateDate;
 	private String updateBy;
 	private String remarks;
+	// 删除标记
+	private Integer delFlag = 0;
 	// 0未审核 100审核成功
 	private Integer status;
 	// 额外条件
@@ -28,6 +29,14 @@ public abstract class BaseEntity implements Serializable {
 
 	public BaseEntity() {
 		super();
+	}
+
+	public Integer getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(Integer delFlag) {
+		this.delFlag = delFlag;
 	}
 
 	public String getAdditionalCriteria() {

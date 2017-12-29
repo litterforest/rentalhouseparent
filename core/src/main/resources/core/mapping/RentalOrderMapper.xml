@@ -11,17 +11,18 @@
 		a.remarks,
 		a.year,
 		a.month,
-		a.rental_Amount,
 		a.electricity_Amount,
 		a.power_Consumption,
 		a.total_Amount,
-		a.rental_Type,
 		a.status,
-		a.last_Power_Consumption,
 		a.del_Flag,
 		a.deduction_Amount,
 		a.diff_Power_Consumption,
 		a.user_id,
+		a.rental_client_id,
+		a.water_consumption,
+		a.diff_water_consumption,
+		a.water_amount,
 		b.realname as "baseUser.realname",
 		c.standard_Renting_Electricity as "secureUser.sysVariables.standardRentingElectricity",
 		c.standard_Berth_Electricity as "secureUser.sysVariables.standardBerthElectricity"
@@ -30,23 +31,24 @@
 		left join sys_variables c on c.user_id = b.id
 	</sql>
 	
+	<sql id="whereClause">
+		<where>
+			<trim prefixOverrides="and" >
+				<if test="delFlag != null">
+					and a.del_flag = #{status}
+				</if>
+				<if test="status != null">
+					and a.status = #{status}
+				</if>
+			</trim>
+		</where>
+	</sql>
+	
 	<select id="list" resultType="RentalOrder" >
 	
 		select <include refid="selectFromClause" />
-		<where>
-			a.del_flag = 0
-			<if test="status != null">
-				and a.status = #{status}
-			</if>
-			
-			<if test="rentalType != null">
-				and a.rental_Type = #{rentalType}
-			</if>
-			
-			<if test="year != null">
-				and a.year = #{year}
-			</if>
-		</where>
+		
+		<include refid="whereClause"></include>
 		
 		<choose>
 			<when test="pageRequest != null and pageRequest.orderByClause != null and pageRequest.orderByClause != ''">
@@ -72,25 +74,20 @@
 	<select id="queryByCount" resultType="integer" >
 	
 		select count(1) from rental_order a
-		<where>
-			<trim prefixOverrides="and" >
-			
-				<if test="status != null">
-					and a.status = #{status}
-				</if>
-				
-				<if test="rentalType != null">
-					and a.rental_Type = #{rentalType}
-				</if>
-				
-			</trim>
-		</where>
+		
+		<include refid="whereClause"></include>
 		
 	</select>
 	
 	<update id="delete" parameterType="integer" >
 	
 		delete from rental_order where id = #{id}
+		
+	</update>
+	
+	<update id="deleteByLogic" parameterType="integer" >
+	
+		update rental_order set del_flag = 1 where id = #{id}
 		
 	</update>
 	
@@ -120,9 +117,6 @@
 				<if test="month != null">
 					month,
 				</if>
-				<if test="rentalAmount != null">
-					rental_amount,
-				</if>
 				<if test="electricityAmount != null">
 					electricity_amount,
 				</if>
@@ -132,14 +126,8 @@
 				<if test="totalAmount != null">
 					total_amount,
 				</if>
-				<if test="rentalType != null">
-					rental_type,
-				</if>
 				<if test="status != null">
 					status,
-				</if>
-				<if test="lastPowerConsumption != null">
-					last_Power_Consumption,
 				</if>
 				<if test="deductionAmount != null">
 					deduction_Amount,
@@ -149,6 +137,18 @@
 				</if>
 				<if test="userId != null">
 					user_Id,
+				</if>
+				<if test="rentalClientId != null">
+					rental_client_id,
+				</if>
+				<if test="waterConsumption != null">
+					water_consumption,
+				</if>
+				<if test="diffWaterConsumption != null">
+					diff_water_consumption,
+				</if>
+				<if test="waterAmount != null">
+					water_amount,
 				</if>
 			</trim>
 		) values (
@@ -174,9 +174,7 @@
 				<if test="month != null">
 					#{month},
 				</if>
-				<if test="rentalAmount != null">
-					#{rentalAmount},
-				</if>
+				
 				<if test="electricityAmount != null">
 					#{electricityAmount},
 				</if>
@@ -186,14 +184,8 @@
 				<if test="totalAmount != null">
 					#{totalAmount},
 				</if>
-				<if test="rentalType != null">
-					#{rentalType},
-				</if>
 				<if test="status != null">
 					#{status},
-				</if>
-				<if test="lastPowerConsumption != null">
-					#{lastPowerConsumption},
 				</if>
 				<if test="deductionAmount != null">
 					#{deductionAmount},
@@ -204,6 +196,19 @@
 				<if test="userId != null">
 					#{userId},
 				</if>
+				<if test="rentalClientId != null">
+					#{rentalClientId},
+				</if>
+				<if test="waterConsumption != null">
+					#{waterConsumption},
+				</if>
+				<if test="diffWaterConsumption != null">
+					#{diffWaterConsumption},
+				</if>
+				<if test="waterAmount != null">
+					#{waterAmount},
+				</if>
+				
 			</trim>
 		)
 	
@@ -235,26 +240,18 @@
 				<if test="month != null">
 					month = #{month},
 				</if>
-				<if test="rentalAmount != null">
-					rental_amount = #{rentalAmount},
-				</if>
+				
 				<if test="electricityAmount != null">
-					electricity_amount = #{electricityAmount},
+					electricity_Amount = #{electricityAmount},
 				</if>
 				<if test="powerConsumption != null">
-					power_consumption = #{powerConsumption},
+					power_Consumption = #{powerConsumption},
 				</if>
 				<if test="totalAmount != null">
-					total_amount = #{totalAmount},
-				</if>
-				<if test="rentalType != null">
-					rental_type = #{rentalType},
+					total_Amount = #{totalAmount},
 				</if>
 				<if test="status != null">
 					status = #{status},
-				</if>
-				<if test="lastPowerConsumption != null">
-					last_Power_Consumption = #{lastPowerConsumption},
 				</if>
 				<if test="deductionAmount != null">
 					deduction_Amount = #{deductionAmount},
@@ -262,9 +259,22 @@
 				<if test="diffPowerConsumption != null">
 					diff_Power_Consumption = #{diffPowerConsumption},
 				</if>
-				<if test="delFlag != null">
-					del_flag = #{delFlag},
+				<if test="userId != null">
+					user_Id = #{userId},
 				</if>
+				<if test="rentalClientId != null">
+					rental_Client_Id = #{rentalClientId},
+				</if>
+				<if test="waterConsumption != null">
+					water_Consumption = #{waterConsumption},
+				</if>
+				<if test="diffWaterConsumption != null">
+					diff_Water_Consumption = #{diffWaterConsumption},
+				</if>
+				<if test="waterAmount != null">
+					water_Amount = #{waterAmount},
+				</if>
+				
 			</trim>
 		
 		where id = #{id}

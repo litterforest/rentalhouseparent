@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cobee.rentalhouse.core.dao.impl.SysDictMapper">
+	
+	<sql id="selectFromClause">
+		a.id, 
+		a.create_date,
+		a.create_by,
+		a.update_date,
+		a.update_by,
+		a.remarks,
+		a.del_flag,
+		a.value,
+		a.label,
+		a.type,
+		a.description,
+		a.sort
+		from sys_dict a
+	</sql>
+	
+	<sql id="whereClause">
+		<where>
+			<trim prefixOverrides="and" >
+				<if test="delFlag != null">
+					and a.del_flag = #{status}
+				</if>
+			</trim>
+		</where>
+	</sql>
+	
+	<select id="list" resultType="SysDict" >
+	
+		select <include refid="selectFromClause" />
+		<include refid="whereClause"></include>
+		
+		<choose>
+			<when test="pageRequest != null and pageRequest.orderByClause != null and pageRequest.orderByClause != ''">
+				${pageRequest.orderByClause}
+			</when>
+			<otherwise>
+				order a.update_date desc
+			</otherwise>
+		</choose>
+		
+		<if test="pageRequest != null and pageRequest.limitClause != null and pageRequest.limitClause != ''">
+			${pageRequest.limitClause}
+		</if>
+	
+	</select>
+	
+	<select id="get" resultType="SysDict" parameterType="integer" >
+	
+		select <include refid="selectFromClause" /> where a.id = #{id}
+		
+	</select>
+	
+	<select id="queryByCount" resultType="integer" >
+	
+		select count(1) from sys_dict a
+		<include refid="whereClause"></include>
+		
+	</select>
+	
+	<update id="delete" parameterType="integer" >
+	
+		delete from sys_dict where id = #{id}
+		
+	</update>
+	
+	<update id="deleteByLogic" parameterType="integer" >
+	
+		update sys_dict set del_flag = 1 where id = #{id}
+		
+	</update>
+	
+	<update id="insertBySelective" parameterType="SysDict">
+		
+		insert into sys_dict
+		(
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date,
+				</if>
+				<if test="createBy != null">
+					create_by,
+				</if>
+				<if test="updateDate != null">
+					update_date,
+				</if>
+				<if test="updateBy != null">
+					update_by,
+				</if>
+				<if test="remarks != null">
+					remarks,
+				</if>
+				
+				
+				<if test="value != null">
+					value,
+				</if>
+				<if test="label != null">
+					label,
+				</if>
+				<if test="type != null">
+					type,
+				</if>
+				<if test="description != null">
+					description,
+				</if>
+				<if test="sort != null">
+					sort,
+				</if>
+				
+				
+				
+			</trim>
+		) values (
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					#{createDate},
+				</if>
+				<if test="createBy != null">
+					#{createBy},
+				</if>
+				<if test="updateDate != null">
+					#{updateDate},
+				</if>
+				<if test="updateBy != null">
+					#{updateBy},
+				</if>
+				<if test="remarks != null">
+					#{remarks},
+				</if>
+				
+				<if test="value != null">
+					#{value},
+				</if>
+				<if test="label != null">
+					#{label},
+				</if>
+				<if test="type != null">
+					#{type},
+				</if>
+				<if test="description != null">
+					#{description},
+				</if>
+				<if test="sort != null">
+					#{sort},
+				</if>
+				
+			</trim>
+		)
+	
+	</update>
+	
+	<update id="updateBySelective" parameterType="SysDict">
+		
+		update sys_dict set 
+		
+		<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+				<if test="createBy != null">
+					create_by = #{createBy},
+				</if>
+				<if test="updateDate != null">
+					update_date = #{updateDate},
+				</if>
+				<if test="updateBy != null">
+					update_by = #{updateBy},
+				</if>
+				<if test="remarks != null">
+					remarks = #{remarks},
+				</if>
+				
+				
+				<if test="value != null">
+					value = #{value},
+				</if>
+				<if test="label != null">
+					label = #{label},
+				</if>
+				<if test="type != null">
+					type = #{type},
+				</if>
+				<if test="description != null">
+					description = #{description},
+				</if>
+				<if test="sort != null">
+					sort = #{sort},
+				</if>
+				
+			</trim>
+		
+		where id = #{id}
+	
+	</update>
+	
+	
+</mapper>

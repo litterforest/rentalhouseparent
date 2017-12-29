@@ -9,30 +9,40 @@ import org.joda.time.DateTime;
 import org.springframework.util.CollectionUtils;
 
 import com.cobee.rentalhouse.core.component.page.Page;
-import com.cobee.rentalhouse.core.entity.RentalOrder;
+import com.cobee.rentalhouse.core.entity.RentalHouseResource;
+import com.cobee.rentalhouse.core.util.NumericUtils;
 
-
-public class RentalOrderLogic extends RentalOrder {
+public class RentalHouseResourceLogic extends RentalHouseResource {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3904393721186112250L;
-
-	public String getRentalTypeDesc() {
-//		if (super.getRentalType() == null) {
-//			return "";
-//		} else if (super.getRentalType() == 0) {
-//			return "房租";
-//		} else if (super.getRentalType() == 1) {
-//			return "铺租";
-//		} else {
-//			return "";
-//		}
+	private static final long serialVersionUID = 6748005233756308822L;
+	
+	
+	
+	@Override
+	public String getStatusDesc() {
+		if (getStatus() == null)
+		{
+			return "";
+		}
+		
+		if (NumericUtils.equal(getStatus(), 0))
+		{
+			return "待出租";
+		}
+		else if (NumericUtils.equal(getStatus(), 1))
+		{
+			return "已出租";
+		}
+		
 		return "";
 	}
 
-	public static Map<String, Object> toJqGridData(Page<RentalOrder> page) {
+
+
+	public static Map<String, Object> toJqGridData(Page<RentalHouseResource> page) {
 		Map<String, Object> dataMap = new HashMap<>();
 		dataMap.put("page", page.getPageNo());
 		dataMap.put("total", page.getTotalPage());
@@ -43,16 +53,16 @@ public class RentalOrderLogic extends RentalOrder {
 			
 			for (int i = 0; i < page.getContent().size(); i++)
 			{
-				RentalOrderLogic po = (RentalOrderLogic) page.getContent().get(i);
+				
+				RentalHouseResourceLogic po = (RentalHouseResourceLogic) page.getContent().get(i);
 				Map<String, Object> voMap = new HashMap<>();
 				voMap.put("id", po.getId());
-				voMap.put("yearAndMonth", po.getYear() + "-" + po.getMonth());
-				voMap.put("rentalTypeDesc", po.getRentalTypeDesc());
-				voMap.put("rentalAmount", 0.0D);
-				voMap.put("electricityAmount", po.getElectricityAmount());
-				voMap.put("deductionAmount", po.getDeductionAmount());
-				voMap.put("totalAmount", po.getTotalAmount());
-				voMap.put("status", po.getStatus() == null ? 0 : po.getStatus());
+				voMap.put("name", po.getName());
+				voMap.put("rentPrice", po.getRentPrice());
+				voMap.put("decorationSituation", po.getDecorationSituation());
+				voMap.put("standardElectAmount", po.getStandardElectAmount());
+				voMap.put("standardWaterAmount", po.getStandardWaterAmount());
+				voMap.put("houseCode", po.getHouseCode());
 				voMap.put("statusDesc", po.getStatusDesc());
 				voMap.put("createDate", po.getCreateDate() == null ? "" : new DateTime(po.getCreateDate()).toString("yyyy-MM-dd HH:mm:ss"));
 				

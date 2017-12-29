@@ -16,6 +16,7 @@
 		<typeAlias type="com.cobee.rentalhouse.core.entity.BaseArea" alias="BaseArea" />
 		<typeAlias type="com.cobee.rentalhouse.core.entity.RentalHouseResource" alias="RentalHouseResource" />
 		<typeAlias type="com.cobee.rentalhouse.core.entity.RentalClient" alias="RentalClient" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.SysDict" alias="SysDict" />
 		
 	</typeAliases>
 </configuration>

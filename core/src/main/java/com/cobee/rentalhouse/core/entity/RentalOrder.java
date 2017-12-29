@@ -11,31 +11,63 @@ public class RentalOrder extends BaseEntity {
 
 	private Integer year;
 	private Integer month;
-	// 出租费
-	private Double rentalAmount;
 	// 电费
 	private Double electricityAmount;
 	// 用电度数
 	private Double powerConsumption;
 	// 总费用
 	private Double totalAmount;
-	// 出租类型：0房租 1铺租
-	private Integer rentalType;
-	// 上月电费度数
-	private Double lastPowerConsumption;
-	// 删除标记
-	private Integer delFlag;
 	// 扣减费用
 	private Double deductionAmount;
 	// 电费使用度数
 	private Double diffPowerConsumption;
 	// 用户外键ID
 	private Integer userId;
+	// 房客ID
+	private Integer rentalClientId;
+	// 水表度数
+	private Double waterConsumption;
+	// 用水度数
+	private Double diffWaterConsumption;
+	// 水费
+	private Double waterAmount;
 
 	private SecureUser secureUser;
 
 	public RentalOrder() {
 		super();
+	}
+
+	public Integer getRentalClientId() {
+		return rentalClientId;
+	}
+
+	public void setRentalClientId(Integer rentalClientId) {
+		this.rentalClientId = rentalClientId;
+	}
+
+	public Double getWaterConsumption() {
+		return waterConsumption;
+	}
+
+	public void setWaterConsumption(Double waterConsumption) {
+		this.waterConsumption = waterConsumption;
+	}
+
+	public Double getDiffWaterConsumption() {
+		return diffWaterConsumption;
+	}
+
+	public void setDiffWaterConsumption(Double diffWaterConsumption) {
+		this.diffWaterConsumption = diffWaterConsumption;
+	}
+
+	public Double getWaterAmount() {
+		return waterAmount;
+	}
+
+	public void setWaterAmount(Double waterAmount) {
+		this.waterAmount = waterAmount;
 	}
 
 	public SecureUser getSecureUser() {
@@ -70,22 +102,6 @@ public class RentalOrder extends BaseEntity {
 		this.deductionAmount = deductionAmount;
 	}
 
-	public Integer getDelFlag() {
-		return delFlag;
-	}
-
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	public Double getLastPowerConsumption() {
-		return lastPowerConsumption;
-	}
-
-	public void setLastPowerConsumption(Double lastPowerConsumption) {
-		this.lastPowerConsumption = lastPowerConsumption;
-	}
-
 	public Integer getYear() {
 		return year;
 	}
@@ -100,14 +116,6 @@ public class RentalOrder extends BaseEntity {
 
 	public void setMonth(Integer month) {
 		this.month = month;
-	}
-
-	public Double getRentalAmount() {
-		return rentalAmount;
-	}
-
-	public void setRentalAmount(Double rentalAmount) {
-		this.rentalAmount = rentalAmount;
 	}
 
 	public Double getElectricityAmount() {
@@ -132,14 +140,6 @@ public class RentalOrder extends BaseEntity {
 
 	public void setTotalAmount(Double totalAmount) {
 		this.totalAmount = totalAmount;
-	}
-
-	public Integer getRentalType() {
-		return rentalType;
-	}
-
-	public void setRentalType(Integer rentalType) {
-		this.rentalType = rentalType;
 	}
 
 }

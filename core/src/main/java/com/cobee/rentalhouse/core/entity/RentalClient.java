@@ -1,9 +1,14 @@
 package com.cobee.rentalhouse.core.entity;
 
+import java.util.Date;
+
 import com.cobee.rentalhouse.core.entity.support.BaseEntity;
 
 /**
- * <pre>房屋租客</pre>
+ * <pre>
+ * 房屋租客
+ * </pre>
+ * 
  * @author 陈淦森
  * @version 1.0.1
  * @date 2017年12月28日
@@ -30,6 +35,36 @@ public class RentalClient extends BaseEntity {
 	private Double checkinWatermeter;
 	// 租用费
 	private Double rentalAmount;
+	// 入住时间
+	private Date checkinDate;
+	// 退房时间
+	private Date checkoutDate;
+	// 押金
+	private Double depositAmount;
+
+	public Double getDepositAmount() {
+		return depositAmount;
+	}
+
+	public void setDepositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
+	}
+
+	public Date getCheckinDate() {
+		return checkinDate;
+	}
+
+	public void setCheckinDate(Date checkinDate) {
+		this.checkinDate = checkinDate;
+	}
+
+	public Date getCheckoutDate() {
+		return checkoutDate;
+	}
+
+	public void setCheckoutDate(Date checkoutDate) {
+		this.checkoutDate = checkoutDate;
+	}
 
 	public String getName() {
 		return name;
