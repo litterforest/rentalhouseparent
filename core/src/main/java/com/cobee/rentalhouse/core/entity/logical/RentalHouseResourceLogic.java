@@ -10,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.cobee.rentalhouse.core.component.page.Page;
 import com.cobee.rentalhouse.core.entity.RentalHouseResource;
+import com.cobee.rentalhouse.core.util.DictUtils;
 import com.cobee.rentalhouse.core.util.NumericUtils;
 
 public class RentalHouseResourceLogic extends RentalHouseResource {
@@ -40,6 +41,21 @@ public class RentalHouseResourceLogic extends RentalHouseResource {
 		return "";
 	}
 
+	
+	public String getHouseTypeDesc() {
+		
+		if (super.getHouseType() == null)
+		{
+			return "";
+		}
+		else
+		{
+			return DictUtils.getDictLabel(super.getHouseType().toString(), "rental_house_resource_house_type", "");
+		}
+		
+	}
+
+
 
 
 	public static Map<String, Object> toJqGridData(Page<RentalHouseResource> page) {
@@ -64,7 +80,9 @@ public class RentalHouseResourceLogic extends RentalHouseResource {
 				voMap.put("standardWaterAmount", po.getStandardWaterAmount());
 				voMap.put("houseCode", po.getHouseCode());
 				voMap.put("statusDesc", po.getStatusDesc());
+				voMap.put("houseTypeDesc", po.getHouseTypeDesc());
 				voMap.put("createDate", po.getCreateDate() == null ? "" : new DateTime(po.getCreateDate()).toString("yyyy-MM-dd HH:mm:ss"));
+				voMap.put("areaAddress", (po.getBaseArea() == null ? "" : po.getBaseArea().getFullname()) + po.getAddress());
 				
 				list.add(voMap);
 			}

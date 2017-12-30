@@ -20,13 +20,29 @@
 		a.parent_id,
 		a.house_code,
 		a.standard_elect_amount,
-		a.standard_water_amount
+		a.standard_water_amount,
+		b.fullname as "baseArea.fullname"
 		from rental_house_resource a
+		left join base_area b on a.city_id = b.city_id
 	</sql>
 	
 	<sql id="whereClause">
 		<where>
-			a.del_flag = 0
+			<trim prefixOverrides="and" >
+			
+				<if test="delFlag != null">
+					and a.del_flag = #{delFlag}
+				</if>
+				
+				<if test="houseType != null">
+					and a.house_type = #{houseType}
+				</if>
+				
+				<if test="name != null and name != ''">
+					and a.name like concat('%', #{name}, '%')
+				</if>
+				
+			</trim>
 		</where>
 	</sql>
 	
@@ -40,7 +56,7 @@
 				${pageRequest.orderByClause}
 			</when>
 			<otherwise>
-				
+				order by a.update_date desc
 			</otherwise>
 		</choose>
 		

@@ -103,7 +103,7 @@ public class PagingAndSortingService<T extends BaseEntity, E extends BaseDao<T>>
 			conn = session.getConnection();
 			ps = conn.prepareStatement(countSql);
 			for (int i = 0; i < parameterMappingList.size(); i++) {
-				ParameterMapping pm = parameterMappingList.get(0);
+				ParameterMapping pm = parameterMappingList.get(i);
 				ps.setObject(i + 1, PropertyUtils.getProperty(paramObj, pm.getProperty()));
 			}
 			resultSet = ps.executeQuery();

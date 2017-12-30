@@ -16,17 +16,18 @@
         jQuery("#grid-table").jqGrid({
         	url : '${ctx}/RentalHouseResource/list/data?' + $("#searchForm").serialize(), //组件创建完成之后请求数据的url
 				datatype : "json", //请求数据返回的类型。可选json,xml,txt
-				colNames : [ '操作', '房屋名称', '房屋编号', '所属区域', '房型信息', '装修情况', '出租价格', '标准电费', '标准水费', '出租状态', '创建日期'],//表格标题
+				colNames : [ '操作', '房屋名称', '房屋编号', '所属区域', '房型', '装修情况', '出租价格', '标准电费', '标准水费', '出租状态', '创建日期'],//表格标题
 				colModel : [ //表格每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 				             
 		             {name : '', width : 110, align : "left", sortable : false, formatter:function(cellvalue, options, rowObject){
 		            	 var resultStr = "";
+		            	 resultStr += "<input type=\"button\" value=\"查看\" onclick=\"location='${ctx}/RentalHouseResource/form?view=true&id="+ rowObject.id +"'\" >";
 		            	 return resultStr;
 		             }},
 		             {name : 'name',index : '',width : 140,align : "center", sortable : false},
 		             {name : 'houseCode',index : '',width : 140,align : "center", sortable : false},
-				 	 {name : '',index : '',width : 120, align : "center", sortable : false},
-		          	 {name : '',index : '',width : 100, sortable : false, align : "center", sortable : false},
+				 	 {name : 'areaAddress',index : '',width : 180, align : "center", sortable : false},
+		          	 {name : 'houseTypeDesc',index : '',width : 100, sortable : false, align : "center", sortable : false},
 		          	 {name : 'decorationSituation',index : '',width : 100, sortable : false, align : "center", sortable : false},
 		          	 {name : 'rentPrice',index : '',width : 100, sortable : false, align : "center", sortable : false},
 		          	 {name : 'standardElectAmount',index : '',width : 100, sortable : false, align : "center", sortable : false},
@@ -70,12 +71,8 @@
 	<%@ include file="include/header.jsp" %>
 	<form id="searchForm" action="" method="get" >
 	<p>
-		收租类型:<select id="rentalType" name="rentalType" >
-					<option value="">全部</option>
-					<option value="0">房租</option>
-					<option value="1">铺租</option>
-				</select>
-		年份:<input id="year" name="year" type="text" value="${rentalOrder.year }" >
+		房型:<appex:dictselect eleID="houseType" eleName="houseType" optionItems="${appfn:getDictList('rental_house_resource_house_type') }" isEmptyItem="true" />
+		房屋名称:<input id="name" name="name" type="text" value="" >
 	</p>
 	<p>
 		<input type="button" value="添加" onclick="create_onclick();" > <input type="reset" value="重置" > <input type="button" value="查询" onclick="jqgridSearchData('#grid-table', '${ctx}/RentalHouseResource/list/data?' + $('#searchForm').serialize())" >

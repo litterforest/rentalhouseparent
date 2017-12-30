@@ -115,4 +115,34 @@ public class BaseDataController extends AbstractController {
 		return baseAreaList;
 	}
 	
+	@GetMapping(value = "/getFullCityIdInfo", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Map<String, Object> getFullCityIdInfo(BaseArea baseArea)
+	{
+		Map<String, Object> resultMap = new HashMap<>();
+		BaseArea dbBaseArea = baseAreaService.get(baseArea.getCityId());
+		if (dbBaseArea != null)
+		{
+			if (dbBaseArea.getCityCode().length() == 6)
+			{
+				resultMap.put("areaCityId", dbBaseArea.getCityId());
+				dbBaseArea = baseAreaService.get(dbBaseArea.getParentCityId());
+				resultMap.put("cityCityId", dbBaseArea.getCityId());
+				dbBaseArea = baseAreaService.get(dbBaseArea.getParentCityId());
+				resultMap.put("provinceCityId", dbBaseArea.getCityId());
+			}
+			else if (dbBaseArea.getCityCode().length() == 4)
+			{
+				resultMap.put("cityCityId", dbBaseArea.getCityId());
+				dbBaseArea = baseAreaService.get(dbBaseArea.getParentCityId());
+				resultMap.put("provinceCityId", dbBaseArea.getCityId());
+			}
+			else if (dbBaseArea.getCityCode().length() == 2)
+			{
+				resultMap.put("provinceCityId", dbBaseArea.getCityId());
+			}
+		}
+		return resultMap;
+	}
+	
 }

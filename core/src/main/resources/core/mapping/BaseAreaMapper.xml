@@ -55,7 +55,8 @@
 	
 	<select id="get" resultType="BaseArea" parameterType="integer" >
 	
-		select a.* from base_area a where a.city_id = #{id}
+		select <include refid="selectFromClause"></include>
+		where a.city_id = #{id}
 		
 	</select>
 	

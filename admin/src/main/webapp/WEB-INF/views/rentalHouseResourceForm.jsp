@@ -14,24 +14,31 @@
 <body>
 	<%@ include file="include/header.jsp" %>
 	<form action="${ctx }/RentalHouseResource/save" method="post" >
+		<input type="hidden" name="id" value="${rentalHouseResource.id }" >
 		<input type="hidden" name="_csrf" value="${_csrf.token}" >
 		<table border="1">
 			<tr>
 				<td>房源名称</td>
 				<td>
-					<input id="name" name="name" type="text" >
+					<input id="name" name="name" type="text" value="${rentalHouseResource.name }" >
 				</td>
 			</tr>
 			<tr>
 				<td>房源编号</td>
 				<td>
-					<input id="houseCode" name="houseCode" type="text" >
+					<input id="houseCode" name="houseCode" type="text" value="${rentalHouseResource.houseCode }" >
 				</td>
 			</tr>
 			<tr>
 				<td>所在区域</td>
 				<td>
-					<appex:areaselect provinceName="provinceCityId" cityName="cityCityId" areaName="areaCityId" ></appex:areaselect>
+					<appex:areaselect provinceName="provinceCityId" cityName="cityCityId" areaName="areaCityId" cityId="${rentalHouseResource.cityId }" ></appex:areaselect>
+				</td>
+			</tr>
+			<tr>
+				<td>详细地址</td>
+				<td>
+					<input name="address" type="text" value="${rentalHouseResource.address }" >
 				</td>
 			</tr>
 			<tr>
@@ -43,47 +50,51 @@
 			<tr>
 				<td>出租价格</td>
 				<td>
-					<input id="rentPrice" name="rentPrice" type="text" >
+					<input id="rentPrice" name="rentPrice" type="text" value="${rentalHouseResource.rentPrice }" >
 				</td>
 			</tr>
 			<tr>
 				<td>装修情况</td>
 				<td>
-					<textarea rows="" cols="" id="decorationSituation" name="decorationSituation"></textarea>
+					<textarea rows="" cols="" id="decorationSituation" name="decorationSituation">${rentalHouseResource.decorationSituation }</textarea>
 				</td>
 			</tr>
 			
 			<tr>
 				<td>标准电费</td>
 				<td>
-					<input id="standardElectAmount" name="standardElectAmount" >
+					<input id="standardElectAmount" name="standardElectAmount" value="${rentalHouseResource.standardElectAmount }" >
 				</td>
 			</tr>
 			
 			<tr>
 				<td>标准水费</td>
 				<td>
-					<input id="standardWaterAmount" name="standardWaterAmount" >
+					<input id="standardWaterAmount" name="standardWaterAmount" value="${rentalHouseResource.standardWaterAmount }" >
 				</td>
 			</tr>
 			
 			<tr>
-				<td>用电度数</td>
-				<td><input name="powerConsumption" value="" ></td>
-			</tr>
-			<tr>
-				<td>扣减费用</td>
-				<td><input name="deductionAmount" value="0.00" ></td>
+				<td>出租状态</td>
+				<td>
+					<select  id="status" name="status" >
+						<option value="0">待出租</option>
+						<option value="1">已出租</option>
+					</select>
+				</td>
 			</tr>
 			
 			<tr>
 				<td>备注</td>
-				<td><textarea name="remarks" rows="" cols=""></textarea></td>
+				<td><textarea name="remarks" rows="" cols="">${rentalHouseResource.remarks }</textarea></td>
 			</tr>
 			
 			<tr>
 				<td colspan="2" align="center" >
-					<input type="submit" value="提交" >&nbsp;&nbsp;<input type="button" value="返回" onclick="location='${ctx }/RentalHouseResource/list'" >
+					<c:if test="${param.view ne 'true' }" >
+						<input type="submit" value="提交" >&nbsp;&nbsp;
+					</c:if>
+					<input type="button" value="返回" onclick="location='${ctx }/RentalHouseResource/list'" >
 				</td>
 			</tr>
 			
