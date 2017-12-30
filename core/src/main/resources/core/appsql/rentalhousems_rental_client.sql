@@ -16,44 +16,41 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `rental_order`
+-- Table structure for table `rental_client`
 --
 
-DROP TABLE IF EXISTS `rental_order`;
+DROP TABLE IF EXISTS `rental_client`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rental_order` (
+CREATE TABLE `rental_client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_date` datetime DEFAULT NULL,
   `create_by` varchar(45) DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   `update_by` varchar(45) DEFAULT NULL,
   `remarks` varchar(245) DEFAULT NULL,
-  `year` int(11) DEFAULT NULL,
-  `month` int(11) DEFAULT NULL,
-  `electricity_amount` decimal(12,2) DEFAULT NULL,
-  `power_consumption` decimal(12,2) DEFAULT NULL,
-  `total_amount` decimal(12,2) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '0 - 待审核\n            100 - 审核通过',
-  `del_flag` int(11) DEFAULT NULL,
-  `deduction_amount` decimal(12,2) DEFAULT NULL,
-  `diff_power_consumption` decimal(12,2) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `rental_client_id` int(11) DEFAULT NULL,
-  `water_consumption` decimal(12,2) DEFAULT NULL,
-  `diff_water_consumption` decimal(12,2) DEFAULT NULL,
-  `water_amount` decimal(12,2) DEFAULT NULL,
+  `del_flag` int(11) DEFAULT '0',
+  `name` varchar(100) DEFAULT NULL,
+  `mobile` char(45) DEFAULT NULL,
+  `id_card_no` varchar(45) DEFAULT NULL,
+  `house_id` int(11) DEFAULT NULL COMMENT '房客入住的房子',
+  `checkin_power` decimal(12,2) DEFAULT NULL,
+  `checkin_watermeter` decimal(12,2) DEFAULT NULL,
+  `rental_amount` decimal(12,2) DEFAULT NULL,
+  `checkin_date` datetime DEFAULT NULL COMMENT '入住时间',
+  `checkout_date` datetime DEFAULT NULL COMMENT '退房时间',
+  `deposit_amount` decimal(12,2) DEFAULT NULL COMMENT '押金',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `rental_order`
+-- Dumping data for table `rental_client`
 --
 
-LOCK TABLES `rental_order` WRITE;
-/*!40000 ALTER TABLE `rental_order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rental_order` ENABLE KEYS */;
+LOCK TABLES `rental_client` WRITE;
+/*!40000 ALTER TABLE `rental_client` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rental_client` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

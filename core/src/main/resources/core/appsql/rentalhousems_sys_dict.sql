@@ -16,44 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `rental_order`
+-- Table structure for table `sys_dict`
 --
 
-DROP TABLE IF EXISTS `rental_order`;
+DROP TABLE IF EXISTS `sys_dict`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rental_order` (
+CREATE TABLE `sys_dict` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_date` datetime DEFAULT NULL,
   `create_by` varchar(45) DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   `update_by` varchar(45) DEFAULT NULL,
   `remarks` varchar(245) DEFAULT NULL,
-  `year` int(11) DEFAULT NULL,
-  `month` int(11) DEFAULT NULL,
-  `electricity_amount` decimal(12,2) DEFAULT NULL,
-  `power_consumption` decimal(12,2) DEFAULT NULL,
-  `total_amount` decimal(12,2) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '0 - 待审核\n            100 - 审核通过',
   `del_flag` int(11) DEFAULT NULL,
-  `deduction_amount` decimal(12,2) DEFAULT NULL,
-  `diff_power_consumption` decimal(12,2) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `rental_client_id` int(11) DEFAULT NULL,
-  `water_consumption` decimal(12,2) DEFAULT NULL,
-  `diff_water_consumption` decimal(12,2) DEFAULT NULL,
-  `water_amount` decimal(12,2) DEFAULT NULL,
+  `value` varchar(30) DEFAULT NULL,
+  `label` varchar(100) DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `rental_order`
+-- Dumping data for table `sys_dict`
 --
 
-LOCK TABLES `rental_order` WRITE;
-/*!40000 ALTER TABLE `rental_order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rental_order` ENABLE KEYS */;
+LOCK TABLES `sys_dict` WRITE;
+/*!40000 ALTER TABLE `sys_dict` DISABLE KEYS */;
+INSERT INTO `sys_dict` VALUES (1,NULL,NULL,NULL,NULL,NULL,0,'0','住房','rental_house_resource_house_type','住房',0),(2,NULL,NULL,NULL,NULL,NULL,0,'1','铺租','rental_house_resource_house_type','铺租',1);
+/*!40000 ALTER TABLE `sys_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -65,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-30 17:22:01
+-- Dump completed on 2017-12-30 17:22:02
