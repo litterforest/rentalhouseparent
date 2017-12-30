@@ -31,13 +31,13 @@
 			<tr>
 				<td>所在区域</td>
 				<td>
-					
+					<appex:areaselect provinceName="provinceCityId" cityName="cityCityId" areaName="areaCityId" ></appex:areaselect>
 				</td>
 			</tr>
 			<tr>
 				<td>房型</td>
 				<td>
-					<appq:dictselect eleID="houseType" eleName="houseType" optionItems="${appfn:getDictList('rental_house_resource_house_type') }" />
+					<appex:dictselect eleID="houseType" eleName="houseType" optionItems="${appfn:getDictList('rental_house_resource_house_type') }" />
 				</td>
 			</tr>
 			<tr>

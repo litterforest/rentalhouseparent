@@ -11,6 +11,7 @@
 		a.remarks,
 		a.user_id,
 		a.city_id,
+		a.address,
 		a.house_type,
 		a.rent_price,
 		a.status,
@@ -23,12 +24,16 @@
 		from rental_house_resource a
 	</sql>
 	
-	<select id="list" resultType="RentalHouseResource" >
-	
-		select <include refid="selectFromClause" />
+	<sql id="whereClause">
 		<where>
 			a.del_flag = 0
 		</where>
+	</sql>
+	
+	<select id="list" resultType="RentalHouseResource" >
+	
+		select <include refid="selectFromClause" />
+		<include refid="whereClause"></include>
 		
 		<choose>
 			<when test="pageRequest != null and pageRequest.orderByClause != null and pageRequest.orderByClause != ''">
@@ -54,12 +59,7 @@
 	<select id="queryByCount" resultType="integer" >
 	
 		select count(1) from rental_house_resource a
-		<where>
-			<trim prefixOverrides="and" >
-			
-				
-			</trim>
-		</where>
+		<include refid="whereClause"></include>
 		
 	</select>
 	
@@ -128,6 +128,9 @@
 				<if test="standardWaterAmount != null">
 					standard_water_amount,
 				</if>
+				<if test="address != null">
+					address,
+				</if>
 				
 			</trim>
 		) values (
@@ -180,6 +183,9 @@
 				</if>
 				<if test="standardWaterAmount != null">
 					#{standardWaterAmount},
+				</if>
+				<if test="address != null">
+					#{address},
 				</if>
 				
 			</trim>
@@ -241,6 +247,9 @@
 				</if>
 				<if test="standardWaterAmount != null">
 					standardWaterAmount = #{standard_Water_Amount},
+				</if>
+				<if test="address != null">
+					address = #{address},
 				</if>
 				
 			</trim>

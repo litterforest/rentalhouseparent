@@ -1,6 +1,7 @@
-package com.cobee.rentalhouse.admin.util;
+package com.cobee.rentalhouse.core.util;
 
-import com.cobee.rentalhouse.admin.component.SpringContextHolderBean;
+
+import com.cobee.rentalhouse.core.component.SpringContextHolderBean;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;

@@ -1,4 +1,4 @@
-package com.cobee.rentalhouse.admin.util;
+package com.cobee.rentalhouse.core.util;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.cobee.rentalhouse.admin.component.SpringContextHolderBean;
+import com.cobee.rentalhouse.core.component.SpringContextHolderBean;
 import com.cobee.rentalhouse.core.entity.SysDict;
 import com.cobee.rentalhouse.core.service.SysDictService;
 

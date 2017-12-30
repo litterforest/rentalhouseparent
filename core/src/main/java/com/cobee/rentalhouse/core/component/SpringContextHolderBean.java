@@ -1,4 +1,4 @@
-package com.cobee.rentalhouse.admin.component;
+package com.cobee.rentalhouse.core.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

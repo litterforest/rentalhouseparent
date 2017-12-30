@@ -2,10 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cobee.rentalhouse.core.dao.impl.BaseAreaMapper">
 	
+	<sql id="selectFromClause">
+		a.create_date,
+		a.create_by,
+		a.update_date,
+		a.update_by,
+		a.remarks,
+		a.del_flag,
+		a.city_id,
+		a.parent_city_id,
+		a.city_name,
+		a.city_code,
+		a.fullname
+		from base_area a
+	</sql>
+	
+	<sql id="whereClause">
+		<where>
+			<trim prefixOverrides="and" >
+			
+				<if test="delFlag != null">
+					and a.del_flag = #{delFlag}
+				</if>
+				
+				<if test="parentCityId != null">
+					and a.parent_city_id = #{parentCityId}
+				</if>
+				
+			</trim>
+		</where>
+	</sql>
+	
 	<select id="list" resultType="BaseArea" >
 	
-		select a.* from base_area a 
-		where a.del_flag = 0
+		select <include refid="selectFromClause"></include>
+		<include refid="whereClause"></include>
+	
+		<choose>
+			<when test="pageRequest != null and pageRequest.orderByClause != null and pageRequest.orderByClause != ''">
+				${pageRequest.orderByClause}
+			</when>
+			<otherwise>
+				order by a.city_code
+			</otherwise>
+		</choose>
+		
+		<if test="pageRequest != null and pageRequest.limitClause != null and pageRequest.limitClause != ''">
+			${pageRequest.limitClause}
+		</if>
 	
 	</select>
 	

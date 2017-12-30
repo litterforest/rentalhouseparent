@@ -94,5 +94,8 @@ even after a JVM restart.  -->
            eternal="false"
            timeToLiveSeconds="600"
            overflowToDisk="false"/>
+           
+    <!-- 系统缓存 -->
+	<cache name="sysCache" maxEntriesLocalHeap="1000" eternal="true" overflowToDisk="true"/>  
 
 </ehcache>

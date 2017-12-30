@@ -10,7 +10,7 @@
 	<!-- 缓存配置 -->
 	<bean id="ehCacheManager"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation" value="classpath:admin/ehcache/ehcache.xml" />
+		<property name="configLocation" value="classpath:core/ehcache/ehcache.xml" />
 	</bean>
 
 </beans>

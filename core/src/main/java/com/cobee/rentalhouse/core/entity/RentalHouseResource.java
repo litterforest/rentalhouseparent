@@ -11,11 +11,13 @@ public class RentalHouseResource extends BaseEntity {
 
 	private Integer userId;
 	private Integer cityId;
+	// 详细地址
+	private String address;
 	// 房型信息
 	private Integer houseType;
 	// 出租价格
 	private Double rentPrice;
-	// 出租状态 
+	// 出租状态
 	private Integer status;
 	// 装修情况
 	private String decorationSituation;
@@ -29,6 +31,14 @@ public class RentalHouseResource extends BaseEntity {
 	private Double standardElectAmount;
 	// 标准水费
 	private Double standardWaterAmount;
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public Integer getUserId() {
 		return userId;
