@@ -12,7 +12,6 @@
 </script>
 </head>
 <body>
-	<%@ include file="include/header.jsp" %>
 	<form action="${ctx }/RentalHouseResource/save" method="post" >
 		<input type="hidden" name="id" value="${rentalHouseResource.id }" >
 		<input type="hidden" name="_csrf" value="${_csrf.token}" >

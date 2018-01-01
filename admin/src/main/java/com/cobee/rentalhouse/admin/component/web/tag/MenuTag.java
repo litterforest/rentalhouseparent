@@ -59,7 +59,7 @@ public class MenuTag extends TagSupport {
 		String ctxPath = pageContext.getServletContext().getContextPath();
 		if (!NumericUtils.equal(root.getId(), 0)) {
 			sbuff.append("<ul>");
-			sbuff.append("<li><a href=\"" + ctxPath + root.getSrcurl() + "\" >" + root.getName() + "</a></li>");
+			sbuff.append("<li><a href=\"" + ctxPath + root.getSrcurl() + "\" target=\"myIframe\" >" + root.getName() + "</a></li>");
 		}
 		if (!CollectionUtils.isEmpty(root.getMenuList())) {
 			for (SecureResources po : root.getMenuList()) {

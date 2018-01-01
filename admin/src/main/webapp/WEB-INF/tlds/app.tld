@@ -24,4 +24,18 @@
 		</attribute>
 	</tag>
 	
+	<tag>
+		<name>EasyUIAccordionMenu</name>
+		<tag-class>com.cobee.rentalhouse.admin.component.web.tag.EasyUIAccordionMenuTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>主页菜单生成控件</display-name>
+		<description>主页菜单生成控件</description>
+		<attribute>
+			<name>menus</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>用户菜单数据</description>
+		</attribute>
+	</tag>
+	
 </taglib>

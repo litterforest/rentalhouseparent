@@ -36,7 +36,7 @@ public class RentalHouseResourceController extends AbstractController {
 	public Map<String, Object> listData(RentalHouseResource rentalHouseResource)
 	{
 		Page<RentalHouseResource> page = rentalHouseResourceService.findByPage(rentalHouseResource);
-		return RentalHouseResourceLogic.toJqGridData(page);
+		return RentalHouseResourceLogic.toDatagridData(page);
 	}
 	
 	@PostMapping("/save")
