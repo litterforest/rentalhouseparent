@@ -6,7 +6,6 @@
 <%@ attribute name="cityId" type="java.lang.Integer" required="false" description="后台cityId保存的值" %>
 <%@ attribute name="isSearched" type="java.lang.Boolean" required="false" description="是否用于搜索" %>
 
-<%@ include file="/WEB-INF/views/include/pageResources.jsp" %>
 <input id="isAreaSearched" name="isAreaSearched" type="hidden" value="${isSearched }" >
 <select id="${provinceName }" name="${provinceName }" ></select>
 <select id="${cityName }" name="${cityName }" ></select>

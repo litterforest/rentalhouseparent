@@ -37,12 +37,13 @@
     	
     	$('#win').window({
     		title: '添加房源信息',
-    	    width:600,
-    	    height:400,
+    	    width: 600,
+    	    height: 400,
     	    minimizable: false,
-    	    modal:true
+    	    modal: true,
+    	    closed: true
     	});
-    	$('#win').window('close');
+    	//$('#win').window('close');
 		
 	});
 	
@@ -50,7 +51,6 @@
 	{
 		$('#win').window('open');
 		$('#win').window('refresh', '${ctx }/RentalHouseResource/form');
-		return false;
 	}
 
 	
@@ -69,6 +69,6 @@
 	
 	<!-- 表格 -->
 	<table id="datagrid-table" style="height:330px;"></table>
-	<div id="win"></div>
+	<div id="win" ></div>
 </body>
 </html>

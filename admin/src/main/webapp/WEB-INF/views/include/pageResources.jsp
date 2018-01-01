@@ -12,6 +12,7 @@
 
 <!-- ========================================js======================================== -->
 <script src="${ctx}/resources/js/jquery/jquery-3.2.1.min.js"></script>
+<%-- <script src="${ctx}/resources/js/jquery-easyui-1.5.3/jquery.min.js"></script> --%>
 <script type="text/javascript" src="${ctx}/resources/js/base.js" ></script>
 <!-- jqgrid -->
 <script type="text/javascript" src="${ctx}/resources/js/jqgrid/4.6/js/jquery.jqGrid.min.js" ></script>
