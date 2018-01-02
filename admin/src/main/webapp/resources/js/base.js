@@ -13,8 +13,18 @@ function jqgridSearchData(gridTableID, requestUrl)
 
 function dataGridSearchData(gridTableID, requestUrl)
 {
-	
+	var opts = $(gridTableID).datagrid('options');
+    var pager = $(gridTableID).datagrid('getPager');
+    opts.pageNumber = 1;
+	opts.pageSize = opts.pageSize;
+    pager.pagination('refresh',{
+    	pageNumber:1,
+    	pageSize:opts.pageSize
+	});
 	$(gridTableID).datagrid('options').url = requestUrl;
 	$(gridTableID).datagrid('reload');
-	
+}
+
+function clearEasyUIForm(formID){
+    $(formID).form('clear');
 }

@@ -8,6 +8,17 @@
 <%@ include file="include/pageResources.jsp"%>
 </head>
 <body>
+	<script type="text/javascript">
+	
+		var locationStr = window.parent.location + "";
+		if (locationStr.indexOf("login") == -1)
+		{
+			var index = locationStr.indexOf("/");
+			var result = locationStr.substring(0, index);
+			window.parent.location = result + "${ctx }/login";
+		}
+	
+	</script>
 	<form action="${ctx }/doLogin" method="post" >
 		<input type="hidden" name="_csrf" value="${_csrf.token}" >
 		<div class="success" >${param.msg }</div>

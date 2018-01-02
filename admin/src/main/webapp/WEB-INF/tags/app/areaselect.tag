@@ -5,11 +5,12 @@
 <%@ attribute name="areaName" type="java.lang.String" required="false" description="区元素名称" %>
 <%@ attribute name="cityId" type="java.lang.Integer" required="false" description="后台cityId保存的值" %>
 <%@ attribute name="isSearched" type="java.lang.Boolean" required="false" description="是否用于搜索" %>
+<%@ attribute name="cls" type="java.lang.String" required="false" description="自定义样式" %>
 
 <input id="isAreaSearched" name="isAreaSearched" type="hidden" value="${isSearched }" >
-<select id="${provinceName }" name="${provinceName }" ></select>
-<select id="${cityName }" name="${cityName }" ></select>
-<select id="${areaName }" name="${areaName }" ></select>
+<select id="${provinceName }" name="${provinceName }" class="${cls }" ></select>
+<select id="${cityName }" name="${cityName }" class="${cls }" ></select>
+<select id="${areaName }" name="${areaName }" class="${cls }" ></select>
 
 <script type="text/javascript">
 	// 省下拉选项增加onchange事件

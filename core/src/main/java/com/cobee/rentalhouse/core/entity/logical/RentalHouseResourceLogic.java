@@ -105,6 +105,7 @@ public class RentalHouseResourceLogic extends RentalHouseResource {
 				Map<String, Object> voMap = new HashMap<>();
 				voMap.put("id", po.getId());
 				voMap.put("name", po.getName());
+				voMap.put("status", po.getStatus() == null ? 0 : po.getStatus());
 				voMap.put("rentPrice", po.getRentPrice());
 				voMap.put("decorationSituation", po.getDecorationSituation());
 				voMap.put("standardElectAmount", po.getStandardElectAmount());

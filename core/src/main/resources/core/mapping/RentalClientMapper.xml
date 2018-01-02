@@ -18,7 +18,8 @@
 		a.rental_amount,
 		a.checkin_date,
 		a.checkout_date,
-		a.deposit_amount
+		a.deposit_amount,
+		a.status
 		from rental_client a
 	</sql>
 	
@@ -120,7 +121,7 @@
 					checkin_watermeter,
 				</if>
 				<if test="rentalAmount != null">
-					checkin_watermeter,
+					rental_amount,
 				</if>
 				
 				<if test="checkinDate != null">
@@ -133,6 +134,9 @@
 				
 				<if test="depositAmount != null">
 					deposit_amount,
+				</if>
+				<if test="status != null">
+					status,
 				</if>
 				
 			</trim>
@@ -186,6 +190,10 @@
 				
 				<if test="depositAmount != null">
 					#{depositAmount},
+				</if>
+				
+				<if test="status != null">
+					#{status},
 				</if>
 				
 			</trim>

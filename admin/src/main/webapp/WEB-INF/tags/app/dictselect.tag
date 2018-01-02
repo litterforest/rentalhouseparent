@@ -4,7 +4,8 @@
 <%@ attribute name="eleID" type="java.lang.String" required="false" description="元素ID" %>
 <%@ attribute name="optionItems" type="java.util.List" required="true" description="下拉列表选项数据" %>
 <%@ attribute name="isEmptyItem" type="java.lang.Boolean" required="false" description="是否创建全部选项" %>
-<select id="${eleID }" name="${eleName }">
+<%@ attribute name="cls" type="java.lang.String" required="false" description="自定义样式" %>
+<select id="${eleID }" name="${eleName }" class="${cls }" >
 	
 	<c:if test="${isEmptyItem }">
 		<option value="">请选择</option>
