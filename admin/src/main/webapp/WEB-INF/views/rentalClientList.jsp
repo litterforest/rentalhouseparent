@@ -17,18 +17,25 @@
     	        {field:'id', title:'', checkbox: true},
     	        {field:'operator', title:'操作', width:100, align:'left', halign:'center', formatter: function(value,row,index){
     	        	 var resultStr = "";
-	            	 resultStr += "<input type=\"button\" value=\"查看\" onclick=\"view_onclick("+ row.id +")\" >";
+	            	 resultStr += "<input type=\"button\" value=\"查看\" onclick=\"return view_onclick("+ row.id +")\" >";
+	            	 
+	            	 if (row.status == 0)
+            		 {
+	            		 resultStr += "<input type=\"button\" value=\"退房\" onclick=\"return checkout_onclick('"+ row.id +"', '"+ row.houseId +"')\" >";
+            		 }
+	            	 
 	            	 return resultStr;
     			}},
-    	        {field:'name', title:'姓名', width:140, align:'center'},
-    	        {field:'mobile', title:'手机号码', width:140, align:'center'},
-    	        {field:'idCardNo ', title:'身份证号码', width:180, align:'center'},
+    	        {field:'name', title:'姓名', width:120, align:'center'},
+    	        {field:'mobile', title:'手机号码', width:120, align:'center'},
+    	        {field:'idCardNo', title:'身份证号码', width:150, align:'center'},
     	        {field:'checkinPower', title:'入住时电表度数', width:100, align:'center'},
-    	        {field:'checkinWatermeter', title:'入住时水表数', width:180, align:'center'},
+    	        {field:'checkinWatermeter', title:'入住时水表数', width:100, align:'center'},
     	        {field:'rentalAmount', title:'租用费', width:100, align:'center'},
     	        {field:'depositAmount', title:'押金', width:100, align:'center'},
-    	        {field:'checkinDate', title:'入住时间', width:100, align:'center'},
-    	        {field:'checkoutDate', title:'退房时间', width:100, align:'center'},
+    	        {field:'checkinDate', title:'入住时间', width:130, align:'center'},
+    	        {field:'checkoutDate', title:'退房时间', width:130, align:'center'},
+    	        {field:'statusDesc', title:'租住状态', width:100, align:'center'},
     	    ]],
     	    method: 'get',
     	    pageList: [10,20,30,50,100],
@@ -41,7 +48,6 @@
     	});
     	
     	$('#win').window({
-    		title: '添加房客信息',
     	    width: 450,
     	    height: 500,
     	    minimizable: false,
@@ -53,24 +59,50 @@
 	
 	function create_onclick()
 	{
+		$('#win').window({title: '添加房客信息'});
 		$('#win').window('open');
 		$('#win').window('refresh', '${ctx }/RentalClient/form');
+		return false;
 	}
 	
 	function view_onclick(id)
 	{
+		$('#win').window({title: '查看房客信息'});
 		$('#win').window('open');
 		$('#win').window('refresh', '${ctx }/RentalClient/form?view=true&id=' + id);
+		return false;
 	}
 
+	function checkout_onclick(rentalClientID, houseID)
+	{
+		$.messager.confirm('请确认', '确定租客已结清房费和押金?' ,function(r){
+		    if (r){
+		    	
+		        // 发送ajax请求到后台退房
+		    	$.getJSON("${ctx }/RentalClient/checkout", { id: rentalClientID, houseId: houseID }, function(data){
+		    		if (data.status == "success")
+	   				{
+	   					$.messager.alert('提示信息', '退房成功');
+	   					$('#win').window('close');
+	   					$("#searchBtn").click();
+	   				}
+	   				else
+	   				{
+	   					$.messager.alert('提示信息', data.msg);
+	   				}
+	    		});
+		        
+		    }
+		});
+	}
 	
 </script>
 </head>
 <body>
 	<form id="searchForm" action="" method="get" >
 	<p>
-		房型:<appex:dictselect eleID="houseType" eleName="houseType" optionItems="${appfn:getDictList('rental_house_resource_house_type') }" isEmptyItem="true" />
-		房屋名称:<input id="name" name="name" type="text" value="" >
+		姓名:<input id="name" name="name" type="text" value="" >
+		手机号码:<input id="mobile" name="mobile" type="text" value="" >
 	</p>
 	<p>
 		<input type="button" value="添加" onclick="create_onclick();" > <input type="reset" value="重置" > <input id="searchBtn" type="button" value="查询" onclick="dataGridSearchData('#datagrid-table', '${ctx}/RentalClient/list/data?' + $('#searchForm').serialize());" >

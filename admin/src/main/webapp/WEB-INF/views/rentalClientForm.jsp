@@ -60,15 +60,15 @@
 				<c:if test="${param.view eq 'true' }" >
 				<tr>
 					<td>入住时间</td>
-					<td>
-						<input id="checkinDate" name="checkinDate" class="easyui-textbox" value="${rentalClient.checkinDate }" >
+					<td> 
+						<input id="checkinDate" name="checkinDate" class="easyui-textbox" value='<fmt:formatDate value="${rentalClient.checkinDate }" pattern="yyyy-MM-dd HH:mm:ss"  />' >
 					</td>
 				</tr>
 				
 				<tr>
 					<td>退房时间</td>
 					<td>
-						<input id="checkoutDate" name="checkoutDate" class="easyui-textbox" value="${rentalClient.checkoutDate }" >
+						<input id="checkoutDate" name="checkoutDate" class="easyui-textbox" value="<fmt:formatDate value="${rentalClient.checkoutDate }" pattern="yyyy-MM-dd HH:mm:ss"  />" >
 					</td>
 				</tr>
 				</c:if>

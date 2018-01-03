@@ -24,7 +24,7 @@
             		 }
 	            	 else if (row.status == 1)
             		 {
-	            		 resultStr += "<input type=\"button\" value=\"退房\" onclick=\"checkin_onclick("+ row.id +")\" >";
+	            		 resultStr += "<input type=\"button\" value=\"退房\" onclick=\"checkout_onclick('"+ row.id +"', '"+ row.rentalClientName +"')\" >";
             		 }
 	            	 return resultStr;
     			}},
@@ -37,6 +37,7 @@
     	        {field:'standardElectAmount', title:'标准电费', width:100, align:'center'},
     	        {field:'standardWaterAmount', title:'标准水费', width:100, align:'center'},
     	        {field:'statusDesc', title:'出租状态', width:100, align:'center'},
+    	        {field:'rentalClientName', title:'租客名称', width:100, align:'center'},
     	        {field:'createDate', title:'创建日期', width:140, align:'center'},
     	    ]],
     	    method: 'get',
@@ -50,7 +51,6 @@
     	});
     	
     	$('#win').window({
-    		title: '添加房源信息',
     	    width: 450,
     	    height: 500,
     	    minimizable: false,
@@ -58,33 +58,42 @@
     	    closed: true
     	});
     	
-    	$('#win1').window({
-    		title: '房客入住',
-    	    width: 450,
-    	    height: 500,
-    	    minimizable: false,
-    	    modal: true,
-    	    closed: true
-    	});
 		
 	});
 	
 	function create_onclick()
 	{
+		$('#win').window({title: "添加房源信息"});
 		$('#win').window('open');
 		$('#win').window('refresh', '${ctx }/RentalHouseResource/form');
 	}
 	
 	function view_onclick(id)
 	{
+		$('#win').window({title: "查看房源信息"});
 		$('#win').window('open');
 		$('#win').window('refresh', '${ctx }/RentalHouseResource/form?view=true&id=' + id);
 	}
 	
 	function checkin_onclick(rentalHouseResourceID)
 	{
-		$('#win1').window('open');
-		$('#win1').window('refresh', '${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=' + rentalHouseResourceID);
+		$('#win').window({title: "房客入住"});
+		$('#win').window('open');
+		$('#win').window('refresh', '${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=' + rentalHouseResourceID);
+	}
+	
+	function checkout_onclick(rentalHouseResourceID, rentalClientName)
+	{
+		$.messager.confirm('请确认', '确保租客['+ rentalClientName +']已经交清房费和退还押金与其它杂费?' ,function(r){
+		    if (r){
+		    	
+		        // 发送ajax请求到后台退房
+		    	$.getJSON("${ctx }/RentalHouseResource/", { name: "John", time: "2pm" }, function(data){
+	    		  	
+	    		});
+		        
+		    }
+		});
 	}
 
 	
@@ -104,6 +113,5 @@
 	<!-- 表格 -->
 	<table id="datagrid-table" style="height:330px;"></table>
 	<div id="win" ></div>
-	<div id="win1" ></div>
 </body>
 </html>

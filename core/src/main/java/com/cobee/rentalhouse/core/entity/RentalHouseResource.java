@@ -31,8 +31,19 @@ public class RentalHouseResource extends BaseEntity {
 	private Double standardElectAmount;
 	// 标准水费
 	private Double standardWaterAmount;
+
 	// 所属地区关联对象
 	private BaseArea baseArea;
+
+	private RentalClient rentalClient;
+
+	public RentalClient getRentalClient() {
+		return rentalClient;
+	}
+
+	public void setRentalClient(RentalClient rentalClient) {
+		this.rentalClient = rentalClient;
+	}
 
 	public BaseArea getBaseArea() {
 		return baseArea;

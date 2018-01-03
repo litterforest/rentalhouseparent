@@ -1,5 +1,6 @@
 package com.cobee.rentalhouse.admin.web;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +59,21 @@ public class RentalClientController extends AbstractController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			rentalClientService.save(rentalClient);
+			resultMap.put("status", "success");
+		} catch (Exception e) {
+			logger.error("", e);
+			resultMap.put("status", "fail");
+			resultMap.put("msg", e.getMessage());
+		}
+		return resultMap;
+	}
+	
+	@GetMapping(value = "/checkout", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Map<String, Object> checkout(RentalClient rentalClient) {
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			rentalClientService.checkout(rentalClient);
 			resultMap.put("status", "success");
 		} catch (Exception e) {
 			logger.error("", e);

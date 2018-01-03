@@ -13,7 +13,7 @@
 	
 	<!-- <div class="easyui-layout" > -->
 	
-		<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px;"><%@ include file="include/header.jsp" %></div>
+		<div data-options="region:'north',border:false" style="height:60px;padding:10px;"><%@ include file="include/header.jsp" %></div>
 		<div data-options="region:'west',split:true,title:'菜单栏'" style="width:13%;"><app:EasyUIAccordionMenu menus="${menus }"></app:EasyUIAccordionMenu> </div>
 		<div data-options="region:'center',title:'工作区'">
 			<iframe name="myIframe" width="99%" height="99%" scrolling="no" style="border: 0px;" ></iframe>

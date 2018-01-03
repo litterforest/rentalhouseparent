@@ -115,6 +115,7 @@ public class RentalHouseResourceLogic extends RentalHouseResource {
 				voMap.put("houseTypeDesc", po.getHouseTypeDesc());
 				voMap.put("createDate", po.getCreateDate() == null ? "" : new DateTime(po.getCreateDate()).toString("yyyy-MM-dd HH:mm:ss"));
 				voMap.put("areaAddress", (po.getBaseArea() == null ? "" : po.getBaseArea().getFullname()) + po.getAddress());
+				voMap.put("rentalClientName", po.getRentalClient() == null ? "" : po.getRentalClient().getName());
 				
 				list.add(voMap);
 			}

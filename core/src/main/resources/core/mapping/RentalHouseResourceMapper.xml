@@ -21,9 +21,11 @@
 		a.house_code,
 		a.standard_elect_amount,
 		a.standard_water_amount,
-		b.fullname as "baseArea.fullname"
+		b.fullname as "baseArea.fullname",
+		c.name as "rentalClient.name"
 		from rental_house_resource a
 		left join base_area b on a.city_id = b.city_id
+		left join rental_client c on (c.house_id = a.id and c.status = 0)
 	</sql>
 	
 	<sql id="whereClause">

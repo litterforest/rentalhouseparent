@@ -1,5 +1,6 @@
 package com.cobee.rentalhouse.admin.web;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +69,8 @@ public class RentalHouseResourceController extends AbstractController {
 	public Map<String, Object> checkin(RentalClient rentalClient) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+			// 增加入住时间
+			rentalClient.setCheckinDate(new Date());
 			rentalHouseResourceService.checkin(rentalClient);
 			resultMap.put("status", "success");
 		} catch (Exception e) {

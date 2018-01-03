@@ -18,6 +18,27 @@ public class RentalClientLogic extends RentalClient {
 	 */
 	private static final long serialVersionUID = -2909027860834578435L;
 	
+	
+	
+	
+	@Override
+	public String getStatusDesc() {
+		
+		if (getStatus() == null) {
+			return "";
+		} else if (getStatus() == 0) {
+			return "入住";
+		} else if (getStatus() == 1) {
+			return "退房";
+		} else {
+			return "";
+		}
+		
+	}
+
+
+
+
 	public static Map<String, Object> toDatagridData(Page<RentalClient> page) {
 		Map<String, Object> dataMap = new HashMap<>();
 		dataMap.put("total", page.getTotalCount());
@@ -39,7 +60,9 @@ public class RentalClientLogic extends RentalClient {
 				voMap.put("checkinDate", po.getCheckinDate() == null ? "" : new DateTime(po.getCheckinDate()).toString("yyyy-MM-dd HH:mm:ss"));
 				voMap.put("checkoutDate", po.getCheckoutDate() == null ? "" : new DateTime(po.getCheckoutDate()).toString("yyyy-MM-dd HH:mm:ss"));
 				voMap.put("depositAmount", po.getDepositAmount());
-				
+				voMap.put("status", po.getStatus());
+				voMap.put("statusDesc", po.getStatusDesc());
+				voMap.put("houseId", po.getHouseId());
 				
 				list.add(voMap);
 			}
