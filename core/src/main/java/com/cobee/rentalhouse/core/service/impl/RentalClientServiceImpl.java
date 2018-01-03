@@ -23,6 +23,7 @@ public class RentalClientServiceImpl extends PagingAndSortingService<RentalClien
 	@Override
 	public void checkout(RentalClient rentalClient) {
 		
+		// 更新房客信息
 		rentalClient.setCheckoutDate(new Date());
 		rentalClient.setStatus(1);
 		

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cobee.rentalhouse.core.dao.impl.RentalClientCheckinOrderMapper">
+	
+	<sql id="selectFromClause">
+		a.id,
+		a.create_date,
+		a.create_by,
+		a.update_date,
+		a.update_by,
+		a.remarks,
+		a.house_id,
+		a.rental_client_id,
+		a.checkin_power,
+		a.checkin_watermeter,
+		a.rental_amount,
+		a.checkin_date,
+		a.checkout_date,
+		a.deposit_amount,
+		a.checkout_power,
+		a.checkout_watermeter,
+		a.status
+		from rental_client_checkin_order a
+	</sql>
+	
+	<sql id="whereClause">
+		<where>
+			<trim prefixOverrides="and" >
+				<if test="delFlag != null">
+					and a.del_flag = #{delFlag}
+				</if>
+				
+			</trim>
+		</where>
+	</sql>
+	
+	<select id="list" resultType="RentalClientCheckinOrder" >
+	
+		select <include refid="selectFromClause" />
+		
+		<include refid="whereClause"></include>
+		
+		<choose>
+			<when test="pageRequest != null and pageRequest.orderByClause != null and pageRequest.orderByClause != ''">
+				${pageRequest.orderByClause}
+			</when>
+			<otherwise>
+				
+			</otherwise>
+		</choose>
+		
+		<if test="pageRequest != null and pageRequest.limitClause != null and pageRequest.limitClause != ''">
+			${pageRequest.limitClause}
+		</if>
+	
+	</select>
+	
+	<select id="get" resultType="RentalClientCheckinOrder" parameterType="integer" >
+	
+		select <include refid="selectFromClause" /> where a.id = #{id}
+		
+	</select>
+	
+	<select id="queryByCount" resultType="integer" >
+	
+		select count(1) from rental_client_checkin_order a
+		
+		<include refid="whereClause"></include>
+		
+	</select>
+	
+	<update id="delete" parameterType="integer" >
+	
+		delete from rental_client_checkin_order where id = #{id}
+		
+	</update>
+	
+	<update id="deleteByLogic" parameterType="integer" >
+	
+		update rental_client_checkin_order set del_flag = 1 where id = #{id}
+		
+	</update>
+	
+	<update id="insertBySelective" parameterType="RentalClientCheckinOrder">
+		
+		insert into rental_client_checkin_order
+		(
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date,
+				</if>
+				<if test="createBy != null">
+					create_by,
+				</if>
+				<if test="updateDate != null">
+					update_date,
+				</if>
+				<if test="updateBy != null">
+					update_by,
+				</if>
+				<if test="remarks != null">
+					remarks,
+				</if>
+				
+				<if test="houseId != null">
+					house_id,
+				</if>
+				<if test="rentalClientId != null">
+					rental_client_id,
+				</if>
+				<if test="checkinPower != null">
+					checkin_power,
+				</if>
+				<if test="checkinWatermeter != null">
+					checkin_watermeter,
+				</if>
+				<if test="rentalAmount != null">
+					rental_amount,
+				</if>
+				<if test="checkinDate != null">
+					checkin_date,
+				</if>
+				<if test="checkoutDate != null">
+					checkout_date,
+				</if>
+				<if test="depositAmount != null">
+					deposit_amount,
+				</if>
+				<if test="checkoutPower != null">
+					checkout_power,
+				</if>
+				<if test="checkoutWatermeter != null">
+					checkout_watermeter,
+				</if>
+				<if test="status != null">
+					status,
+				</if>
+				
+				
+				
+			</trim>
+		) values (
+			<trim suffixOverrides=",">
+				<if test="createDate != null">
+					#{createDate},
+				</if>
+				<if test="createBy != null">
+					#{createBy},
+				</if>
+				<if test="updateDate != null">
+					#{updateDate},
+				</if>
+				<if test="updateBy != null">
+					#{updateBy},
+				</if>
+				<if test="remarks != null">
+					#{remarks},
+				</if>
+				
+				<if test="houseId != null">
+					#{houseId},
+				</if>
+				<if test="rentalClientId != null">
+					#{rentalClientId},
+				</if>
+				<if test="checkinPower != null">
+					#{checkinPower},
+				</if>
+				<if test="checkinWatermeter != null">
+					#{checkinWatermeter},
+				</if>
+				<if test="rentalAmount != null">
+					#{rentalAmount},
+				</if>
+				<if test="checkinDate != null">
+					#{checkinDate},
+				</if>
+				<if test="checkoutDate != null">
+					#{checkoutDate},
+				</if>
+				<if test="depositAmount != null">
+					#{depositAmount},
+				</if>
+				<if test="checkoutPower != null">
+					#{checkoutPower},
+				</if>
+				<if test="checkoutWatermeter != null">
+					#{checkoutWatermeter},
+				</if>
+				<if test="status != null">
+					#{status},
+				</if>
+				
+			</trim>
+		)
+	
+	</update>
+	
+	<update id="updateBySelective" parameterType="RentalClientCheckinOrder">
+		
+		update rental_client_checkin_order set 
+		
+		<trim suffixOverrides=",">
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+				<if test="createBy != null">
+					create_by = #{createBy},
+				</if>
+				<if test="updateDate != null">
+					update_date = #{updateDate},
+				</if>
+				<if test="updateBy != null">
+					update_by = #{updateBy},
+				</if>
+				<if test="remarks != null">
+					remarks = #{remarks},
+				</if>
+				
+				<if test="houseId != null">
+					house_Id = #{houseId},
+				</if>
+				<if test="rentalClientId != null">
+					rental_Client_Id = #{rentalClientId},
+				</if>
+				<if test="checkinPower != null">
+					checkin_Power = #{checkinPower},
+				</if>
+				<if test="checkinWatermeter != null">
+					checkin_Watermeter = #{checkinWatermeter},
+				</if>
+				<if test="rentalAmount != null">
+					rental_Amount = #{rentalAmount},
+				</if>
+				<if test="checkinDate != null">
+					checkin_Date = #{checkinDate},
+				</if>
+				<if test="checkoutDate != null">
+					checkout_Date = #{checkoutDate},
+				</if>
+				<if test="depositAmount != null">
+					deposit_Amount = #{depositAmount},
+				</if>
+				<if test="checkoutPower != null">
+					checkout_Power = #{checkoutPower},
+				</if>
+				<if test="checkoutWatermeter != null">
+					checkout_Watermeter = #{checkoutWatermeter},
+				</if>
+				<if test="status != null">
+					#{status},
+				</if>
+				
+			</trim>
+		
+		where id = #{id}
+	
+	</update>
+	
+	
+</mapper>

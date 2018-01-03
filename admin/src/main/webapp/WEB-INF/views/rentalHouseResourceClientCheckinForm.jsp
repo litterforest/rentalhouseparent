@@ -13,49 +13,58 @@
 		<form id="inputForm" action="${ctx }/RentalHouseResource/checkin" method="post" >
 			<input type="hidden" name="houseId" value="${param.rentalHouseResourceID }" >
 			<input type="hidden" name="_csrf" value="${_csrf.token}" >
+			
 			<table>
 				<tr>
-					<td>姓名</td>
+					<td>选择房客</td>
 					<td>
-						<input id="name" name="name" type="text" class="easyui-textbox" value="${rentalClient.name }" >
+						<select class="easyui-combogrid" style="width:100%" data-options="
+		                    panelWidth: 800,
+		                    idField: 'id',
+		                    textField: 'name',
+		                    url: '${ctx}/RentalClient/list/data',
+		                    method: 'get',
+		                    columns: [[
+		                        {field:'id', title:'数据ID', width:80, align:'center'},
+		                        {field:'name', title:'姓名', width:120, align:'center'},
+				    	        {field:'mobile', title:'手机号码', width:120, align:'center'},
+				    	        {field:'idCardNo', title:'身份证号码', width:150, align:'center'},
+				    	        {field:'statusDesc', title:'租住状态', width:100, align:'center'},
+		                    ]],
+		                    fitColumns: true,
+		                ">
+            </select>
 					</td>
 				</tr>
-				<tr>
-					<td>手机号码</td>
-					<td>
-						<input id="mobile" name="mobile" type="text" class="easyui-textbox" value="${rentalClient.mobile }" >
-					</td>
-				</tr>
-				<tr>
-					<td>身份证号码</td>
-					<td>
-						<input id="idCardNo" name="idCardNo" type="text" class="easyui-textbox" value="${rentalClient.idCardNo }" >
-					</td>
-				</tr>
+				
 				<tr>
 					<td>入住时电表度数</td>
 					<td>
 						<input id="checkinPower" name="checkinPower" type="text" class="easyui-textbox" value="${rentalClient.checkinPower }" >
 					</td>
 				</tr>
+				
 				<tr>
 					<td>入住时水表数</td>
 					<td>
 						<input id="checkinWatermeter" name="checkinWatermeter" type="text" class="easyui-textbox" value="${rentalClient.checkinWatermeter }" >
 					</td>
 				</tr>
+				
 				<tr>
 					<td>租用费</td>
 					<td>
 						<input id="rentalAmount" name="rentalAmount" type="text" class="easyui-textbox" value="${rentalClient.rentalAmount }" >
 					</td>
 				</tr>
+				
 				<tr>
 					<td>押金</td>
 					<td>
 						<input id="depositAmount" name="depositAmount" type="text" class="easyui-textbox" value="${rentalClient.depositAmount }" >
 					</td>
 				</tr>
+				
 				<c:if test="${param.view eq 'true' }" >
 				<tr>
 					<td>入住时间</td>
@@ -71,6 +80,7 @@
 					</td>
 				</tr>
 				</c:if>
+				
 				<tr>
 					<td>备注</td>
 					<td><input id="remarks" class="easyui-textbox" name="remarks" value="${rentalClient.remarks }" data-options="multiline:true" ></td>

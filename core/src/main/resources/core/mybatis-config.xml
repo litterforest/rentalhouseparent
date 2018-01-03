@@ -17,6 +17,7 @@
 		<typeAlias type="com.cobee.rentalhouse.core.entity.logical.RentalHouseResourceLogic" alias="RentalHouseResource" />
 		<typeAlias type="com.cobee.rentalhouse.core.entity.logical.RentalClientLogic" alias="RentalClient" />
 		<typeAlias type="com.cobee.rentalhouse.core.entity.SysDict" alias="SysDict" />
+		<typeAlias type="com.cobee.rentalhouse.core.entity.RentalClientCheckinOrder" alias="RentalClientCheckinOrder" />
 		
 	</typeAliases>
 </configuration>

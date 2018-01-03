@@ -46,6 +46,17 @@ public class PagingAndSortingService<T extends BaseEntity, E extends BaseDao<T>>
 	}
 
 	public Page<T> findByPage(T paramObj, String selectSqlID) {
+		
+		// 如果分页参数为空，则查询所有数据
+		if (paramObj.getPageRequest() == null)
+		{
+			Page<T> page = new Page<T>();
+			List<T> dataList = super.list(paramObj);
+			page.setTotalCount(dataList.size());
+			page.setContent(dataList);
+			return page;
+		}
+		
 		String selectID = getMapperNamespace() + "." + selectSqlID;
 		SqlSession session = SqlSessionUtils.getSqlSession(sqlSessionFactory);
 		Configuration conf = session.getConfiguration();
