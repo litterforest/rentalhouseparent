@@ -13,14 +13,13 @@
 		a.mobile,
 		a.id_card_no,
 		a.house_id,
-		a.checkin_power,
-		a.checkin_watermeter,
-		a.rental_amount,
-		a.checkin_date,
-		a.checkout_date,
-		a.deposit_amount,
-		a.status
+		a.status,
+		b.name as "rentalHouseResource.name",
+		b.address as "rentalHouseResource.address",
+		c.fullname as "rentalHouseResource.baseArea.fullname"
 		from rental_client a
+		left join rental_house_resource b on (b.id = a.house_id and a.status = 0 and b.status = 1)
+		left join base_area c on c.city_id = b.city_id
 	</sql>
 	
 	<sql id="whereClause">
@@ -34,6 +33,9 @@
 				</if>
 				<if test="mobile != null and mobile != ''">
 					and a.mobile = #{mobile}
+				</if>
+				<if test="status != null">
+					and a.status = #{status}
 				</if>
 			</trim>
 		</where>
@@ -120,27 +122,8 @@
 				<if test="houseId != null">
 					house_id,
 				</if>
-				<if test="checkinPower != null">
-					checkin_power,
-				</if>
-				<if test="checkinWatermeter != null">
-					checkin_watermeter,
-				</if>
-				<if test="rentalAmount != null">
-					rental_amount,
-				</if>
 				
-				<if test="checkinDate != null">
-					checkin_date,
-				</if>
 				
-				<if test="checkoutDate != null">
-					checkout_date,
-				</if>
-				
-				<if test="depositAmount != null">
-					deposit_amount,
-				</if>
 				<if test="status != null">
 					status,
 				</if>
@@ -176,27 +159,8 @@
 				<if test="houseId != null">
 					#{houseId},
 				</if>
-				<if test="checkinPower != null">
-					#{checkinPower},
-				</if>
-				<if test="checkinWatermeter != null">
-					#{checkinWatermeter},
-				</if>
-				<if test="rentalAmount != null">
-					#{rentalAmount},
-				</if>
 				
-				<if test="checkinDate != null">
-					#{checkinDate},
-				</if>
 				
-				<if test="checkoutDate != null">
-					#{checkoutDate},
-				</if>
-				
-				<if test="depositAmount != null">
-					#{depositAmount},
-				</if>
 				
 				<if test="status != null">
 					#{status},
@@ -212,6 +176,7 @@
 		update rental_client set 
 		
 		<trim suffixOverrides=",">
+		
 				<if test="createDate != null">
 					create_date = #{createDate},
 				</if>
@@ -240,27 +205,7 @@
 				<if test="houseId != null">
 					house_Id = #{houseId},
 				</if>
-				<if test="checkinPower != null">
-					checkin_Power = #{checkinPower},
-				</if>
-				<if test="checkinWatermeter != null">
-					checkin_Watermeter = #{checkinWatermeter},
-				</if>
-				<if test="rentalAmount != null">
-					rental_Amount = #{rentalAmount},
-				</if>
 				
-				<if test="checkinDate != null">
-					checkin_Date = #{checkinDate},
-				</if>
-				
-				<if test="checkoutDate != null">
-					checkout_Date = #{checkoutDate},
-				</if>
-				
-				<if test="depositAmount != null">
-					deposit_amount = #{depositAmount},
-				</if>
 				
 				<if test="status != null">
 					status = #{status},

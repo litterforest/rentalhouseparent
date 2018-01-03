@@ -54,15 +54,17 @@ public class RentalClientLogic extends RentalClient {
 				voMap.put("name", po.getName());
 				voMap.put("mobile", po.getMobile());
 				voMap.put("idCardNo", po.getIdCardNo());
-				voMap.put("checkinPower", po.getCheckinPower());
-				voMap.put("checkinWatermeter", po.getCheckinWatermeter());
-				voMap.put("rentalAmount", po.getRentalAmount());
-				voMap.put("checkinDate", po.getCheckinDate() == null ? "" : new DateTime(po.getCheckinDate()).toString("yyyy-MM-dd HH:mm:ss"));
-				voMap.put("checkoutDate", po.getCheckoutDate() == null ? "" : new DateTime(po.getCheckoutDate()).toString("yyyy-MM-dd HH:mm:ss"));
-				voMap.put("depositAmount", po.getDepositAmount());
+//				voMap.put("checkinPower", po.getCheckinPower());
+//				voMap.put("checkinWatermeter", po.getCheckinWatermeter());
+//				voMap.put("rentalAmount", po.getRentalAmount());
+//				voMap.put("checkinDate", po.getCheckinDate() == null ? "" : new DateTime(po.getCheckinDate()).toString("yyyy-MM-dd HH:mm:ss"));
+//				voMap.put("checkoutDate", po.getCheckoutDate() == null ? "" : new DateTime(po.getCheckoutDate()).toString("yyyy-MM-dd HH:mm:ss"));
+//				voMap.put("depositAmount", po.getDepositAmount());
 				voMap.put("status", po.getStatus());
 				voMap.put("statusDesc", po.getStatusDesc());
 				voMap.put("houseId", po.getHouseId());
+				voMap.put("rentalHouseResourceName", po.getRentalHouseResource() == null ? "" : po.getRentalHouseResource().getName());
+				voMap.put("rentalHouseResourceAddress", (po.getRentalHouseResource() == null ? "" : po.getRentalHouseResource().getBaseArea() == null ? "" : po.getRentalHouseResource().getBaseArea().getFullname()) + (po.getRentalHouseResource() == null ? "" : po.getRentalHouseResource().getAddress()));
 				
 				list.add(voMap);
 			}

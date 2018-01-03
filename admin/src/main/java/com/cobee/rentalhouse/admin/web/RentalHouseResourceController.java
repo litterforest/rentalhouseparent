@@ -1,6 +1,5 @@
 package com.cobee.rentalhouse.admin.web;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cobee.rentalhouse.admin.web.support.AbstractController;
 import com.cobee.rentalhouse.core.component.page.Page;
-import com.cobee.rentalhouse.core.entity.RentalClient;
+import com.cobee.rentalhouse.core.entity.RentalClientCheckinOrder;
 import com.cobee.rentalhouse.core.entity.RentalHouseResource;
 import com.cobee.rentalhouse.core.entity.logical.RentalHouseResourceLogic;
 import com.cobee.rentalhouse.core.service.RentalHouseResourceService;
@@ -66,12 +65,10 @@ public class RentalHouseResourceController extends AbstractController {
 	
 	@PostMapping(value = "/checkin", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Map<String, Object> checkin(RentalClient rentalClient) {
+	public Map<String, Object> checkin(RentalClientCheckinOrder rentalClientCheckinOrder) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			// 增加入住时间
-			rentalClient.setCheckinDate(new Date());
-			rentalHouseResourceService.checkin(rentalClient);
+			rentalHouseResourceService.checkin(rentalClientCheckinOrder);
 			resultMap.put("status", "success");
 		} catch (Exception e) {
 			logger.error("", e);

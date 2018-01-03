@@ -12,17 +12,18 @@
 	<div class="easyui-panel" style="width:100%;padding:10px;border:0;">
 		<form id="inputForm" action="${ctx }/RentalHouseResource/checkin" method="post" >
 			<input type="hidden" name="houseId" value="${param.rentalHouseResourceID }" >
+			<input type="hidden" id="rentalClientId" name="rentalClientId" value="" >
 			<input type="hidden" name="_csrf" value="${_csrf.token}" >
 			
 			<table>
 				<tr>
 					<td>选择房客</td>
 					<td>
-						<select class="easyui-combogrid" style="width:100%" data-options="
+						<select id="rentalClientSelect" class="easyui-combogrid" style="width:100%" data-options="
 		                    panelWidth: 800,
 		                    idField: 'id',
 		                    textField: 'name',
-		                    url: '${ctx}/RentalClient/list/data',
+		                    url: '${ctx}/RentalClient/list/data?status=1',
 		                    method: 'get',
 		                    columns: [[
 		                        {field:'id', title:'数据ID', width:80, align:'center'},
@@ -40,28 +41,28 @@
 				<tr>
 					<td>入住时电表度数</td>
 					<td>
-						<input id="checkinPower" name="checkinPower" type="text" class="easyui-textbox" value="${rentalClient.checkinPower }" >
+						<input id="checkinPower" name="checkinPower" type="text" class="easyui-textbox" style="width:180px;" value="${rentalClient.checkinPower }" >
 					</td>
 				</tr>
 				
 				<tr>
 					<td>入住时水表数</td>
 					<td>
-						<input id="checkinWatermeter" name="checkinWatermeter" type="text" class="easyui-textbox" value="${rentalClient.checkinWatermeter }" >
+						<input id="checkinWatermeter" name="checkinWatermeter" type="text" class="easyui-textbox" style="width:180px;" value="${rentalClient.checkinWatermeter }" >
 					</td>
 				</tr>
 				
 				<tr>
 					<td>租用费</td>
 					<td>
-						<input id="rentalAmount" name="rentalAmount" type="text" class="easyui-textbox" value="${rentalClient.rentalAmount }" >
+						<input id="rentalAmount" name="rentalAmount" type="text" class="easyui-textbox" style="width:180px;" value="${rentalClient.rentalAmount }" >
 					</td>
 				</tr>
 				
 				<tr>
 					<td>押金</td>
 					<td>
-						<input id="depositAmount" name="depositAmount" type="text" class="easyui-textbox" value="${rentalClient.depositAmount }" >
+						<input id="depositAmount" name="depositAmount" type="text" class="easyui-textbox" style="width:180px;" value="${rentalClient.depositAmount }" >
 					</td>
 				</tr>
 				
@@ -69,21 +70,21 @@
 				<tr>
 					<td>入住时间</td>
 					<td>
-						<input id="checkinDate" name="checkinDate" class="easyui-textbox" value="${rentalClient.checkinDate }" >
+						<input id="checkinDate" name="checkinDate" class="easyui-textbox" style="width:180px;" value="${rentalClient.checkinDate }" >
 					</td>
 				</tr>
 				
 				<tr>
 					<td>退房时间</td>
 					<td>
-						<input id="checkoutDate" name="checkoutDate" class="easyui-textbox" value="${rentalClient.checkoutDate }" >
+						<input id="checkoutDate" name="checkoutDate" class="easyui-textbox" style="width:180px;" value="${rentalClient.checkoutDate }" >
 					</td>
 				</tr>
 				</c:if>
 				
 				<tr>
 					<td>备注</td>
-					<td><input id="remarks" class="easyui-textbox" name="remarks" value="${rentalClient.remarks }" data-options="multiline:true" ></td>
+					<td><input id="remarks" class="easyui-textbox" name="remarks" value="${rentalClient.remarks }" style="width:180px;" data-options="multiline:true" ></td>
 				</tr>
 				
 				<tr>
@@ -107,14 +108,18 @@
                    if (data.status == "success")
 	   				{
 	   					$.messager.alert('提示信息', '创建成功');
-	   					$('#win1').window('close');
+	   					$('#win').window('close');
 	   					$("#searchBtn").click();
 	   				}
 	   				else
 	   				{
 	   					$.messager.alert('提示信息', data.msg);
 	   				}
-               }
+               },
+               onSubmit: function(){
+                   var rentalClientID = $("#rentalClientSelect").combogrid('getValue');
+                   $("#rentalClientId").val(rentalClientID);
+               },
            });
        });
     </script>

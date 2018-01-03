@@ -15,7 +15,7 @@
     	    url: '${ctx}/RentalClient/list/data?' + $("#searchForm").serialize(),
     	    columns:[[
     	        {field:'id', title:'', checkbox: true},
-    	        {field:'operator', title:'操作', width:100, align:'left', halign:'center', formatter: function(value,row,index){
+    	        {field:'operator', title:'操作', width:120, align:'left', halign:'center', formatter: function(value,row,index){
     	        	 var resultStr = "";
 	            	 resultStr += "<input type=\"button\" value=\"查看\" onclick=\"return view_onclick("+ row.id +")\" >";
 	            	 
@@ -29,13 +29,9 @@
     	        {field:'name', title:'姓名', width:120, align:'center'},
     	        {field:'mobile', title:'手机号码', width:120, align:'center'},
     	        {field:'idCardNo', title:'身份证号码', width:150, align:'center'},
-    	        {field:'checkinPower', title:'入住时电表度数', width:100, align:'center'},
-    	        {field:'checkinWatermeter', title:'入住时水表数', width:100, align:'center'},
-    	        {field:'rentalAmount', title:'租用费', width:100, align:'center'},
-    	        {field:'depositAmount', title:'押金', width:100, align:'center'},
-    	        {field:'checkinDate', title:'入住时间', width:130, align:'center'},
-    	        {field:'checkoutDate', title:'退房时间', width:130, align:'center'},
     	        {field:'statusDesc', title:'租住状态', width:100, align:'center'},
+    	        {field:'rentalHouseResourceName', title:'租房名称', width:100, align:'center'},
+    	        {field:'rentalHouseResourceAddress', title:'租房地址', width:180, align:'center'},
     	    ]],
     	    method: 'get',
     	    pageList: [10,20,30,50,100],

@@ -29,41 +29,15 @@ public class RentalClient extends BaseEntity {
 	private String idCardNo;
 	// 房源ID
 	private Integer houseId;
-	// 入住时电表度数
-	private Double checkinPower;
-	// 入住时水表数
-	private Double checkinWatermeter;
-	// 租用费
-	private Double rentalAmount;
-	// 入住时间
-	private Date checkinDate;
-	// 退房时间
-	private Date checkoutDate;
-	// 押金
-	private Double depositAmount;
 
-	public Double getDepositAmount() {
-		return depositAmount;
+	private RentalHouseResource rentalHouseResource;
+
+	public RentalHouseResource getRentalHouseResource() {
+		return rentalHouseResource;
 	}
 
-	public void setDepositAmount(Double depositAmount) {
-		this.depositAmount = depositAmount;
-	}
-
-	public Date getCheckinDate() {
-		return checkinDate;
-	}
-
-	public void setCheckinDate(Date checkinDate) {
-		this.checkinDate = checkinDate;
-	}
-
-	public Date getCheckoutDate() {
-		return checkoutDate;
-	}
-
-	public void setCheckoutDate(Date checkoutDate) {
-		this.checkoutDate = checkoutDate;
+	public void setRentalHouseResource(RentalHouseResource rentalHouseResource) {
+		this.rentalHouseResource = rentalHouseResource;
 	}
 
 	public String getName() {
@@ -96,30 +70,6 @@ public class RentalClient extends BaseEntity {
 
 	public void setHouseId(Integer houseId) {
 		this.houseId = houseId;
-	}
-
-	public Double getCheckinPower() {
-		return checkinPower;
-	}
-
-	public void setCheckinPower(Double checkinPower) {
-		this.checkinPower = checkinPower;
-	}
-
-	public Double getCheckinWatermeter() {
-		return checkinWatermeter;
-	}
-
-	public void setCheckinWatermeter(Double checkinWatermeter) {
-		this.checkinWatermeter = checkinWatermeter;
-	}
-
-	public Double getRentalAmount() {
-		return rentalAmount;
-	}
-
-	public void setRentalAmount(Double rentalAmount) {
-		this.rentalAmount = rentalAmount;
 	}
 
 }

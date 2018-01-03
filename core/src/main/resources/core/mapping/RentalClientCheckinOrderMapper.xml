@@ -30,6 +30,18 @@
 					and a.del_flag = #{delFlag}
 				</if>
 				
+				<if test="houseId != null">
+					and a.house_id = #{houseId}
+				</if>
+				
+				<if test="rentalClientId != null">
+					and a.rental_client_id = #{rentalClientId}
+				</if>
+				
+				<if test="status != null">
+					and a.status = #{status}
+				</if>
+				
 			</trim>
 		</where>
 	</sql>
@@ -220,35 +232,45 @@
 				<if test="houseId != null">
 					house_Id = #{houseId},
 				</if>
+				
 				<if test="rentalClientId != null">
 					rental_Client_Id = #{rentalClientId},
 				</if>
+				
 				<if test="checkinPower != null">
 					checkin_Power = #{checkinPower},
 				</if>
+				
 				<if test="checkinWatermeter != null">
 					checkin_Watermeter = #{checkinWatermeter},
 				</if>
+				
 				<if test="rentalAmount != null">
 					rental_Amount = #{rentalAmount},
 				</if>
+				
 				<if test="checkinDate != null">
 					checkin_Date = #{checkinDate},
 				</if>
+				
 				<if test="checkoutDate != null">
 					checkout_Date = #{checkoutDate},
 				</if>
+				
 				<if test="depositAmount != null">
 					deposit_Amount = #{depositAmount},
 				</if>
+				
 				<if test="checkoutPower != null">
 					checkout_Power = #{checkoutPower},
 				</if>
+				
 				<if test="checkoutWatermeter != null">
 					checkout_Watermeter = #{checkoutWatermeter},
 				</if>
+				
 				<if test="status != null">
-					#{status},
+					status = #{status},
 				</if>
 				
 			</trim>

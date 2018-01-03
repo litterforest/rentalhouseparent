@@ -22,10 +22,6 @@
             		 {
 	            		 resultStr += "<input type=\"button\" value=\"入住\" onclick=\"checkin_onclick("+ row.id +")\" >";
             		 }
-	            	 else if (row.status == 1)
-            		 {
-	            		 resultStr += "<input type=\"button\" value=\"退房\" onclick=\"checkout_onclick('"+ row.id +"', '"+ row.rentalClientName +"')\" >";
-            		 }
 	            	 return resultStr;
     			}},
     	        {field:'name', title:'房屋名称', width:140, align:'center'},

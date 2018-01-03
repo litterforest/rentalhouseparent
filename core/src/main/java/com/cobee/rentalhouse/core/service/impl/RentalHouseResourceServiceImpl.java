@@ -1,12 +1,16 @@
 package com.cobee.rentalhouse.core.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cobee.rentalhouse.core.dao.impl.RentalHouseResourceMapper;
 import com.cobee.rentalhouse.core.entity.RentalClient;
+import com.cobee.rentalhouse.core.entity.RentalClientCheckinOrder;
 import com.cobee.rentalhouse.core.entity.RentalHouseResource;
+import com.cobee.rentalhouse.core.service.RentalClientCheckinOrderService;
 import com.cobee.rentalhouse.core.service.RentalClientService;
 import com.cobee.rentalhouse.core.service.RentalHouseResourceService;
 import com.cobee.rentalhouse.core.service.support.PagingAndSortingService;
@@ -17,15 +21,26 @@ public class RentalHouseResourceServiceImpl extends PagingAndSortingService<Rent
 
 	@Autowired
 	private RentalClientService rentalClientService;
+	@Autowired
+	private RentalClientCheckinOrderService rentalClientCheckinOrderService;
 	
 	@Transactional(readOnly = false)
 	@Override
-	public void checkin(RentalClient rentalClient) {
+	public void checkin(RentalClientCheckinOrder rentalClientCheckinOrder) {
 		
-		rentalClientService.save(rentalClient);
+		rentalClientCheckinOrder.setCheckinDate(new Date());
+		rentalClientCheckinOrder.setStatus(0);
+		rentalClientCheckinOrderService.save(rentalClientCheckinOrder);
+		// 更新房客信息
+		RentalClient rentalClient = new RentalClient();
+		rentalClient.setStatus(0);
+		rentalClient.setId(rentalClientCheckinOrder.getRentalClientId());
+		rentalClient.setHouseId(rentalClientCheckinOrder.getHouseId());
+		rentalClientService.updateBySelective(rentalClient);
 		
+		// 更新房源信息状态
 		RentalHouseResource rentalHouseResource = new RentalHouseResource();
-		rentalHouseResource.setId(rentalClient.getHouseId());
+		rentalHouseResource.setId(rentalClientCheckinOrder.getHouseId());
 		rentalHouseResource.setStatus(1);
 		super.updateBySelective(rentalHouseResource);
 		
