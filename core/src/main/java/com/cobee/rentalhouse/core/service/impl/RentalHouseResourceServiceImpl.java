@@ -28,8 +28,11 @@ public class RentalHouseResourceServiceImpl extends PagingAndSortingService<Rent
 	@Override
 	public void checkin(RentalClientCheckinOrder rentalClientCheckinOrder) {
 		
+		// 从房源信息获取租房费用
+		RentalHouseResource dbRentalHouseResource = super.get(rentalClientCheckinOrder.getHouseId());
 		rentalClientCheckinOrder.setCheckinDate(new Date());
 		rentalClientCheckinOrder.setStatus(0);
+		rentalClientCheckinOrder.setRentalAmount(dbRentalHouseResource.getRentPrice());
 		rentalClientCheckinOrderService.save(rentalClientCheckinOrder);
 		// 更新房客信息
 		RentalClient rentalClient = new RentalClient();

@@ -39,14 +39,13 @@ public class RentalOrderController extends AbstractController {
 	public Map<String, Object> listData(RentalOrder rentalOrder)
 	{
 		Page<RentalOrder> page = rentalOrderService.findByPage(rentalOrder);
-		return RentalOrderLogic.toJqGridData(page);
+		return RentalOrderLogic.toDatagridData(page);
 	}
 	
 	@GetMapping("/form")
 	public String form()
 	{
 		return "rentalOrderForm";
-		
 	}
 	
 	@GetMapping("/detail/{id}")
@@ -59,11 +58,20 @@ public class RentalOrderController extends AbstractController {
 		
 	}
 	
-	@PostMapping("/save")
-	public String save(RentalOrder rentalOrder)
+	@PostMapping(value = "/save", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Map<String, Object> save(RentalOrder rentalOrder)
 	{
-		rentalOrderService.createRentalOrder(rentalOrder);
-		return "redirect:list";
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			rentalOrderService.createRentalOrder(rentalOrder);
+			resultMap.put("status", "success");
+		} catch (Exception e) {
+			logger.error("", e);
+			resultMap.put("status", "fail");
+			resultMap.put("msg", e.getMessage());
+		}
+		return resultMap;
 	}
 	
 	@RequestMapping("/audit/{id}")

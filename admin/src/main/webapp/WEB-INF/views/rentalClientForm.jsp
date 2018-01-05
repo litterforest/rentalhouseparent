@@ -13,6 +13,7 @@
 		<form id="inputForm" action="${ctx }/RentalClient/save" method="post" >
 			<input type="hidden" name="id" value="${rentalClient.id }" >
 			<input type="hidden" name="houseId" value="${param.rentalHouseResourceID }" >
+			<input type="hidden" name="status" value="${(empty rentalClient.status) ? 1 : rentalClient.status }" >
 			<input type="hidden" name="_csrf" value="${_csrf.token}" >
 			<table>
 				<tr>
@@ -33,45 +34,7 @@
 						<input id="idCardNo" name="idCardNo" type="text" class="easyui-textbox" value="${rentalClient.idCardNo }" >
 					</td>
 				</tr>
-				<tr>
-					<td>入住时电表度数</td>
-					<td>
-						<input id="checkinPower" name="checkinPower" type="text" class="easyui-textbox" value="${rentalClient.checkinPower }" >
-					</td>
-				</tr>
-				<tr>
-					<td>入住时水表数</td>
-					<td>
-						<input id="checkinWatermeter" name="checkinWatermeter" type="text" class="easyui-textbox" value="${rentalClient.checkinWatermeter }" >
-					</td>
-				</tr>
-				<tr>
-					<td>租用费</td>
-					<td>
-						<input id="rentalAmount" name="rentalAmount" type="text" class="easyui-textbox" value="${rentalClient.rentalAmount }" >
-					</td>
-				</tr>
-				<tr>
-					<td>押金</td>
-					<td>
-						<input id="depositAmount" name="depositAmount" type="text" class="easyui-textbox" value="${rentalClient.depositAmount }" >
-					</td>
-				</tr>
-				<c:if test="${param.view eq 'true' }" >
-				<tr>
-					<td>入住时间</td>
-					<td> 
-						<input id="checkinDate" name="checkinDate" class="easyui-textbox" value='<fmt:formatDate value="${rentalClient.checkinDate }" pattern="yyyy-MM-dd HH:mm:ss"  />' >
-					</td>
-				</tr>
 				
-				<tr>
-					<td>退房时间</td>
-					<td>
-						<input id="checkoutDate" name="checkoutDate" class="easyui-textbox" value="<fmt:formatDate value="${rentalClient.checkoutDate }" pattern="yyyy-MM-dd HH:mm:ss"  />" >
-					</td>
-				</tr>
-				</c:if>
 				<tr>
 					<td>备注</td>
 					<td><input id="remarks" class="easyui-textbox" name="remarks" value="${rentalClient.remarks }" data-options="multiline:true" ></td>
@@ -97,13 +60,16 @@
             	   var data = eval('(' + data + ')');
                    if (data.status == "success")
 	   				{
-	   					$.messager.alert('提示信息', '创建成功');
-	   					$('#win').window('close');
-	   					$("#searchBtn").click();
+                	   
+	   					$.messager.alert({title: '提示信息', msg: '创建成功', fn: function(){
+	   						$('#win').window('close');
+		   					$("#searchBtn").click();
+	   					}});
+	   					
 	   				}
 	   				else
 	   				{
-	   					$.messager.alert('提示信息', data.msg);
+	   					$.messager.alert('提示信息', data.msg, 'error');
 	   				}
                }
            });

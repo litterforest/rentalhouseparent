@@ -31,11 +31,39 @@ public class RentalOrder extends BaseEntity {
 	private Double diffWaterConsumption;
 	// 水费
 	private Double waterAmount;
+	// 房源ID
+	private Integer houseId;
 
 	private SecureUser secureUser;
+	private RentalHouseResource rentalHouseResource;
+	private RentalClientCheckinOrder rentalClientCheckinOrder;
 
 	public RentalOrder() {
 		super();
+	}
+
+	public RentalClientCheckinOrder getRentalClientCheckinOrder() {
+		return rentalClientCheckinOrder;
+	}
+
+	public void setRentalClientCheckinOrder(RentalClientCheckinOrder rentalClientCheckinOrder) {
+		this.rentalClientCheckinOrder = rentalClientCheckinOrder;
+	}
+
+	public RentalHouseResource getRentalHouseResource() {
+		return rentalHouseResource;
+	}
+
+	public void setRentalHouseResource(RentalHouseResource rentalHouseResource) {
+		this.rentalHouseResource = rentalHouseResource;
+	}
+
+	public Integer getHouseId() {
+		return houseId;
+	}
+
+	public void setHouseId(Integer houseId) {
+		this.houseId = houseId;
 	}
 
 	public Integer getRentalClientId() {

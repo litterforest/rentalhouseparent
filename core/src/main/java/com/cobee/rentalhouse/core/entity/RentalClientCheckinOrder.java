@@ -22,6 +22,26 @@ public class RentalClientCheckinOrder extends BaseEntity {
 	private Double checkoutPower;
 	private Double checkoutWatermeter;
 	private Integer status;
+	// 是否已生成第一张收费单,0--未生成 1--已生成
+	private Integer isFistOrder;
+
+	private RentalHouseResource rentalHouseResource;
+
+	public RentalHouseResource getRentalHouseResource() {
+		return rentalHouseResource;
+	}
+
+	public void setRentalHouseResource(RentalHouseResource rentalHouseResource) {
+		this.rentalHouseResource = rentalHouseResource;
+	}
+
+	public Integer getIsFistOrder() {
+		return isFistOrder;
+	}
+
+	public void setIsFistOrder(Integer isFistOrder) {
+		this.isFistOrder = isFistOrder;
+	}
 
 	public Integer getHouseId() {
 		return houseId;

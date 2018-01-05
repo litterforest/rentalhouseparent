@@ -15,13 +15,15 @@
     	    url: '${ctx}/RentalClient/list/data?' + $("#searchForm").serialize(),
     	    columns:[[
     	        {field:'id', title:'', checkbox: true},
-    	        {field:'operator', title:'操作', width:120, align:'left', halign:'center', formatter: function(value,row,index){
+    	        {field:'operator', title:'操作', width:180, align:'left', halign:'center', formatter: function(value,row,index){
     	        	 var resultStr = "";
 	            	 resultStr += "<input type=\"button\" value=\"查看\" onclick=\"return view_onclick("+ row.id +")\" >";
 	            	 
 	            	 if (row.status == 0)
             		 {
 	            		 resultStr += "<input type=\"button\" value=\"退房\" onclick=\"return checkout_onclick('"+ row.id +"', '"+ row.houseId +"')\" >";
+	            		 
+	            		 resultStr += "<input type=\"button\" value=\"收租\" onclick=\"return charge_onclick('"+ row.id +"', '"+ row.houseId +"')\" >";
             		 }
 	            	 
 	            	 return resultStr;
@@ -31,7 +33,7 @@
     	        {field:'idCardNo', title:'身份证号码', width:150, align:'center'},
     	        {field:'statusDesc', title:'租住状态', width:100, align:'center'},
     	        {field:'rentalHouseResourceName', title:'租房名称', width:100, align:'center'},
-    	        {field:'rentalHouseResourceAddress', title:'租房地址', width:180, align:'center'},
+    	        {field:'rentalHouseResourceAddress', title:'租房地址', width:220, align:'center'},
     	    ]],
     	    method: 'get',
     	    pageList: [10,20,30,50,100],
@@ -68,6 +70,15 @@
 		$('#win').window('refresh', '${ctx }/RentalClient/form?view=true&id=' + id);
 		return false;
 	}
+	
+	
+	function charge_onclick(clientID, houseID)
+	{
+		$('#win').window({title: '房客收租'});
+		$('#win').window('open');
+		$('#win').window('refresh', '${ctx }/rentalorder/form?houseId=' + houseID + '&rentalClientId=' + clientID);
+		return false;
+	}
 
 	function checkout_onclick(rentalClientID, houseID)
 	{
@@ -91,6 +102,7 @@
 		    }
 		});
 	}
+	
 	
 </script>
 </head>

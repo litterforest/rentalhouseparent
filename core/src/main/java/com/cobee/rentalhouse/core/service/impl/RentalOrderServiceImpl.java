@@ -8,14 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cobee.rentalhouse.core.component.page.PageRequest;
 import com.cobee.rentalhouse.core.dao.impl.RentalOrderMapper;
+import com.cobee.rentalhouse.core.entity.RentalClientCheckinOrder;
 import com.cobee.rentalhouse.core.entity.RentalOrder;
 import com.cobee.rentalhouse.core.entity.SecureUser;
 import com.cobee.rentalhouse.core.entity.SysVariables;
+import com.cobee.rentalhouse.core.service.RentalClientCheckinOrderService;
 import com.cobee.rentalhouse.core.service.RentalOrderService;
 import com.cobee.rentalhouse.core.service.SysVariablesService;
 import com.cobee.rentalhouse.core.service.support.PagingAndSortingService;
-import com.cobee.rentalhouse.core.util.NumericUtils;
 
 
 @Service
@@ -23,41 +25,114 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 	
 	@Autowired
 	private SysVariablesService sysVariablesService;
+	@Autowired
+	private RentalClientCheckinOrderService rentalClientCheckinOrderService;
 
 	@Override
 	@Transactional(readOnly = false)
 	public void createRentalOrder(RentalOrder rentalOrder) {
 		
-		SecureUser user = (SecureUser) SecurityUtils.getSubject().getPrincipal();
-		SysVariables sysVariables = new SysVariables();
-		sysVariables.setUserId(user.getId());
-		List<SysVariables> sysVariablesList = sysVariablesService.list(sysVariables);
-		SysVariables dbSysVariables = sysVariablesList.get(0);
-
-		if (rentalOrder.getId() == null)
+		// 1,查找是否是否已生成第一张收费单
+		RentalClientCheckinOrder rentalClientCheckinOrderQuery = new RentalClientCheckinOrder();
+		rentalClientCheckinOrderQuery.setIsFistOrder(0);
+		rentalClientCheckinOrderQuery.setStatus(0);
+		rentalClientCheckinOrderQuery.setHouseId(rentalOrder.getHouseId());
+		rentalClientCheckinOrderQuery.setRentalClientId(rentalOrder.getRentalClientId());
+		List<RentalClientCheckinOrder> rentalClientCheckinOrderList = rentalClientCheckinOrderService.list(rentalClientCheckinOrderQuery);
+		if (!CollectionUtils.isEmpty(rentalClientCheckinOrderList))
 		{
-			rentalOrder.setUserId(user.getId());
+			RentalClientCheckinOrder dbRentalClientCheckinOrder = rentalClientCheckinOrderList.get(0);
+			// 入住时电表度数
+			Double checkinPower = dbRentalClientCheckinOrder.getCheckinPower() == null ? 0.0D : dbRentalClientCheckinOrder.getCheckinPower();
+			// 入住时水表数
+			Double checkinWatermeter = dbRentalClientCheckinOrder.getCheckinWatermeter();
+			// 租用费
+			Double rentalAmount = dbRentalClientCheckinOrder.getRentalAmount();
+			// 标准电费
+			Double standardElectAmount = dbRentalClientCheckinOrder.getRentalHouseResource().getStandardElectAmount();
+			// 标准水费
+			Double standardWaterAmount = dbRentalClientCheckinOrder.getRentalHouseResource().getStandardWaterAmount();
+			
+			// 电表度数
+			Double powerConsumption = rentalOrder.getPowerConsumption() == null ? 0.0D : rentalOrder.getPowerConsumption();
+			// 用电度数
+			Double diffPowerConsumption = powerConsumption - checkinPower;
+			// 电费
+			Double electricityAmount = diffPowerConsumption * standardElectAmount;
+			// 水表度数
+			Double waterConsumption = rentalOrder.getWaterConsumption() == null ? 0.0D : rentalOrder.getWaterConsumption();
+			// 用水度数
+			Double diffWaterConsumption = waterConsumption - checkinWatermeter;
+			// 水费
+			Double waterAmount = diffWaterConsumption * standardWaterAmount;
+			// 扣减费用
+			Double deductionAmount = rentalOrder.getDeductionAmount() == null ? 0.0D : rentalOrder.getDeductionAmount();
+			// 总费用
+			Double totalAmount = electricityAmount + waterAmount + rentalAmount - deductionAmount;
+			rentalOrder.setTotalAmount(totalAmount);
+			rentalOrder.setElectricityAmount(electricityAmount);
+			rentalOrder.setDiffPowerConsumption(diffPowerConsumption);
+			rentalOrder.setDiffWaterConsumption(diffWaterConsumption);
+			rentalOrder.setWaterAmount(waterAmount);
+			rentalOrder.setStatus(100);
+			save(rentalOrder);
+			
+			// 更新首次收租费用标志
+			RentalClientCheckinOrder newRentalClientCheckinOrder = new RentalClientCheckinOrder();
+			newRentalClientCheckinOrder.setId(dbRentalClientCheckinOrder.getId());
+			newRentalClientCheckinOrder.setIsFistOrder(1);
+			rentalClientCheckinOrderService.updateBySelective(newRentalClientCheckinOrder);
 		}
-		
-//		Double lastPowerConsumption = rentalOrder.getRentalType() == 0 ? dbSysVariables.getCurrentRentingPowerConsumption() : rentalOrder.getRentalType() == 1 ? dbSysVariables.getCurrentBerthPowerConsumption() : 0.0D;
-//		rentalOrder.setLastPowerConsumption(lastPowerConsumption);
-//		Double diffPowerConsumption = rentalOrder.getPowerConsumption() - lastPowerConsumption;
-//		rentalOrder.setDiffPowerConsumption(diffPowerConsumption);
-//		Double electricityAmount = 0.0;
-//		if (NumericUtils.equal(rentalOrder.getRentalType(), 0))
-//		{
-//			electricityAmount = diffPowerConsumption * dbSysVariables.getStandardRentingElectricity();
-//		}
-//		else if(NumericUtils.equal(rentalOrder.getRentalType(), 1))
-//		{
-//			electricityAmount = diffPowerConsumption * dbSysVariables.getStandardBerthElectricity();
-//		}
-//		rentalOrder.setElectricityAmount(electricityAmount);
-//		
-//		Double totalAmount = rentalOrder.getRentalAmount() + rentalOrder.getElectricityAmount() - rentalOrder.getDeductionAmount();
-//		rentalOrder.setTotalAmount(totalAmount);
-		
-		save(rentalOrder);
+		else
+		{
+			// 2,查找是否已存在最新的收费单
+			RentalOrder rentalOrderQuery = new RentalOrder();
+			rentalOrderQuery.setHouseId(rentalOrder.getHouseId());
+			rentalOrderQuery.setRentalClientId(rentalOrder.getRentalClientId());
+			PageRequest pageRequest = new PageRequest();
+			pageRequest.setOrderByClause(" order by a.id desc ");
+			rentalOrderQuery.setPageRequest(pageRequest);
+			List<RentalOrder> rentalOrderList = super.list(rentalOrderQuery);
+			if (!CollectionUtils.isEmpty(rentalOrderList))
+			{
+				RentalOrder dbRentalOrder = rentalOrderList.get(0);
+				// 电表度数
+				Double lastPowerConsumption = dbRentalOrder.getPowerConsumption() == null ? 0.0D : dbRentalOrder.getPowerConsumption();
+				// 水表度数
+				Double lastWaterConsumption = dbRentalOrder.getWaterConsumption() == null ? 0.0D : dbRentalOrder.getWaterConsumption();
+				// 租用费
+				Double rentalAmount = dbRentalOrder.getRentalClientCheckinOrder().getRentalAmount();
+				// 标准电费
+				Double standardElectAmount = dbRentalOrder.getRentalHouseResource().getStandardElectAmount();
+				// 标准水费
+				Double standardWaterAmount = dbRentalOrder.getRentalHouseResource().getStandardWaterAmount();
+				
+				
+				// 电表度数
+				Double powerConsumption = rentalOrder.getPowerConsumption() == null ? 0.0D : rentalOrder.getPowerConsumption();
+				// 用电度数
+				Double diffPowerConsumption = powerConsumption - lastPowerConsumption;
+				// 电费
+				Double electricityAmount = diffPowerConsumption * standardElectAmount;
+				// 水表度数
+				Double waterConsumption = rentalOrder.getWaterConsumption() == null ? 0.0D : rentalOrder.getWaterConsumption();
+				// 用水度数
+				Double diffWaterConsumption = waterConsumption - lastWaterConsumption;
+				// 水费
+				Double waterAmount = diffWaterConsumption * standardWaterAmount;
+				// 扣减费用
+				Double deductionAmount = rentalOrder.getDeductionAmount() == null ? 0.0D : rentalOrder.getDeductionAmount();
+				// 总费用
+				Double totalAmount = electricityAmount + waterAmount + rentalAmount - deductionAmount;
+				rentalOrder.setTotalAmount(totalAmount);
+				rentalOrder.setElectricityAmount(electricityAmount);
+				rentalOrder.setDiffPowerConsumption(diffPowerConsumption);
+				rentalOrder.setDiffWaterConsumption(diffWaterConsumption);
+				rentalOrder.setWaterAmount(waterAmount);
+				rentalOrder.setStatus(100);
+				save(rentalOrder);
+			}
+		}
 		
 	}
 

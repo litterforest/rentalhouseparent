@@ -107,13 +107,14 @@
             	   var data = eval('(' + data + ')');
                    if (data.status == "success")
 	   				{
-	   					$.messager.alert('提示信息', '创建成功');
-	   					$('#win').window('close');
-	   					$("#searchBtn").click();
+	   					$.messager.alert({title: '提示信息', msg: '创建成功', fn: function(){
+	   						$('#win').window('close');
+		   					$("#searchBtn").click();
+	   					}});
 	   				}
 	   				else
 	   				{
-	   					$.messager.alert('提示信息', data.msg);
+	   					$.messager.alert('提示信息', data.msg, 'error');
 	   				}
                }
            });

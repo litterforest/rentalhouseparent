@@ -23,12 +23,15 @@
 		a.water_consumption,
 		a.diff_water_consumption,
 		a.water_amount,
+		a.house_id,
 		b.realname as "baseUser.realname",
-		c.standard_Renting_Electricity as "secureUser.sysVariables.standardRentingElectricity",
-		c.standard_Berth_Electricity as "secureUser.sysVariables.standardBerthElectricity"
+		c.standard_elect_amount as "rentalHouseResource.standardElectAmount",
+		c.standard_water_amount as "rentalHouseResource.standardWaterAmount",
+		d.rental_amount as "rentalClientCheckinOrder.rentalAmount"
 		from rental_order a
 		left join secure_user b on b.id = a.user_id
-		left join sys_variables c on c.user_id = b.id
+		left join rental_house_resource c on c.id = a.house_id
+		left join rental_client_checkin_order d on (d.house_id = a.house_id and d.rental_client_id = a.rental_client_id and d.status = 0)
 	</sql>
 	
 	<sql id="whereClause">
@@ -150,6 +153,9 @@
 				<if test="waterAmount != null">
 					water_amount,
 				</if>
+				<if test="houseId != null">
+					house_id,
+				</if>
 			</trim>
 		) values (
 			<trim suffixOverrides=",">
@@ -207,6 +213,9 @@
 				</if>
 				<if test="waterAmount != null">
 					#{waterAmount},
+				</if>
+				<if test="houseId != null">
+					#{houseId},
 				</if>
 				
 			</trim>
@@ -273,6 +282,9 @@
 				</if>
 				<if test="waterAmount != null">
 					water_Amount = #{waterAmount},
+				</if>
+				<if test="houseId != null">
+					house_Id = #{houseId},
 				</if>
 				
 			</trim>

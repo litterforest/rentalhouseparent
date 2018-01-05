@@ -63,5 +63,37 @@ public class RentalOrderLogic extends RentalOrder {
 		dataMap.put("rows", list);
 		return dataMap;
 	}
+	
+	public static Map<String, Object> toDatagridData(Page<RentalOrder> page) {
+		Map<String, Object> dataMap = new HashMap<>();
+		dataMap.put("total", page.getTotalCount());
+		List<Map<String, Object>> list = new ArrayList<>();
+		if (!CollectionUtils.isEmpty(page.getContent())) {
+			
+			for (int i = 0; i < page.getContent().size(); i++)
+			{
+				RentalOrderLogic po = (RentalOrderLogic) page.getContent().get(i);
+				Map<String, Object> voMap = new HashMap<>();
+				voMap.put("id", po.getId());
+				voMap.put("yearAndMonth", po.getYear() + "-" + po.getMonth());
+				voMap.put("rentalTypeDesc", po.getRentalTypeDesc());
+				voMap.put("rentalAmount", po.getRentalClientCheckinOrder() == null ? "" : po.getRentalClientCheckinOrder().getRentalAmount());
+				voMap.put("electricityAmount", po.getElectricityAmount());
+				voMap.put("diffPowerConsumption", po.getDiffPowerConsumption());
+				voMap.put("waterAmount", po.getWaterAmount());
+				voMap.put("diffWaterConsumption", po.getDiffWaterConsumption());
+				voMap.put("deductionAmount", po.getDeductionAmount());
+				voMap.put("totalAmount", po.getTotalAmount());
+				voMap.put("status", po.getStatus() == null ? 0 : po.getStatus());
+				voMap.put("statusDesc", po.getStatusDesc());
+				voMap.put("createDate", po.getCreateDate() == null ? "" : new DateTime(po.getCreateDate()).toString("yyyy-MM-dd HH:mm:ss"));
+				
+				list.add(voMap);
+			}
+			
+		}
+		dataMap.put("rows", list);
+		return dataMap;
+	}
 
 }

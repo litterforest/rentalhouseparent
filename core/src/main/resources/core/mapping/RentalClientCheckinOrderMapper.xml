@@ -19,8 +19,12 @@
 		a.deposit_amount,
 		a.checkout_power,
 		a.checkout_watermeter,
-		a.status
+		a.status,
+		a.is_fist_order,
+		b.standard_elect_amount as "rentalHouseResource.standardElectAmount",
+		b.standard_water_amount as "rentalHouseResource.standardWaterAmount"
 		from rental_client_checkin_order a
+		left join rental_house_resource b on b.id = a.house_id
 	</sql>
 	
 	<sql id="whereClause">
@@ -40,6 +44,10 @@
 				
 				<if test="status != null">
 					and a.status = #{status}
+				</if>
+				
+				<if test="isFistOrder != null">
+					and a.is_fist_order = #{isFistOrder}
 				</if>
 				
 			</trim>
@@ -148,6 +156,10 @@
 					status,
 				</if>
 				
+				<if test="isFistOrder != null">
+					is_Fist_Order,
+				</if>
+				
 				
 				
 			</trim>
@@ -201,6 +213,10 @@
 				</if>
 				<if test="status != null">
 					#{status},
+				</if>
+				
+				<if test="isFistOrder != null">
+					#{isFistOrder},
 				</if>
 				
 			</trim>
@@ -271,6 +287,10 @@
 				
 				<if test="status != null">
 					status = #{status},
+				</if>
+				
+				<if test="isFistOrder != null">
+					is_Fist_Order = #{isFistOrder},
 				</if>
 				
 			</trim>

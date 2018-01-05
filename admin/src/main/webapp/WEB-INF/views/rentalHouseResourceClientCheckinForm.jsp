@@ -52,12 +52,12 @@
 					</td>
 				</tr>
 				
-				<tr>
+				<%-- <tr>
 					<td>租用费</td>
 					<td>
 						<input id="rentalAmount" name="rentalAmount" type="text" class="easyui-textbox" style="width:180px;" value="${rentalClient.rentalAmount }" >
 					</td>
-				</tr>
+				</tr> --%>
 				
 				<tr>
 					<td>押金</td>
@@ -107,13 +107,16 @@
             	   var data = eval('(' + data + ')');
                    if (data.status == "success")
 	   				{
-	   					$.messager.alert('提示信息', '创建成功');
-	   					$('#win').window('close');
-	   					$("#searchBtn").click();
+                	   
+	   					$.messager.alert({title: '提示信息', msg: '创建成功', fn: function(){
+	   						$('#win').window('close');
+		   					$("#searchBtn").click();
+	   					}});
+	   					
 	   				}
 	   				else
 	   				{
-	   					$.messager.alert('提示信息', data.msg);
+	   					$.messager.alert('提示信息', data.msg, 'error');
 	   				}
                },
                onSubmit: function(){

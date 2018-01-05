@@ -26,7 +26,9 @@
     			}},
     	        {field:'name', title:'房屋名称', width:140, align:'center'},
     	        {field:'houseCode', title:'房屋编号', width:140, align:'center'},
-    	        {field:'areaAddress', title:'所属区域', width:180, align:'center'},
+    	        {field:'areaAddress', title:'所属区域', width:180, align:'center', formatter: function(value,row,index){
+    	        	 return "<span title='" + value + "'>" + value + "</span>";
+				}},
     	        {field:'houseTypeDesc', title:'房型', width:100, align:'center'},
     	        {field:'decorationSituation', title:'装修情况', width:180, align:'center'},
     	        {field:'rentPrice', title:'出租价格', width:100, align:'center'},
