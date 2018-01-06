@@ -32,7 +32,6 @@
 			<properties>
 				<profile.env>prod</profile.env>
 			</properties>
-			
 		</profile>
 
 	</profiles>
