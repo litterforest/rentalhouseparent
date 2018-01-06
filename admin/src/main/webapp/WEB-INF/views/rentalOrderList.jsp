@@ -17,19 +17,19 @@
     	        {field:'id', title:'', checkbox: true},
     	        {field:'operator', title:'操作', width:120, align:'left', halign:'center', formatter: function(value,row,index){
     	        	 var resultStr = "";
-	            	 resultStr += "<input type=\"button\" value=\"查看\" onclick=\"location='${ctx}/rentalorder/detail/"+ row.id +"'\" >";
+	            	 resultStr += "<input type=\"button\" value=\"查看\" onclick=\"view_onclick('"+ row.id +"')\" >";
 	            	 return resultStr;
     			}},
-    	        {field:'yearAndMonth', title:'收费日期', width:120, align:'center'},
-    	        {field:'rentalAmount', title:'基本租金', width:150, align:'center'},
+    	        {field:'yearAndMonth', title:'收费日期', width:100, align:'center'},
+    	        {field:'rentalAmount', title:'基本租金', width:100, align:'center'},
     	        {field:'electricityAmount', title:'电费', width:100, align:'center'},
     	        {field:'diffPowerConsumption', title:'用电度数', width:100, align:'center'},
     	        {field:'waterAmount', title:'水费', width:100, align:'center'},
     	        {field:'diffWaterConsumption', title:'用水度数', width:100, align:'center'},
     	        {field:'deductionAmount', title:'扣减费用', width:100, align:'center'},
-    	        {field:'totalAmount', title:'总费用', width:220, align:'center'},
-    	        {field:'statusDesc', title:'审核状态', width:220, align:'center'},
-    	        {field:'createDate', title:'创建日期', width:220, align:'center'},
+    	        {field:'totalAmount', title:'总费用', width:100, align:'center'},
+    	        {field:'statusDesc', title:'审核状态', width:100, align:'center'},
+    	        {field:'createDate', title:'创建日期', width:140, align:'center'},
     	    ]],
     	    method: 'get',
     	    pageList: [10,20,30,50,100],
@@ -39,6 +39,14 @@
 	   	    	param["pageRequest.currentPage"] = param.page;
 	   	    	param["pageRequest.pageSize"] = param.rows;
    	    	}
+    	});
+		
+		$('#win').window({
+    	    width: 450,
+    	    height: 500,
+    	    minimizable: false,
+    	    modal: true,
+    	    closed: true
     	});
 		
 	});
@@ -67,6 +75,14 @@
 		
 	}
 	
+	function view_onclick(id)
+	{
+		$('#win').window({title: '查看收租信息'});
+		$('#win').window('open');
+		$('#win').window('refresh', '${ctx}/rentalorder/detail/' + id);
+		return false;
+	}
+	
 </script>
 </head>
 <body>
@@ -80,7 +96,7 @@
 		年份:<input id="year" name="year" type="text" value="${rentalOrder.year }" >
 	</p>
 	<p>
-		<input type="button" value="添加" onclick="create_onclick();" > <input type="reset" value="重置" > <input type="button" value="查询" onclick="dataGridSearchData('#datagrid-table', '${ctx}/rentalorder/list/data?' + $('#searchForm').serialize());" >
+		<!-- <input type="button" value="添加" onclick="create_onclick();" > --> <input type="reset" value="重置" > <input type="button" value="查询" onclick="dataGridSearchData('#datagrid-table', '${ctx}/rentalorder/list/data?' + $('#searchForm').serialize());" >
 	</p>
 	</form>
 	

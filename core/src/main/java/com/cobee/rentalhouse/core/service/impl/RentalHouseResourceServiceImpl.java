@@ -33,6 +33,8 @@ public class RentalHouseResourceServiceImpl extends PagingAndSortingService<Rent
 		rentalClientCheckinOrder.setCheckinDate(new Date());
 		rentalClientCheckinOrder.setStatus(0);
 		rentalClientCheckinOrder.setRentalAmount(dbRentalHouseResource.getRentPrice());
+		rentalClientCheckinOrder.setStandardElectAmount(dbRentalHouseResource.getStandardElectAmount());
+		rentalClientCheckinOrder.setStandardWaterAmount(dbRentalHouseResource.getStandardWaterAmount());
 		rentalClientCheckinOrderService.save(rentalClientCheckinOrder);
 		// 更新房客信息
 		RentalClient rentalClient = new RentalClient();

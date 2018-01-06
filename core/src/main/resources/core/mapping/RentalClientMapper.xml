@@ -16,10 +16,12 @@
 		a.status,
 		b.name as "rentalHouseResource.name",
 		b.address as "rentalHouseResource.address",
-		c.fullname as "rentalHouseResource.baseArea.fullname"
+		c.fullname as "rentalHouseResource.baseArea.fullname",
+		d.id as "currentRentalClientCheckinOrder.id"
 		from rental_client a
 		left join rental_house_resource b on (b.id = a.house_id and a.status = 0 and b.status = 1)
 		left join base_area c on c.city_id = b.city_id
+		left join rental_client_checkin_order d on (d.house_id = a.house_id and d.rental_client_id = a.id and d.status = 0)
 	</sql>
 	
 	<sql id="whereClause">

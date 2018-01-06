@@ -23,7 +23,7 @@
             		 {
 	            		 resultStr += "<input type=\"button\" value=\"退房\" onclick=\"return checkout_onclick('"+ row.id +"', '"+ row.houseId +"')\" >";
 	            		 
-	            		 resultStr += "<input type=\"button\" value=\"收租\" onclick=\"return charge_onclick('"+ row.id +"', '"+ row.houseId +"')\" >";
+	            		 resultStr += "<input type=\"button\" value=\"收租\" onclick=\"return charge_onclick('"+ row.id +"', '"+ row.houseId +"', '"+ row.currentRentalClientCheckinOrderId +"')\" >";
             		 }
 	            	 
 	            	 return resultStr;
@@ -72,11 +72,11 @@
 	}
 	
 	
-	function charge_onclick(clientID, houseID)
+	function charge_onclick(clientID, houseID, currentRentalClientCheckinOrderId)
 	{
 		$('#win').window({title: '房客收租'});
 		$('#win').window('open');
-		$('#win').window('refresh', '${ctx }/rentalorder/form?houseId=' + houseID + '&rentalClientId=' + clientID);
+		$('#win').window('refresh', '${ctx }/rentalorder/form?houseId=' + houseID + '&rentalClientId=' + clientID + '&rentalClientCheckinOrderId=' + currentRentalClientCheckinOrderId);
 		return false;
 	}
 

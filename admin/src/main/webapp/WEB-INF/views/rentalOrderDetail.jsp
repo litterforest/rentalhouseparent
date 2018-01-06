@@ -8,21 +8,26 @@
 <%@ include file="include/pageResources.jsp" %>
 </head>
 <body>
-	<%@ include file="include/header.jsp" %>
+	<div class="easyui-panel" style="width:100%;padding:10px;border:0;">
 	<table border="1">
-
 		<tr>
 			<td>收费年月</td>
 			<td>${rentalOrder.year }-${rentalOrder.month }</td>
 		</tr>
-		<tr>
+		<%-- <tr>
 			<td>出租类型</td>
 			<td>${rentalOrder.rentalTypeDesc }</td>
-		</tr>
+		</tr> --%>
 		<tr>
 			<td>月租金</td>
-			<td><fmt:formatNumber value="${rentalOrder.rentalAmount }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
+			<td><fmt:formatNumber value="${rentalOrder.rentalClientCheckinOrder.rentalAmount }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
 		</tr>
+		
+		<tr>
+			<td>电费</td>
+			<td><fmt:formatNumber value="${rentalOrder.electricityAmount }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
+		</tr>
+		
 		<tr>
 			<td>上月电度数</td> 
 			<td><fmt:formatNumber value="${rentalOrder.lastPowerConsumption }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
@@ -39,21 +44,35 @@
 		
 		<tr>
 			<td>电费标准(度/元)</td>
-			<td>
-				<c:choose>
-					<c:when test="${rentalOrder.rentalType eq 0 }">
-						<fmt:formatNumber value="${rentalOrder.secureUser.sysVariables.standardRentingElectricity }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" />
-					</c:when>
-					<c:when test="${rentalOrder.rentalType eq 1 }">
-						<fmt:formatNumber value="${rentalOrder.secureUser.sysVariables.standardBerthElectricity }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" />
-					</c:when>
-				</c:choose>
+			<td> 
+				<fmt:formatNumber value="${rentalOrder.rentalClientCheckinOrder.standardElectAmount }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber>
 			</td>
 		</tr>
 		
 		<tr>
-			<td>电费</td>
-			<td><fmt:formatNumber value="${rentalOrder.electricityAmount }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
+			<td>水费</td>
+			<td><fmt:formatNumber value="${rentalOrder.waterAmount }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
+		</tr>
+		
+		<tr>
+			<td>上月水表度数</td> 
+			<td><fmt:formatNumber value="${rentalOrder.lastWaterConsumption }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
+		</tr>
+		<tr>
+			<td>当月用水度数</td>
+			<td><fmt:formatNumber value="${rentalOrder.waterConsumption }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
+		</tr>
+		
+		<tr>
+			<td>实用水度数</td>
+			<td><fmt:formatNumber value="${rentalOrder.diffWaterConsumption }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber></td>
+		</tr>
+		
+		<tr>
+			<td>电费标准(度/元)</td>
+			<td> 
+				<fmt:formatNumber value="${rentalOrder.rentalClientCheckinOrder.standardWaterAmount }" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" ></fmt:formatNumber>
+			</td>
 		</tr>
 		
 		<tr>
@@ -87,10 +106,9 @@
 				<input type="button"
 				value="审核" onclick="location='${ctx }/rentalorder/audit/${rentalOrder.id }'" >
 			</c:if>
-			<input type="button"
-				value="返回" onclick="location='${ctx }/rentalorder/list'"></td>
 		</tr>
 
 	</table>
+	</div>
 </body>
 </html>

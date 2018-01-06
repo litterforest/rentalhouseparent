@@ -36,8 +36,7 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 		RentalClientCheckinOrder rentalClientCheckinOrderQuery = new RentalClientCheckinOrder();
 		rentalClientCheckinOrderQuery.setIsFistOrder(0);
 		rentalClientCheckinOrderQuery.setStatus(0);
-		rentalClientCheckinOrderQuery.setHouseId(rentalOrder.getHouseId());
-		rentalClientCheckinOrderQuery.setRentalClientId(rentalOrder.getRentalClientId());
+		rentalClientCheckinOrderQuery.setId(rentalOrder.getRentalClientCheckinOrderId());
 		List<RentalClientCheckinOrder> rentalClientCheckinOrderList = rentalClientCheckinOrderService.list(rentalClientCheckinOrderQuery);
 		if (!CollectionUtils.isEmpty(rentalClientCheckinOrderList))
 		{
@@ -49,9 +48,9 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 			// 租用费
 			Double rentalAmount = dbRentalClientCheckinOrder.getRentalAmount();
 			// 标准电费
-			Double standardElectAmount = dbRentalClientCheckinOrder.getRentalHouseResource().getStandardElectAmount();
+			Double standardElectAmount = dbRentalClientCheckinOrder.getStandardElectAmount();
 			// 标准水费
-			Double standardWaterAmount = dbRentalClientCheckinOrder.getRentalHouseResource().getStandardWaterAmount();
+			Double standardWaterAmount = dbRentalClientCheckinOrder.getStandardWaterAmount();
 			
 			// 电表度数
 			Double powerConsumption = rentalOrder.getPowerConsumption() == null ? 0.0D : rentalOrder.getPowerConsumption();
@@ -69,6 +68,8 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 			Double deductionAmount = rentalOrder.getDeductionAmount() == null ? 0.0D : rentalOrder.getDeductionAmount();
 			// 总费用
 			Double totalAmount = electricityAmount + waterAmount + rentalAmount - deductionAmount;
+			rentalOrder.setLastPowerConsumption(checkinPower);
+			rentalOrder.setLastWaterConsumption(checkinWatermeter);
 			rentalOrder.setTotalAmount(totalAmount);
 			rentalOrder.setElectricityAmount(electricityAmount);
 			rentalOrder.setDiffPowerConsumption(diffPowerConsumption);
@@ -87,8 +88,7 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 		{
 			// 2,查找是否已存在最新的收费单
 			RentalOrder rentalOrderQuery = new RentalOrder();
-			rentalOrderQuery.setHouseId(rentalOrder.getHouseId());
-			rentalOrderQuery.setRentalClientId(rentalOrder.getRentalClientId());
+			rentalOrderQuery.setRentalClientCheckinOrderId(rentalOrder.getRentalClientCheckinOrderId());
 			PageRequest pageRequest = new PageRequest();
 			pageRequest.setOrderByClause(" order by a.id desc ");
 			rentalOrderQuery.setPageRequest(pageRequest);
@@ -103,9 +103,9 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 				// 租用费
 				Double rentalAmount = dbRentalOrder.getRentalClientCheckinOrder().getRentalAmount();
 				// 标准电费
-				Double standardElectAmount = dbRentalOrder.getRentalHouseResource().getStandardElectAmount();
+				Double standardElectAmount = dbRentalOrder.getRentalClientCheckinOrder().getStandardElectAmount();
 				// 标准水费
-				Double standardWaterAmount = dbRentalOrder.getRentalHouseResource().getStandardWaterAmount();
+				Double standardWaterAmount = dbRentalOrder.getRentalClientCheckinOrder().getStandardWaterAmount();
 				
 				
 				// 电表度数
@@ -124,6 +124,8 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 				Double deductionAmount = rentalOrder.getDeductionAmount() == null ? 0.0D : rentalOrder.getDeductionAmount();
 				// 总费用
 				Double totalAmount = electricityAmount + waterAmount + rentalAmount - deductionAmount;
+				rentalOrder.setLastPowerConsumption(lastPowerConsumption);
+				rentalOrder.setLastWaterConsumption(lastWaterConsumption);
 				rentalOrder.setTotalAmount(totalAmount);
 				rentalOrder.setElectricityAmount(electricityAmount);
 				rentalOrder.setDiffPowerConsumption(diffPowerConsumption);

@@ -24,8 +24,28 @@ public class RentalClientCheckinOrder extends BaseEntity {
 	private Integer status;
 	// 是否已生成第一张收费单,0--未生成 1--已生成
 	private Integer isFistOrder;
+	// 标准电费
+	private Double standardElectAmount;
+	// 标准水费
+	private Double standardWaterAmount;
 
 	private RentalHouseResource rentalHouseResource;
+
+	public Double getStandardElectAmount() {
+		return standardElectAmount;
+	}
+
+	public void setStandardElectAmount(Double standardElectAmount) {
+		this.standardElectAmount = standardElectAmount;
+	}
+
+	public Double getStandardWaterAmount() {
+		return standardWaterAmount;
+	}
+
+	public void setStandardWaterAmount(Double standardWaterAmount) {
+		this.standardWaterAmount = standardWaterAmount;
+	}
 
 	public RentalHouseResource getRentalHouseResource() {
 		return rentalHouseResource;

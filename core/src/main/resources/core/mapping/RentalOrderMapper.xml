@@ -19,19 +19,19 @@
 		a.deduction_Amount,
 		a.diff_Power_Consumption,
 		a.user_id,
-		a.rental_client_id,
 		a.water_consumption,
 		a.diff_water_consumption,
 		a.water_amount,
-		a.house_id,
+		a.rental_client_checkin_order_id,
+		a.last_power_consumption,
+		a.last_water_consumption,
 		b.realname as "baseUser.realname",
-		c.standard_elect_amount as "rentalHouseResource.standardElectAmount",
-		c.standard_water_amount as "rentalHouseResource.standardWaterAmount",
-		d.rental_amount as "rentalClientCheckinOrder.rentalAmount"
+		c.standard_elect_amount as "rentalClientCheckinOrder.standardElectAmount",
+		c.standard_water_amount as "rentalClientCheckinOrder.standardWaterAmount",
+		c.rental_amount as "rentalClientCheckinOrder.rentalAmount"
 		from rental_order a
 		left join secure_user b on b.id = a.user_id
-		left join rental_house_resource c on c.id = a.house_id
-		left join rental_client_checkin_order d on (d.house_id = a.house_id and d.rental_client_id = a.rental_client_id and d.status = 0)
+		left join rental_client_checkin_order c on c.id = a.rental_client_checkin_order_id
 	</sql>
 	
 	<sql id="whereClause">
@@ -42,6 +42,9 @@
 				</if>
 				<if test="status != null">
 					and a.status = #{status}
+				</if>
+				<if test="rentalClientCheckinOrderId != null">
+					and a.rental_client_checkin_order_id = #{rentalClientCheckinOrderId}
 				</if>
 			</trim>
 		</where>
@@ -156,6 +159,15 @@
 				<if test="houseId != null">
 					house_id,
 				</if>
+				<if test="rentalClientCheckinOrderId != null">
+					rental_client_checkin_order_id,
+				</if>
+				<if test="lastPowerConsumption != null">
+					last_power_consumption,
+				</if>
+				<if test="lastWaterConsumption != null">
+					last_water_consumption,
+				</if>
 			</trim>
 		) values (
 			<trim suffixOverrides=",">
@@ -216,6 +228,15 @@
 				</if>
 				<if test="houseId != null">
 					#{houseId},
+				</if>
+				<if test="rentalClientCheckinOrderId != null">
+					#{rentalClientCheckinOrderId},
+				</if>
+				<if test="lastPowerConsumption != null">
+					#{lastPowerConsumption},
+				</if>
+				<if test="lastWaterConsumption != null">
+					#{lastWaterConsumption},
 				</if>
 				
 			</trim>
@@ -285,6 +306,15 @@
 				</if>
 				<if test="houseId != null">
 					house_Id = #{houseId},
+				</if>
+				<if test="rentalClientCheckinOrderId != null">
+					rental_client_checkin_order_id = #{rentalClientCheckinOrderId},
+				</if>
+				<if test="lastPowerConsumption != null">
+					last_power_consumption = #{lastPowerConsumption},
+				</if>
+				<if test="lastWaterConsumption != null">
+					last_water_consumption = #{lastWaterConsumption},
 				</if>
 				
 			</trim>

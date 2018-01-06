@@ -21,10 +21,9 @@
 		a.checkout_watermeter,
 		a.status,
 		a.is_fist_order,
-		b.standard_elect_amount as "rentalHouseResource.standardElectAmount",
-		b.standard_water_amount as "rentalHouseResource.standardWaterAmount"
+		a.standard_elect_amount,
+		a.standard_water_amount
 		from rental_client_checkin_order a
-		left join rental_house_resource b on b.id = a.house_id
 	</sql>
 	
 	<sql id="whereClause">
@@ -48,6 +47,10 @@
 				
 				<if test="isFistOrder != null">
 					and a.is_fist_order = #{isFistOrder}
+				</if>
+				
+				<if test="id != null">
+					and a.id = #{id}
 				</if>
 				
 			</trim>
@@ -157,7 +160,15 @@
 				</if>
 				
 				<if test="isFistOrder != null">
-					is_Fist_Order,
+					is_fist_order,
+				</if>
+				
+				<if test="standardElectAmount != null">
+					standard_elect_amount,
+				</if>
+				
+				<if test="standardWaterAmount != null">
+					standard_water_amount,
 				</if>
 				
 				
@@ -217,6 +228,14 @@
 				
 				<if test="isFistOrder != null">
 					#{isFistOrder},
+				</if>
+				
+				<if test="standardElectAmount != null">
+					#{standardElectAmount},
+				</if>
+				
+				<if test="standardWaterAmount != null">
+					#{standardWaterAmount},
 				</if>
 				
 			</trim>
@@ -291,6 +310,14 @@
 				
 				<if test="isFistOrder != null">
 					is_Fist_Order = #{isFistOrder},
+				</if>
+				
+				<if test="standardElectAmount != null">
+					standard_elect_amount = #{standardElectAmount},
+				</if>
+				
+				<if test="standardWaterAmount != null">
+					standard_water_amount = #{standardWaterAmount},
 				</if>
 				
 			</trim>

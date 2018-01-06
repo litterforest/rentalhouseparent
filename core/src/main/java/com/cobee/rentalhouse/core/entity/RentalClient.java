@@ -31,6 +31,16 @@ public class RentalClient extends BaseEntity {
 	private Integer houseId;
 
 	private RentalHouseResource rentalHouseResource;
+	// 当前正在入住的住房记录
+	private RentalClientCheckinOrder currentRentalClientCheckinOrder;
+
+	public RentalClientCheckinOrder getCurrentRentalClientCheckinOrder() {
+		return currentRentalClientCheckinOrder;
+	}
+
+	public void setCurrentRentalClientCheckinOrder(RentalClientCheckinOrder currentRentalClientCheckinOrder) {
+		this.currentRentalClientCheckinOrder = currentRentalClientCheckinOrder;
+	}
 
 	public RentalHouseResource getRentalHouseResource() {
 		return rentalHouseResource;

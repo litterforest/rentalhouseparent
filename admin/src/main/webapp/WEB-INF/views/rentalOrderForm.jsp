@@ -28,6 +28,7 @@
 		<form id="inputForm" action="${ctx }/rentalorder/save" method="post" >
 			<input type="hidden" name="rentalClientId" value="${param.rentalClientId}" >
 			<input type="hidden" name="houseId" value="${param.houseId}" >
+			<input type="hidden" name="rentalClientCheckinOrderId" value="${param.rentalClientCheckinOrderId}" >
 			<input type="hidden" name="_csrf" value="${_csrf.token}" >
 			<table >
 				<tr>

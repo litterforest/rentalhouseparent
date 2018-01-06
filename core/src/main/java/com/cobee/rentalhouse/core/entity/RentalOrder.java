@@ -23,16 +23,18 @@ public class RentalOrder extends BaseEntity {
 	private Double diffPowerConsumption;
 	// 用户外键ID
 	private Integer userId;
-	// 房客ID
-	private Integer rentalClientId;
 	// 水表度数
 	private Double waterConsumption;
 	// 用水度数
 	private Double diffWaterConsumption;
 	// 水费
 	private Double waterAmount;
-	// 房源ID
-	private Integer houseId;
+	// 入住记录ID
+	private Integer rentalClientCheckinOrderId;
+	// 上月电度数
+	private Double lastPowerConsumption;
+	// 上月水表度数
+	private Double lastWaterConsumption;
 
 	private SecureUser secureUser;
 	private RentalHouseResource rentalHouseResource;
@@ -40,6 +42,38 @@ public class RentalOrder extends BaseEntity {
 
 	public RentalOrder() {
 		super();
+	}
+	
+	public Double getLastPowerConsumption() {
+		return lastPowerConsumption;
+	}
+
+
+
+	public void setLastPowerConsumption(Double lastPowerConsumption) {
+		this.lastPowerConsumption = lastPowerConsumption;
+	}
+
+
+
+	public Double getLastWaterConsumption() {
+		return lastWaterConsumption;
+	}
+
+
+
+	public void setLastWaterConsumption(Double lastWaterConsumption) {
+		this.lastWaterConsumption = lastWaterConsumption;
+	}
+
+
+
+	public Integer getRentalClientCheckinOrderId() {
+		return rentalClientCheckinOrderId;
+	}
+
+	public void setRentalClientCheckinOrderId(Integer rentalClientCheckinOrderId) {
+		this.rentalClientCheckinOrderId = rentalClientCheckinOrderId;
 	}
 
 	public RentalClientCheckinOrder getRentalClientCheckinOrder() {
@@ -56,22 +90,6 @@ public class RentalOrder extends BaseEntity {
 
 	public void setRentalHouseResource(RentalHouseResource rentalHouseResource) {
 		this.rentalHouseResource = rentalHouseResource;
-	}
-
-	public Integer getHouseId() {
-		return houseId;
-	}
-
-	public void setHouseId(Integer houseId) {
-		this.houseId = houseId;
-	}
-
-	public Integer getRentalClientId() {
-		return rentalClientId;
-	}
-
-	public void setRentalClientId(Integer rentalClientId) {
-		this.rentalClientId = rentalClientId;
 	}
 
 	public Double getWaterConsumption() {

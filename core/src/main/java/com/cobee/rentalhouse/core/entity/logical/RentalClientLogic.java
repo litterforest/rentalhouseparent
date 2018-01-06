@@ -65,7 +65,7 @@ public class RentalClientLogic extends RentalClient {
 				voMap.put("houseId", po.getHouseId());
 				voMap.put("rentalHouseResourceName", po.getRentalHouseResource() == null ? "" : po.getRentalHouseResource().getName());
 				voMap.put("rentalHouseResourceAddress", (po.getRentalHouseResource() == null ? "" : po.getRentalHouseResource().getBaseArea() == null ? "" : po.getRentalHouseResource().getBaseArea().getFullname()) + (po.getRentalHouseResource() == null ? "" : po.getRentalHouseResource().getAddress()));
-				
+				voMap.put("currentRentalClientCheckinOrderId", po.getCurrentRentalClientCheckinOrder() == null ? "" : po.getCurrentRentalClientCheckinOrder().getId());
 				list.add(voMap);
 			}
 			
