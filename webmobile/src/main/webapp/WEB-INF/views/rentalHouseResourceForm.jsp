@@ -4,12 +4,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>收费订单</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新增房源</title>
 <%@ include file="include/pageResources.jsp" %>
 </head>
 <body>
-	<div class="easyui-panel" style="width:100%;padding:10px;border:0;">
+	
+	<div data-role="page" id="page" data-dom-cache="false" >
+
+		<%@ include file="include/header.jsp"%>
+
+		<div data-role="content">
+
+			<form action="" method="post" data-ajax="false" >
+				
+				<div data-role="fieldcontain">
+				
+					<label for="name" >房源名称：</label>
+					<input id="name" name="name" type="text" value="${rentalHouseResource.name }" placeholder="房源名称..." >
+					
+					<label for="houseCode" >房源编号：</label>
+					<input id="houseCode" name="houseCode" type="text" value="${rentalHouseResource.name }" placeholder="房源编号..." >
+					
+					<fieldset data-role="controlgroup">
+						<legend>所在区域：</legend>
+						<app:areaselect provinceName="provinceCityId" cityName="cityCityId" areaName="areaCityId" cityId="${rentalHouseResource.cityId }" ></app:areaselect>
+					</fieldset>
+					
+					<label for="address" >详细地址：</label>
+					<textarea id="address" name="address" rows="" cols="" placeholder="详细地址..." >${rentalHouseResource.address }</textarea>
+					
+					<label for="houseType" >房型：</label>
+					<app:dictselect eleID="houseType" eleName="houseType" optionItems="${appfn:getDictList('rental_house_resource_house_type') }" />
+					
+					<label for="rentPrice" >出租价格：</label>
+					<input id="rentPrice" name="rentPrice" type="number" value="${rentalHouseResource.rentPrice }" placeholder="出租价格..." >
+					
+					<label for="decorationSituation" >装修情况：</label>
+					<textarea id="decorationSituation" name="decorationSituation" rows="" cols="" placeholder="装修情况..." >${rentalHouseResource.decorationSituation }</textarea>
+					
+				</div>
+				
+			</form>
+
+		</div>
+
+		<%@ include file="include/footer.jsp"%>
+
+	</div>
+	
+	<%-- <div class="easyui-panel" style="width:100%;padding:10px;border:0;">
 		<form id="inputForm" action="${ctx }/RentalHouseResource/saveByAjax" method="post" >
 			<input type="hidden" name="id" value="${rentalHouseResource.id }" >
 			<input type="hidden" name="_csrf" value="${_csrf.token}" >
@@ -53,7 +98,7 @@
 				<tr>
 					<td>装修情况</td>
 					<td>
-						<%-- <textarea rows="" cols="" id="decorationSituation" name="decorationSituation">${rentalHouseResource.decorationSituation }</textarea> --%>
+						<textarea rows="" cols="" id="decorationSituation" name="decorationSituation">${rentalHouseResource.decorationSituation }</textarea>
 						<input id="decorationSituation" class="easyui-textbox" name="decorationSituation" value="${rentalHouseResource.decorationSituation }" data-options="multiline:true" >
 					</td>
 				</tr>
@@ -97,29 +142,7 @@
 				
 			</table>
 		</form>
-	</div>
-	
-    <script type="text/javascript">
-       $(function(){
-           $('#inputForm').form({
-        	   
-               success:function(data){
-            	   var data = eval('(' + data + ')');
-                   if (data.status == "success")
-	   				{
-	   					$.messager.alert({title: '提示信息', msg: '创建成功', fn: function(){
-	   						$('#win').window('close');
-		   					$("#searchBtn").click();
-	   					}});
-	   				}
-	   				else
-	   				{
-	   					$.messager.alert('提示信息', data.msg, 'error');
-	   				}
-               }
-           });
-       });
-    </script>
+	</div> --%>
 	
 </body>
 </html>

@@ -12,7 +12,10 @@
 <body>
 	<div data-role="page" id="page">
 
-		<%@ include file="include/header.jsp"%>
+		<div data-role="header" data-position="fixed" >
+		    <h1><!-- 我的收租宝 --></h1>
+		    <a href="${ctx }/RentalHouseResource/form" data-role="button" class="ui-btn-right" data-icon="plus" >添加</a>
+		</div>
 
 		<div data-role="content">
 
