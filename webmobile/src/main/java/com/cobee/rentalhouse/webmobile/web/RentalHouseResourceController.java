@@ -1,4 +1,4 @@
-package com.cobee.rentalhouse.admin.web;
+package com.cobee.rentalhouse.webmobile.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +9,17 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cobee.rentalhouse.admin.web.support.AbstractController;
 import com.cobee.rentalhouse.core.component.page.Page;
 import com.cobee.rentalhouse.core.entity.RentalClientCheckinOrder;
 import com.cobee.rentalhouse.core.entity.RentalHouseResource;
 import com.cobee.rentalhouse.core.entity.logical.RentalHouseResourceLogic;
 import com.cobee.rentalhouse.core.service.RentalHouseResourceService;
+import com.cobee.rentalhouse.webmobile.web.support.AbstractController;
 
 @Controller
 @RequestMapping("/RentalHouseResource")
@@ -28,8 +29,11 @@ public class RentalHouseResourceController extends AbstractController {
 	private RentalHouseResourceService rentalHouseResourceService;
 	
 	@GetMapping("/list")
-	public String list()
+	public String list(Model model)
 	{
+		RentalHouseResource rentalHouseResourceQuery = new RentalHouseResource();
+		List<RentalHouseResource> rentalHouseResourceList = rentalHouseResourceService.list(rentalHouseResourceQuery);
+		model.addAttribute("rentalHouseResourceList", rentalHouseResourceList);
 		return "rentalHouseResourceList";
 	}
 	
@@ -39,6 +43,14 @@ public class RentalHouseResourceController extends AbstractController {
 	{
 		Page<RentalHouseResource> page = rentalHouseResourceService.findByPage(rentalHouseResource);
 		return RentalHouseResourceLogic.toDatagridData(page);
+	}
+	
+	@GetMapping("/detail/{id}")
+	public String detail(@PathVariable Integer id, Model model)
+	{
+		RentalHouseResource rentalHouseResource = rentalHouseResourceService.get(id);
+		model.addAttribute("rentalHouseResource", rentalHouseResource);
+		return "rentalHouseResourceDetail";
 	}
 	
 	@PostMapping("/save")

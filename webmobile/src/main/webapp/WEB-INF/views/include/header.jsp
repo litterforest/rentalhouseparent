@@ -1,3 +1,15 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="taglib.jsp"%>
-<div class="header"><a href="${ctx }/SecureUser/form/<shiro:principal property="id"/>"><shiro:principal property="username"/></a>，普通会员&nbsp;&nbsp;&nbsp;&nbsp;<%-- <a href="${ctx }/home">我的主页</a> --%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="${ctx }/logout">退出</a></div>
+<div data-role="header" data-position="fixed" >
+	<%--
+	<div data-role="navbar" >
+    	<ul>
+        	<li><a href="#" data-icon="home" >首页</a></li>
+            <li><a href="#" data-icon="search" >搜索</a></li>
+            <li><a href="#" data-icon="back">返回</a></li>
+        </ul>
+    </div>
+    --%>
+    <h1><!-- 我的收租宝 --></h1>
+    <a href="#" data-role="button" data-rel="back" class="ui-btn-right" data-icon="back" >返回</a>
+</div> 

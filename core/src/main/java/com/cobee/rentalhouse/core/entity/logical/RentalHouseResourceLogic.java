@@ -55,8 +55,16 @@ public class RentalHouseResourceLogic extends RentalHouseResource {
 		
 	}
 
-
-
+	/**
+	 * 获取房源地址
+	 * @return
+	 */
+	public String getHouseAddress()
+	{
+		StringBuilder sbuff = new StringBuilder(this.getBaseArea() == null ? "" : this.getBaseArea().getFullname());
+		sbuff.append(this.getAddress());
+		return sbuff.toString();
+	}
 
 	public static Map<String, Object> toJqGridData(Page<RentalHouseResource> page) {
 		Map<String, Object> dataMap = new HashMap<>();
