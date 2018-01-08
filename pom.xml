@@ -304,5 +304,6 @@
 	<modules>
 		<module>core</module>
 		<module>admin</module>
+		<module>webmobile</module>
 	</modules>
 </project>
