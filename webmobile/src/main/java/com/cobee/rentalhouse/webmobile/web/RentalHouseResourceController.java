@@ -56,6 +56,7 @@ public class RentalHouseResourceController extends AbstractController {
 	@PostMapping("/save")
 	public String save(RentalHouseResource rentalHouseResource)
 	{
+		rentalHouseResource.setCityId(rentalHouseResource.getBaseArea().getTrueCityId());
 		rentalHouseResourceService.save(rentalHouseResource);
 		return "redirect:list";
 	}

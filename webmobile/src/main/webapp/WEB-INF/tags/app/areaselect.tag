@@ -7,24 +7,34 @@
 <%@ attribute name="isSearched" type="java.lang.Boolean" required="false" description="是否用于搜索" %>
 <%@ attribute name="cls" type="java.lang.String" required="false" description="自定义样式" %>
 
+<c:set var="provinceID" value="${fn:replace(provinceName, '.', '')}" ></c:set>
+<c:set var="cityID" value="${fn:replace(cityName, '.', '')}" ></c:set>
+<c:set var="areaID" value="${fn:replace(areaName, '.', '')}" ></c:set>
+
 <input id="isAreaSearched" name="isAreaSearched" type="hidden" value="${isSearched }" >
-<select id="${provinceName }" name="${provinceName }" class="${cls }" ></select>
-<select id="${cityName }" name="${cityName }" class="${cls }" ></select>
-<select id="${areaName }" name="${areaName }" class="${cls }" ></select>
+<select id="${provinceID }" name="${provinceName }" class="${cls }" ></select>
+<select id="${cityID }" name="${cityName }" class="${cls }" ></select>
+<select id="${areaID }" name="${areaName }" class="${cls }" ></select>
 
 <script type="text/javascript">
+	{
+	
+	var provinceObj = $("#${provinceID }");
+	var cityObj = $("#${cityID }");
+	var areaObj = $("#${areaID }");
+	
 	// 省下拉选项增加onchange事件
-	$("#${provinceName }").on("change", function(){
-		var cityObj = $("#${cityName }");
-		var areaObj = $("#${areaName }");
+	$("#${provinceID }").on("change", function(){
+		
 		if ($(this).val() != "")
 		{
 			$.getJSON("${ctx}/BaseData/getCitysByProvince", {parentCityId: $(this).val()}, function(data){
 				  cityObj.empty();
+				  $("<option value=\"\">请选择</option>").appendTo(cityObj);
 				  $.each(data, function(i, item){
 					  $("<option value=\""+ item.cityId +"\">"+ item.cityName +"</option>").appendTo(cityObj);
 				  });
-				  $("#${cityName }").change();
+				  $("#${cityID }").change();
 			});
 			
 		}
@@ -38,11 +48,11 @@
 	});
 	
 	// 市下拉选项增加onchange事件
-	$("#${cityName }").on("change", function(){
+	$("#${cityID }").on("change", function(){
 		
 		$.getJSON("${ctx}/BaseData/getAreasByCity", {parentCityId: $(this).val()}, function(data){
-			  var areaObj = $("#${areaName }");
 			  areaObj.empty();
+			  $("<option value=\"\">请选择</option>").appendTo(areaObj);
 			  $.each(data, function(i, item){
 				  $("<option value=\""+ item.cityId +"\">"+ item.cityName +"</option>").appendTo(areaObj);
 			  });
@@ -50,11 +60,7 @@
 		
 	});
 	
-	$("#${provinceName }").ready(function(){
-		
-		var provinceObj = $("#${provinceName }");
-		var cityObj = $("#${cityName }");
-		var areaObj = $("#${areaName }");
+	//$("#${areaID }").ready(function(){
 		
 		provinceObj.empty();
 		cityObj.empty();
@@ -123,7 +129,7 @@
 			});
 			
 		</c:if>
-		
-	});
+	}
+	//});
 	
 </script>

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<div data-role="page" id="page">
+	<div data-role="page" id="page" data-dom-cache="false" >
 		
 		<div data-role="content">
 			<form action="${ctx }/doLogin" method="post">

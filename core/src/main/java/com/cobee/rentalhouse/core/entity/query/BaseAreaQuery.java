@@ -13,6 +13,8 @@ public class BaseAreaQuery extends BaseArea {
 	private Integer provinceCityId;
 	private Integer cityCityId;
 	private Integer areaCityId;
+	
+	
 
 	public Boolean getIsAreaSearched() {
 		return isAreaSearched;
