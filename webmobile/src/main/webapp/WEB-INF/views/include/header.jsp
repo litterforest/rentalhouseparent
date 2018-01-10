@@ -10,6 +10,6 @@
         </ul>
     </div>
     --%>
+    <a href="#" data-role="button" data-rel="back" data-icon="back" >返回</a>
     <h1><!-- 我的收租宝 --></h1>
-    <a href="#" data-role="button" data-rel="back" class="ui-btn-right" data-icon="back" >返回</a>
 </div> 

@@ -12,13 +12,12 @@
 <body>
 	<div data-role="page" id="page">
 
-		<div data-role="header" data-position="fixed" >
+		<%@ include file="include/header.jsp"%>
+
+		<div data-role="header" data-position="fixed" data-dom-cache="false" >
 			
-		    <c:if test="${rentalHouseResource.status eq 0 }">
-		    	<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-icon="plus" >房客入住</a>
-		    </c:if>
+		    <a href="#" data-role="button" data-rel="back" data-icon="back" >返回</a>
 		    <h1><!-- 我的收租宝 --></h1>
-		    <a href="#" data-role="button" data-rel="back" class="ui-btn-right" data-icon="back" >返回</a>
 		    
 		</div>
 
@@ -73,7 +72,16 @@
 				</tr>
 
 			</table>
-
+			
+			<c:choose>
+				<c:when test="${rentalHouseResource.status ne 0 }">
+					<button data-corners="false" disabled="disabled" >出租</button>
+				</c:when>
+				<c:otherwise>
+					<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-corners="false" >出租</a>
+				</c:otherwise>
+			</c:choose>
+			
 		</div>
 
 		<%@ include file="include/footer.jsp"%>
