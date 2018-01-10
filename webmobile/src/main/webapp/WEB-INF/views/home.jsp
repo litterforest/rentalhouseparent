@@ -23,7 +23,7 @@
 				</div>
 				
 				<div class="ui-block-b">
-					<a href="#" data-role="button">房客信息</a>
+					<a href="${ctx }/RentalClient/list" data-role="button">房客信息</a>
 				</div>
 				
 				<div class="ui-block-c">
