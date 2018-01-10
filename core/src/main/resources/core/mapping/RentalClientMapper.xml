@@ -14,6 +14,7 @@
 		a.id_card_no,
 		a.house_id,
 		a.status,
+		b.id as "rentalHouseResource.id",
 		b.name as "rentalHouseResource.name",
 		b.address as "rentalHouseResource.address",
 		c.fullname as "rentalHouseResource.baseArea.fullname",

@@ -28,12 +28,6 @@ public class SecurityController extends AbstractController {
 		return "login";
 	}
 	
-	@GetMapping(value="/userInfo")
-	public String userInfo()
-	{
-		return "userInfo";
-	}
-	
 	@PostMapping(value="/doLogin")
 	public String doLogin(SecureUser baseUser, RedirectAttributes redirectAttributes)
 	{

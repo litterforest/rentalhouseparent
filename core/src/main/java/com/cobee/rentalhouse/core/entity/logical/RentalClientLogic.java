@@ -27,9 +27,9 @@ public class RentalClientLogic extends RentalClient {
 		if (getStatus() == null) {
 			return "";
 		} else if (getStatus() == 0) {
-			return "入住";
+			return "已入住";
 		} else if (getStatus() == 1) {
-			return "退房";
+			return "已退房";
 		} else {
 			return "";
 		}

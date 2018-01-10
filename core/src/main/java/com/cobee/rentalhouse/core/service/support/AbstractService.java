@@ -41,18 +41,22 @@ public abstract class AbstractService<T extends BaseEntity, E extends BaseDao<T>
 	@Transactional(readOnly = false)
 	@Override
 	public void save(T obj) {
-		SecureUser secureUser = (SecureUser) SecurityUtils.getSubject().getPrincipal();
+		SecureUser secureUser = null;
+		if (obj instanceof SecureUser)
+		{
+			secureUser = (SecureUser) SecurityUtils.getSubject().getPrincipal();
+		}
 		if (obj.getId() != null)
 		{
-			obj.setUpdateBy(secureUser.getId().toString());
+			obj.setUpdateBy(secureUser == null ? "" : secureUser.getId().toString());
 			obj.setUpdateDate(new Date());
 			dao.updateBySelective(obj);
 		}
 		else
 		{
-			obj.setCreateBy(secureUser.getId().toString());
+			obj.setCreateBy(secureUser == null ? "" : secureUser.getId().toString());
 			obj.setCreateDate(new Date());
-			obj.setUpdateBy(secureUser.getId().toString());
+			obj.setUpdateBy(secureUser == null ? "" : secureUser.getId().toString());
 			obj.setUpdateDate(new Date());
 			dao.insertBySelective(obj);
 		}

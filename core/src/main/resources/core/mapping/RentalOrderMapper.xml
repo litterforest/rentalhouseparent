@@ -98,7 +98,9 @@
 	</update>
 	
 	<update id="insertBySelective" parameterType="RentalOrder">
-		
+		<selectKey order="AFTER" keyProperty="id" resultType="integer" keyColumn="id" >
+			select last_insert_id()
+		</selectKey>
 		insert into rental_order
 		(
 			<trim suffixOverrides=",">
@@ -144,9 +146,7 @@
 				<if test="userId != null">
 					user_Id,
 				</if>
-				<if test="rentalClientId != null">
-					rental_client_id,
-				</if>
+				
 				<if test="waterConsumption != null">
 					water_consumption,
 				</if>
@@ -156,9 +156,7 @@
 				<if test="waterAmount != null">
 					water_amount,
 				</if>
-				<if test="houseId != null">
-					house_id,
-				</if>
+				
 				<if test="rentalClientCheckinOrderId != null">
 					rental_client_checkin_order_id,
 				</if>
@@ -214,9 +212,7 @@
 				<if test="userId != null">
 					#{userId},
 				</if>
-				<if test="rentalClientId != null">
-					#{rentalClientId},
-				</if>
+				
 				<if test="waterConsumption != null">
 					#{waterConsumption},
 				</if>
@@ -226,9 +222,7 @@
 				<if test="waterAmount != null">
 					#{waterAmount},
 				</if>
-				<if test="houseId != null">
-					#{houseId},
-				</if>
+				
 				<if test="rentalClientCheckinOrderId != null">
 					#{rentalClientCheckinOrderId},
 				</if>
@@ -292,9 +286,7 @@
 				<if test="userId != null">
 					user_Id = #{userId},
 				</if>
-				<if test="rentalClientId != null">
-					rental_Client_Id = #{rentalClientId},
-				</if>
+				
 				<if test="waterConsumption != null">
 					water_Consumption = #{waterConsumption},
 				</if>
@@ -304,9 +296,7 @@
 				<if test="waterAmount != null">
 					water_Amount = #{waterAmount},
 				</if>
-				<if test="houseId != null">
-					house_Id = #{houseId},
-				</if>
+				
 				<if test="rentalClientCheckinOrderId != null">
 					rental_client_checkin_order_id = #{rentalClientCheckinOrderId},
 				</if>

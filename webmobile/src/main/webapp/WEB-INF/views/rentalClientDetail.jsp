@@ -40,6 +40,15 @@
 				</tr>
 
 			</table>
+			
+			<c:choose>
+				<c:when test="${rentalClient.status ne 0 }">
+					<button data-corners="false" disabled="disabled" >收租</button>
+				</c:when>
+				<c:otherwise>
+					<a href="${ctx }/rentalorder/form?rentalClientCheckinOrderId=${rentalClient.currentRentalClientCheckinOrder.id}" data-role="button" data-corners="false" >收租</a>
+				</c:otherwise>
+			</c:choose>
 
 		</div>
 
