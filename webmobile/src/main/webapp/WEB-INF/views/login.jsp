@@ -21,9 +21,11 @@
         			<input type="text" name="username" id="username" placeholder="用户名" >
 					<label for="password"  >密码：</label>
         			<input type="password" name="password" id="password" placeholder="密码" >
-        			<br />
-        			<button type="submit"  >登 录</button>
-        			<a href="${ctx }/register" data-role="button" >免费注册</a>
+        			
+        			<div data-role="fieldcontain">
+        			<button type="submit" data-inline="false" >登 录</button>
+        			<a href="${ctx }/register" data-role="button" data-inline="false" >免费注册</a>
+        			</div>
 				</div>
 			</form>
 		</div>

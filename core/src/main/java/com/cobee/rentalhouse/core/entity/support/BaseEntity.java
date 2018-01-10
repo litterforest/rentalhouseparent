@@ -3,7 +3,10 @@ package com.cobee.rentalhouse.core.entity.support;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.shiro.SecurityUtils;
+
 import com.cobee.rentalhouse.core.component.page.PageRequest;
+import com.cobee.rentalhouse.core.entity.SecureUser;
 
 public abstract class BaseEntity implements Serializable {
 
@@ -29,6 +32,11 @@ public abstract class BaseEntity implements Serializable {
 
 	public BaseEntity() {
 		super();
+		SecureUser secureUser = (SecureUser) SecurityUtils.getSubject().getPrincipal();
+		if (secureUser != null)
+		{
+			createBy = secureUser.getId().toString();
+		}
 	}
 
 	public Integer getDelFlag() {

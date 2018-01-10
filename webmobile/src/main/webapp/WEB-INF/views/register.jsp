@@ -12,6 +12,8 @@
 
 	<div data-role="page" id="page" data-dom-cache="false" >
 		
+		<%@ include file="include/header.jsp"%>
+		
 		<div data-role="content">
 			<form action="${ctx }/doRegister" method="post">
 				<input type="hidden" name="_csrf" value="${_csrf.token}">

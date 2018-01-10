@@ -33,6 +33,10 @@
 					and a.del_flag = #{delFlag}
 				</if>
 				
+				<if test="createBy != null and createBy !=''">
+					and a.create_by = #{createBy}
+				</if>
+				
 				<if test="houseId != null">
 					and a.house_id = #{houseId}
 				</if>
