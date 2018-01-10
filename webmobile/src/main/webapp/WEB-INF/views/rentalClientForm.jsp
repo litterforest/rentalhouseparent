@@ -33,7 +33,7 @@
 					<label for="status" >租住状态：</label>
 					<select id="status" name="status" >
 						<option value="0">入住</option>
-						<option value="1">退房</option>
+						<option value="1" selected >退房</option>
 					</select>
 					
 					<label for="remarks" >备注：</label>

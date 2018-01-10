@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cobee.rentalhouse.core.component.page.Page;
+import com.cobee.rentalhouse.core.entity.RentalClient;
 import com.cobee.rentalhouse.core.entity.RentalClientCheckinOrder;
 import com.cobee.rentalhouse.core.entity.RentalHouseResource;
 import com.cobee.rentalhouse.core.entity.logical.RentalHouseResourceLogic;
+import com.cobee.rentalhouse.core.service.RentalClientService;
 import com.cobee.rentalhouse.core.service.RentalHouseResourceService;
 import com.cobee.rentalhouse.webmobile.web.support.AbstractController;
 
@@ -27,6 +29,8 @@ public class RentalHouseResourceController extends AbstractController {
 
 	@Autowired
 	private RentalHouseResourceService rentalHouseResourceService;
+	@Autowired
+	private RentalClientService rentalClientService;
 	
 	@GetMapping("/list")
 	public String list(Model model)
@@ -77,19 +81,10 @@ public class RentalHouseResourceController extends AbstractController {
 		return resultMap;
 	}
 	
-	@PostMapping(value = "/checkin", produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public Map<String, Object> checkin(RentalClientCheckinOrder rentalClientCheckinOrder) {
-		Map<String, Object> resultMap = new HashMap<>();
-		try {
-			rentalHouseResourceService.checkin(rentalClientCheckinOrder);
-			resultMap.put("status", "success");
-		} catch (Exception e) {
-			logger.error("", e);
-			resultMap.put("status", "fail");
-			resultMap.put("msg", e.getMessage());
-		}
-		return resultMap;
+	@PostMapping(value = "/checkin")
+	public String checkin(RentalClientCheckinOrder rentalClientCheckinOrder) {
+		rentalHouseResourceService.checkin(rentalClientCheckinOrder);
+		return "redirect:list";
 	}
 	
 	@GetMapping("/form")
@@ -104,8 +99,13 @@ public class RentalHouseResourceController extends AbstractController {
 	}
 	
 	@GetMapping("/rentalHouseResourceClientCheckinForm")
-	public String rentalHouseResourceClientCheckinForm()
+	public String rentalHouseResourceClientCheckinForm(Model model)
 	{
+		// 加载未入住房客
+		RentalClient rentalClient = new RentalClient();
+		rentalClient.setStatus(1);
+		List<RentalClient> rentalClientList = rentalClientService.list(rentalClient);
+		model.addAttribute("rentalClientList", rentalClientList);
 		return "rentalHouseResourceClientCheckinForm";
 	}
 	

@@ -12,16 +12,20 @@
 <body>
 	<div data-role="page" id="page">
 
-		<div data-role="header" data-position="fixed" >
-		    <h1><!-- 我的收租宝 --></h1>
-		    <a href="${ctx }/RentalHouseResource/form" data-role="button" class="ui-btn-right" data-icon="plus" >添加</a>
+		<div data-role="header" data-position="fixed" data-dom-cache="false" >
+			<h1>
+				我的收租宝
+			</h1>
+			<a href="${ctx }/RentalHouseResource/form" data-role="button"
+				class="ui-btn-right" data-icon="plus">添加</a>
 		</div>
 
 		<div data-role="content">
 
-			<ul data-role="listview" data-inset="false">
-				<c:forEach items="${rentalHouseResourceList }" var="rentalHouseResource" >
-					<li><a href="${ctx }/RentalHouseResource/detail/${rentalHouseResource.id}">${rentalHouseResource.name }</a></li>
+			<ul data-role="listview" data-inset="false" data-split-icon="gear" >
+				<c:forEach items="${rentalHouseResourceList }" var="rentalHouseResource">
+					<li ><a
+						href="${ctx }/RentalHouseResource/detail/${rentalHouseResource.id}" >${rentalHouseResource.name }</a><%-- <a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" >入住</a> --%></li>
 				</c:forEach>
 			</ul>
 

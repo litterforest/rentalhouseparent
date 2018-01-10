@@ -12,7 +12,15 @@
 <body>
 	<div data-role="page" id="page">
 
-		<%@ include file="include/header.jsp"%>
+		<div data-role="header" data-position="fixed" >
+			
+		    <c:if test="${rentalHouseResource.status eq 0 }">
+		    	<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-icon="plus" >房客入住</a>
+		    </c:if>
+		    <h1><!-- 我的收租宝 --></h1>
+		    <a href="#" data-role="button" data-rel="back" class="ui-btn-right" data-icon="back" >返回</a>
+		    
+		</div>
 
 		<div data-role="content">
 

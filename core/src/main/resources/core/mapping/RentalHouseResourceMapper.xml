@@ -22,6 +22,7 @@
 		a.standard_elect_amount,
 		a.standard_water_amount,
 		b.fullname as "baseArea.fullname",
+		c.id as "rentalClient.id",
 		c.name as "rentalClient.name"
 		from rental_house_resource a
 		left join base_area b on a.city_id = b.city_id

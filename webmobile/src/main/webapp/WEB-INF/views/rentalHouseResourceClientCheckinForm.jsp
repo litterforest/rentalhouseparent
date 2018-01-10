@@ -4,12 +4,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>房客信息</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>房客入住</title>
 <%@ include file="include/pageResources.jsp" %>
 </head>
 <body>
-	<div class="easyui-panel" style="width:100%;padding:10px;border:0;">
+
+	<div data-role="page" id="page" data-dom-cache="false" >
+
+		<%@ include file="include/header.jsp"%>
+
+		<div data-role="content">
+
+			<form action="${ctx }/RentalHouseResource/checkin" method="post" data-ajax="false" >
+				<input type="hidden" name="houseId" value="${param.rentalHouseResourceID }" >
+				<input type="hidden" name="_csrf" value="${_csrf.token}" >
+				<div data-role="fieldcontain">
+				
+					<label for="rentalClientId" >选择房客：</label>
+					<select id="rentalClientId" name="rentalClientId" >
+						<c:forEach items="${rentalClientList }" var="rentalClient" >
+							<option value="${rentalClient.id }" >${rentalClient.name }</option>
+						</c:forEach>
+					</select>
+					
+					<label for="checkinPower" >入住时电表度数：</label>
+					<input id="checkinPower" name="checkinPower" type="number" value="" placeholder="入住时电表度数..." step="0.01" >
+					
+					<label for="checkinWatermeter" >入住时水表数：</label>
+					<input id="checkinWatermeter" name="checkinWatermeter" type="number" value="" placeholder="入住时水表数..." step="0.01" >
+					
+					<label for="rentalAmount" >租用费：</label>
+					<input id="rentalAmount" name="rentalAmount" type="number" value="" placeholder="租用费..." step="0.01" >
+					
+					<label for="depositAmount" >押金：</label>
+					<input id="depositAmount" name="depositAmount" type="number" value="" placeholder="押金..." step="0.01" >
+					
+					<label for="remarks" >备注：</label>
+					<textarea id="remarks" name="remarks" placeholder="备注..." ></textarea>
+					
+					<button type="submit" >提交</button>
+					
+				</div>
+			</form>
+
+		</div>
+
+		<%@ include file="include/footer.jsp"%>
+
+	</div>
+
+	<%-- <div class="easyui-panel" style="width:100%;padding:10px;border:0;">
 		<form id="inputForm" action="${ctx }/RentalHouseResource/checkin" method="post" >
 			<input type="hidden" name="houseId" value="${param.rentalHouseResourceID }" >
 			<input type="hidden" id="rentalClientId" name="rentalClientId" value="" >
@@ -52,12 +98,12 @@
 					</td>
 				</tr>
 				
-				<%-- <tr>
+				<tr>
 					<td>租用费</td>
 					<td>
 						<input id="rentalAmount" name="rentalAmount" type="text" class="easyui-textbox" style="width:180px;" value="${rentalClient.rentalAmount }" >
 					</td>
-				</tr> --%>
+				</tr>
 				
 				<tr>
 					<td>押金</td>
@@ -125,7 +171,7 @@
                },
            });
        });
-    </script>
+    </script> --%>
 	
 </body>
 </html>
