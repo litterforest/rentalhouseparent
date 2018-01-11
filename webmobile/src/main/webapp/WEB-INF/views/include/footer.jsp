@@ -6,7 +6,7 @@
         	<li><a href="${ctx }/home" data-icon="home"  >主页</a></li>
             <li><a href="${ctx }/RentalHouseResource/list" data-icon="check" >房源</a></li>
             <li><a href="${ctx }/RentalClient/list" data-icon="check" >房客</a></li>
-            <li><a href="#" data-icon="check" >收租</a></li>
+            <li><a href="${ctx }/rentalorder/list" data-icon="check" >收租</a></li>
             <li><a href='${ctx }/SecureUser/userInfo/<shiro:principal property="id"/>' data-icon="info">我的</a></li>
         </ul>
     </div>

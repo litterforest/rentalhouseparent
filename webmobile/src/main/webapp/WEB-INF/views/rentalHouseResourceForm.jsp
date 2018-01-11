@@ -41,16 +41,16 @@
 					<app:dictselect eleID="houseType" eleName="houseType" optionItems="${appfn:getDictList('rental_house_resource_house_type') }" />
 					
 					<label for="rentPrice" >出租价格：</label>
-					<input id="rentPrice" name="rentPrice" type="number" value="${rentalHouseResource.rentPrice }" placeholder="出租价格..." >
+					<input id="rentPrice" name="rentPrice" type="number" value="${rentalHouseResource.rentPrice }" placeholder="出租价格..." step="0.01" >
 					
 					<label for="decorationSituation" >装修情况：</label>
 					<textarea id="decorationSituation" name="decorationSituation" placeholder="装修情况..." >${rentalHouseResource.decorationSituation }</textarea>
 					
 					<label for="standardElectAmount" >标准电费：</label>
-					<input id="standardElectAmount" name="standardElectAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准电费..." >
+					<input id="standardElectAmount" name="standardElectAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准电费..." step="0.01" >
 					
 					<label for="standardWaterAmount" >标准水费：</label>
-					<input id="standardWaterAmount" name="standardWaterAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准水费..." >
+					<input id="standardWaterAmount" name="standardWaterAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准水费..." step="0.01" >
 					
 					<label for="status" >出租状态：</label>
 					<select  id="status" name="status" >

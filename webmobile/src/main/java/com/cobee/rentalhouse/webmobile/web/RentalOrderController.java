@@ -1,6 +1,7 @@
 package com.cobee.rentalhouse.webmobile.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cobee.rentalhouse.core.component.page.Page;
+import com.cobee.rentalhouse.core.entity.RentalClient;
 import com.cobee.rentalhouse.core.entity.RentalOrder;
 import com.cobee.rentalhouse.core.entity.logical.RentalOrderLogic;
 import com.cobee.rentalhouse.core.service.RentalOrderService;
@@ -29,8 +31,11 @@ public class RentalOrderController extends AbstractController {
 	private RentalOrderService rentalOrderService;
 	
 	@GetMapping("/list")
-	public String list()
+	public String list(Model model)
 	{
+		RentalOrder rentalOrder = new RentalOrder();
+		List<RentalOrder> rentalOrderList = rentalOrderService.list(rentalOrder);
+		model.addAttribute("rentalOrderList", rentalOrderList);
 		return "rentalOrderList";
 	}
 	

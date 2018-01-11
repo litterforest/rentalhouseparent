@@ -11,9 +11,11 @@
 </head>
 <body>
 
-	<div data-role="page" id="pageone">
+	<div data-role="page" id="page">
 		
-        <%@ include file="include/header.jsp"%>
+        <div data-role="header" data-position="fixed" >
+		    <h1><!-- 我的收租宝 --></h1>
+		</div>
         
 		<div data-role="content" class="ui-content" >
 			<div class="ui-grid-b">
@@ -27,7 +29,7 @@
 				</div>
 				
 				<div class="ui-block-c">
-					<a href="#" data-role="button">收费信息</a>
+					<a href="${ctx }/rentalorder/list" data-role="button">收费信息</a>
 				</div>
 				
 			</div>
