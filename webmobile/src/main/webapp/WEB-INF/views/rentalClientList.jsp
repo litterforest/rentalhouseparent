@@ -20,8 +20,25 @@
 		<div data-role="content">
 
 			<ul data-role="listview" data-inset="false">
+				<c:set var="checkinFlag" value="0"></c:set>
+				<c:set var="checkoutFlag" value="0"></c:set>
 				<c:forEach items="${rentalClientList }" var="rentalClient" >
-					<li><a href="${ctx }/RentalClient/detail/${rentalClient.id}">${rentalClient.name }</a></li>
+				
+					<c:choose>
+						<c:when test="${checkoutFlag eq 0 and rentalClient.status eq 1 }" >
+							<c:set var="checkoutFlag" value="1"></c:set>
+							<li data-role="list-divider" data-theme="b" >未入住</li>
+						</c:when>
+						<c:when test="${checkinFlag eq 0 and rentalClient.status eq 0 }" >
+							<c:set var="checkinFlag" value="1"></c:set>
+							<li data-role="list-divider" data-theme="b" >已入住</li>
+						</c:when>
+					</c:choose>
+				
+					<li><a href="${ctx }/RentalClient/detail/${rentalClient.id}">
+					<h2>${rentalClient.name }</h2>
+					<p>${rentalClient.mobile }，${rentalClient.idCardNo }，${rentalClient.statusDesc }</p>
+					</a></li>
 				</c:forEach>
 			</ul>
 

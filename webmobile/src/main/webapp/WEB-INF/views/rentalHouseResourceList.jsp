@@ -22,10 +22,26 @@
 
 		<div data-role="content">
 
-			<ul data-role="listview" data-inset="false" data-split-icon="gear" >
+			<ul data-role="listview" data-inset="false" >
+				<c:set var="checkinFlag" value="0"></c:set>
+				<c:set var="checkoutFlag" value="0"></c:set>
 				<c:forEach items="${rentalHouseResourceList }" var="rentalHouseResource">
-					<li ><a
-						href="${ctx }/RentalHouseResource/detail/${rentalHouseResource.id}" >${rentalHouseResource.name }</a><%-- <a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" >入住</a> --%></li>
+					
+					<c:choose>
+						<c:when test="${checkoutFlag eq 0 and rentalHouseResource.status eq 0 }" >
+							<c:set var="checkoutFlag" value="1"></c:set>
+							<li data-role="list-divider" data-theme="b" >待出租</li>
+						</c:when>
+						<c:when test="${checkinFlag eq 0 and rentalHouseResource.status eq 1 }" >
+							<c:set var="checkinFlag" value="1"></c:set>
+							<li data-role="list-divider" data-theme="b" >已出租</li>
+						</c:when>
+					</c:choose>
+					
+					<li ><a href="${ctx }/RentalHouseResource/detail/${rentalHouseResource.id}" >
+					<h2>${rentalHouseResource.name }</h2>
+					<p>${rentalHouseResource.baseArea.fullname }${rentalHouseResource.address }，${rentalHouseResource.rentPrice }，${rentalHouseResource.statusDesc }</p>
+					</a></li>
 				</c:forEach>
 			</ul>
 

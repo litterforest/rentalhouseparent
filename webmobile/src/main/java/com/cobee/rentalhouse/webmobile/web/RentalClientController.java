@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cobee.rentalhouse.core.component.page.Page;
+import com.cobee.rentalhouse.core.component.page.PageRequest;
 import com.cobee.rentalhouse.core.entity.RentalClient;
 import com.cobee.rentalhouse.core.entity.logical.RentalClientLogic;
 import com.cobee.rentalhouse.core.service.RentalClientService;
@@ -31,6 +32,9 @@ public class RentalClientController extends AbstractController {
 	public String list(Model model)
 	{
 		RentalClient rentalClientQuery = new RentalClient();
+		PageRequest pageRequest = new PageRequest();
+		pageRequest.setOrderByClause(" order by status desc ");
+		rentalClientQuery.setPageRequest(pageRequest);
 		List<RentalClient> rentalClientList = rentalClientService.list(rentalClientQuery);
 		model.addAttribute("rentalClientList", rentalClientList);
 		return "rentalClientList";

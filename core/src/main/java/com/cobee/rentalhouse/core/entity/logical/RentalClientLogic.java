@@ -29,7 +29,7 @@ public class RentalClientLogic extends RentalClient {
 		} else if (getStatus() == 0) {
 			return "已入住";
 		} else if (getStatus() == 1) {
-			return "已退房";
+			return "未入住";
 		} else {
 			return "";
 		}
