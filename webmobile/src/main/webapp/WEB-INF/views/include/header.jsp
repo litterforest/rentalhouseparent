@@ -11,5 +11,5 @@
     </div>
     --%>
     <a href="#" data-role="button" data-rel="back" data-icon="back" >返回</a>
-    <h1><!-- 我的收租宝 --></h1>
+    <h1>我的收租宝</h1>
 </div> 

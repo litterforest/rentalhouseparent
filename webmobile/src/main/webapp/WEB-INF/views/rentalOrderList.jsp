@@ -14,7 +14,7 @@
 	<div data-role="page" id="page">
 
 		<div data-role="header" data-position="fixed" >
-		    <h1><!-- 我的收租宝 --></h1>
+		    <h1>我的收租宝</h1>
 		</div>
 
 		<div data-role="content">

@@ -32,7 +32,7 @@
 			<div data-role="header" data-position="fixed">
 				<!-- <a href="#" data-role="button" data-rel="back" data-icon="back" >返回</a> -->
 				<h1>
-					<!-- 我的收租宝 -->
+					我的收租宝
 				</h1>
 				<a href="${ctx }/logout" data-role="button" class="ui-btn-right" data-icon="alert" >退出</a>
 			</div>
