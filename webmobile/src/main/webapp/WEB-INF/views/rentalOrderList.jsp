@@ -18,10 +18,20 @@
 		</div>
 
 		<div data-role="content">
-
+			<c:set var="pageYear" value="" ></c:set>
 			<ul data-role="listview" data-inset="false">
 				<c:forEach items="${rentalOrderList }" var="rentalOrder" >
-					<li><a href="${ctx }/rentalorder/detail/${rentalOrder.id}">${rentalOrder.year }-${rentalOrder.month }</a></li>
+					
+					<c:if test="${pageYear ne rentalOrder.year }">
+						<li data-role="list-divider" >${rentalOrder.year }年</li>
+						<c:set var="pageYear" value="${rentalOrder.year }" ></c:set>
+					</c:if>
+					
+					<li><a href="${ctx }/rentalorder/detail/${rentalOrder.id}">
+						<h2>${rentalOrder.year }-${rentalOrder.monthDesc }</h2>
+						<p>电费：${rentalOrder.electricityAmount }元，水费：${rentalOrder.waterAmount }元，扣减：${rentalOrder.deductionAmount }元，总费用：${rentalOrder.totalAmount }</p>
+					</a></li>
+					
 				</c:forEach>
 			</ul>
 

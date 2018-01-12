@@ -32,6 +32,26 @@ public class RentalOrderLogic extends RentalOrder {
 		return "";
 	}
 
+	public String getMonthDesc() {
+		if (super.getMonth() == null)
+		{
+			return "";
+		}
+		else
+		{
+			if (super.getMonth() > 0 && super.getMonth() < 10)
+			{
+				return "0" + super.getMonth();
+			}
+			else
+			{
+				return super.getMonth().toString();
+			}
+		}
+	}
+
+
+
 	public static Map<String, Object> toJqGridData(Page<RentalOrder> page) {
 		Map<String, Object> dataMap = new HashMap<>();
 		dataMap.put("page", page.getPageNo());
