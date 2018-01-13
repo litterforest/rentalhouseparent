@@ -60,7 +60,7 @@
 					
 					<label for="remarks" >备注：</label>
 					<textarea id="remarks" name="remarks" placeholder="备注..." >${rentalHouseResource.remarks }</textarea>
-					
+					<hr />
 					<button type="submit" >提交</button>
 					
 				</div>
