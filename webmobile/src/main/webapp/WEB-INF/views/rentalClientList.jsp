@@ -19,7 +19,7 @@
 
 		<div data-role="content">
 			<form id="searchForm" action="${ctx }/RentalClient/list" method="get" >
-				<input type="text" data-type="search" name="name" id="name" value="${rentalClientQuery.name }" placeholder="房客名称" >
+				<input type="text" data-type="search" name="name" id="search" value="${rentalClientQuery.name }" placeholder="房客名称" >
 			</form>
 			<br />
 			<ul data-role="listview" data-inset="false" data-divider-theme="a" >

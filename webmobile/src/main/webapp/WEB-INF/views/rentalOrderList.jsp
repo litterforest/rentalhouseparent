@@ -29,7 +29,7 @@
 					
 					<li><a href="${ctx }/rentalorder/detail/${rentalOrder.id}">
 						<h2>${rentalOrder.year }-${rentalOrder.monthDesc }</h2>
-						<p>电费：${rentalOrder.electricityAmount }元，水费：${rentalOrder.waterAmount }元，扣减：${rentalOrder.deductionAmount }元，总费用：${rentalOrder.totalAmount }</p>
+						<p>总费用：${rentalOrder.totalAmount }，电费：${rentalOrder.electricityAmount }元，水费：${rentalOrder.waterAmount }元，扣减：${rentalOrder.deductionAmount }元</p>
 					</a></li>
 					
 				</c:forEach>

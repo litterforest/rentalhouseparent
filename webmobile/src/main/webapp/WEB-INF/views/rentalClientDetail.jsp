@@ -56,6 +56,17 @@
 					<td>租住状态：</td>
 					<td>${rentalClient.statusDesc }</td>
 				</tr>
+				
+				<c:if test="${rentalClient.status eq 0 }">
+					<tr>
+						<td>租房名称：</td>
+						<td>${rentalClient.rentalHouseResource.name }</td>
+					</tr><tr>
+						<td>租房地址：</td>
+						<td>${rentalClient.rentalHouseResource.baseArea.fullname }${rentalClient.rentalHouseResource.address }</td>
+					</tr>
+				</c:if>
+				
 				<tr>
 					<td>备注：</td>
 					<td>${rentalClient.remarks }</td>

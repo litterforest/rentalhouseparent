@@ -56,8 +56,8 @@
                 /doRegister = anon
                 /resources/** = anon
                 /logout = logout
-                /home = user
-                /SecureUser/form/** = user
+                <!-- /home = user
+                /SecureUser/form/** = user -->
                 /** = authc
             </value>
         </property>

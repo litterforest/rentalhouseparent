@@ -23,7 +23,8 @@
 		a.standard_water_amount,
 		b.fullname as "baseArea.fullname",
 		c.id as "rentalClient.id",
-		c.name as "rentalClient.name"
+		c.name as "rentalClient.name",
+		c.mobile as "rentalClient.mobile"
 		from rental_house_resource a
 		left join base_area b on a.city_id = b.city_id
 		left join rental_client c on (c.house_id = a.id and c.status = 0)
