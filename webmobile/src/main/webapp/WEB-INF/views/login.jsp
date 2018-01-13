@@ -9,9 +9,9 @@
 <title>用户登录</title>
 <%@ include file="include/pageResources.jsp"%>
 </head>
-<body>
+<body >
 
-	<div data-role="page" id="page" data-dom-cache="false" >
+	<div data-role="page" id="page" data-dom-cache="false" class="loginbg" >
 		
 		<div data-role="content">
 			<form action="${ctx }/doLogin" method="post">
