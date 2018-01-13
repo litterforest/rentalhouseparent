@@ -30,6 +30,16 @@ public class RentalClientCheckinOrder extends BaseEntity {
 	private Double standardWaterAmount;
 
 	private RentalHouseResource rentalHouseResource;
+	
+	private RentalClient rentalClient;
+	
+	public RentalClient getRentalClient() {
+		return rentalClient;
+	}
+
+	public void setRentalClient(RentalClient rentalClient) {
+		this.rentalClient = rentalClient;
+	}
 
 	public Double getStandardElectAmount() {
 		return standardElectAmount;

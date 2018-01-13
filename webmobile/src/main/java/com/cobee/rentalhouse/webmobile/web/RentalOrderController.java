@@ -1,22 +1,25 @@
 package com.cobee.rentalhouse.webmobile.web;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cobee.rentalhouse.core.component.page.Page;
-import com.cobee.rentalhouse.core.entity.RentalClient;
+import com.cobee.rentalhouse.core.component.page.PageRequest;
 import com.cobee.rentalhouse.core.entity.RentalOrder;
 import com.cobee.rentalhouse.core.entity.logical.RentalOrderLogic;
 import com.cobee.rentalhouse.core.service.RentalOrderService;
@@ -31,11 +34,34 @@ public class RentalOrderController extends AbstractController {
 	private RentalOrderService rentalOrderService;
 	
 	@GetMapping("/list")
-	public String list(Model model)
+	public String list(@ModelAttribute("rentalOrderQuery") RentalOrder rentalOrderQuery, Model model)
 	{
-		RentalOrder rentalOrder = new RentalOrder();
-		List<RentalOrder> rentalOrderList = rentalOrderService.list(rentalOrder);
-		model.addAttribute("rentalOrderList", rentalOrderList);
+		
+		// 查询收费单年份
+		List<Integer> yearList = rentalOrderService.findRentalOrderYear(rentalOrderQuery);
+		if (!CollectionUtils.isEmpty(yearList))
+		{
+			Map<Integer, List<RentalOrder>> orderMap = new HashMap<>();
+			PageRequest pageRequest = new PageRequest();
+			pageRequest.setOrderByClause(" order by d.name, a.year desc, a.month desc ");
+			rentalOrderQuery.setPageRequest(pageRequest);
+			for (Integer year : yearList)
+			{
+				List<RentalOrder> rentalOrderList = rentalOrderService.list(rentalOrderQuery);
+				orderMap.put(year, rentalOrderList);
+			}
+			model.addAttribute("yearList", yearList);
+			model.addAttribute("orderMap", orderMap);
+		}
+		else
+		{
+			model.addAttribute("yearList", Collections.<Integer>emptyList());
+		}
+//		PageRequest pageRequest = new PageRequest();
+//		pageRequest.setOrderByClause(" order by a.year desc, a.month desc, d.name ");
+//		rentalOrderQuery.setPageRequest(pageRequest);
+//		List<RentalOrder> rentalOrderList = rentalOrderService.list(rentalOrderQuery);
+//		model.addAttribute("rentalOrderList", rentalOrderList);
 		return "rentalOrderList";
 	}
 	

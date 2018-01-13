@@ -28,10 +28,12 @@
 		b.realname as "baseUser.realname",
 		c.standard_elect_amount as "rentalClientCheckinOrder.standardElectAmount",
 		c.standard_water_amount as "rentalClientCheckinOrder.standardWaterAmount",
-		c.rental_amount as "rentalClientCheckinOrder.rentalAmount"
+		c.rental_amount as "rentalClientCheckinOrder.rentalAmount",
+		d.name as "rentalClientCheckinOrder.rentalClient.name"
 		from rental_order a
 		left join secure_user b on b.id = a.user_id
 		left join rental_client_checkin_order c on c.id = a.rental_client_checkin_order_id
+		left join rental_client d on d.id = c.rental_client_id
 	</sql>
 	
 	<sql id="whereClause">
@@ -48,9 +50,19 @@
 				<if test="status != null">
 					and a.status = #{status}
 				</if>
+				
+				<if test="year != null">
+					and a.year = #{year}
+				</if>
+				
 				<if test="rentalClientCheckinOrderId != null">
 					and a.rental_client_checkin_order_id = #{rentalClientCheckinOrderId}
 				</if>
+				
+				<if test="rentalClientCheckinOrder != null and rentalClientCheckinOrder.rentalClient != null and rentalClientCheckinOrder.rentalClient.name != ''">
+					and d.name like concat('%', #{rentalClientCheckinOrder.rentalClient.name}, '%')
+				</if>
+				
 			</trim>
 		</where>
 	</sql>
@@ -86,6 +98,17 @@
 	
 		select count(1) from rental_order a
 		
+		<include refid="whereClause"></include>
+		
+	</select>
+	
+	<select id="findRentalOrderYear" resultType="integer" >
+	
+		select distinct a.year
+		from rental_order a
+		left join secure_user b on b.id = a.user_id
+		left join rental_client_checkin_order c on c.id = a.rental_client_checkin_order_id
+		left join rental_client d on d.id = c.rental_client_id
 		<include refid="whereClause"></include>
 		
 	</select>

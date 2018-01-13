@@ -176,5 +176,10 @@ public class RentalOrderServiceImpl extends PagingAndSortingService<RentalOrder,
 		Integer count = super.queryByCount(rentalOrder);
 		return count > 0 ? true : false;
 	}
+
+	@Override
+	public List<Integer> findRentalOrderYear(RentalOrder rentalOrder) {
+		return dao.findRentalOrderYear(rentalOrder);
+	}
 	
 }

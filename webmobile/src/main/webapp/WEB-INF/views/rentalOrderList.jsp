@@ -18,9 +18,33 @@
 		</div>
 
 		<div data-role="content">
-			<c:set var="pageYear" value="" ></c:set>
+			<form id="searchForm" action="${ctx }/rentalorder/list" method="get" >
+				<input type="text" data-type="search" name="rentalClientCheckinOrder.rentalClient.name" id="search" value="${rentalOrderQuery.rentalClientCheckinOrder.rentalClient.name }" placeholder="房客名称" >
+			</form>
+			<br />
 			<ul data-role="listview" data-inset="false">
-				<c:forEach items="${rentalOrderList }" var="rentalOrder" >
+			
+				<c:forEach items="${yearList }" var="dbYear" >
+					
+					<c:set var="clientName" value="" ></c:set>
+					<li data-role="list-divider" >${dbYear }年</li>
+					
+					<c:forEach items="${orderMap[dbYear] }" var="rentalOrder" >
+					
+						<c:if test="${clientName ne rentalOrder.rentalClientCheckinOrder.rentalClient.name }">
+							<li data-role="list-divider" style="text-align:center;" >${rentalOrder.rentalClientCheckinOrder.rentalClient.name }</li>
+							<c:set var="clientName" value="${rentalOrder.rentalClientCheckinOrder.rentalClient.name }" ></c:set>
+						</c:if>
+						
+						<li><a href="${ctx }/rentalorder/detail/${rentalOrder.id}">
+							<h2>${rentalOrder.year }-${rentalOrder.monthDesc }</h2>
+							<p>总费用：${rentalOrder.totalAmount }，电费：${rentalOrder.electricityAmount }元，水费：${rentalOrder.waterAmount }元，扣减：${rentalOrder.deductionAmount }元</p>
+						</a></li>
+					</c:forEach>
+					
+				</c:forEach>
+			
+				<%-- <c:forEach items="${rentalOrderList }" var="rentalOrder" >
 					
 					<c:if test="${pageYear ne rentalOrder.year }">
 						<li data-role="list-divider" >${rentalOrder.year }年</li>
@@ -32,7 +56,8 @@
 						<p>总费用：${rentalOrder.totalAmount }，电费：${rentalOrder.electricityAmount }元，水费：${rentalOrder.waterAmount }元，扣减：${rentalOrder.deductionAmount }元</p>
 					</a></li>
 					
-				</c:forEach>
+				</c:forEach> --%>
+				
 			</ul>
 
 		</div>
