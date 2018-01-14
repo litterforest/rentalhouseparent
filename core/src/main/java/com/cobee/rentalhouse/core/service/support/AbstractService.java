@@ -42,7 +42,7 @@ public abstract class AbstractService<T extends BaseEntity, E extends BaseDao<T>
 	@Override
 	public void save(T obj) {
 		SecureUser secureUser = null;
-		if (obj instanceof SecureUser)
+		if (!(obj instanceof SecureUser))
 		{
 			secureUser = (SecureUser) SecurityUtils.getSubject().getPrincipal();
 		}

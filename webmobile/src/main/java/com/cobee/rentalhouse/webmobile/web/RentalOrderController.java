@@ -47,6 +47,7 @@ public class RentalOrderController extends AbstractController {
 			rentalOrderQuery.setPageRequest(pageRequest);
 			for (Integer year : yearList)
 			{
+				rentalOrderQuery.setYear(year);
 				List<RentalOrder> rentalOrderList = rentalOrderService.list(rentalOrderQuery);
 				orderMap.put(year, rentalOrderList);
 			}

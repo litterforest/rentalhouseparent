@@ -21,6 +21,7 @@
 		a.house_code,
 		a.standard_elect_amount,
 		a.standard_water_amount,
+		a.build_structure_type,
 		b.fullname as "baseArea.fullname",
 		c.id as "rentalClient.id",
 		c.name as "rentalClient.name",
@@ -155,6 +156,9 @@
 				<if test="address != null">
 					address,
 				</if>
+				<if test="buildStructureType != null">
+					build_structure_type,
+				</if>
 				
 			</trim>
 		) values (
@@ -211,7 +215,9 @@
 				<if test="address != null">
 					#{address},
 				</if>
-				
+				<if test="buildStructureType != null">
+					#{buildStructureType},
+				</if>
 			</trim>
 		)
 	
@@ -275,7 +281,9 @@
 				<if test="address != null">
 					address = #{address},
 				</if>
-				
+				<if test="buildStructureType != null">
+					build_structure_type = #{buildStructureType},
+				</if>
 			</trim>
 		
 		where id = #{id}

@@ -29,7 +29,8 @@
 		c.standard_elect_amount as "rentalClientCheckinOrder.standardElectAmount",
 		c.standard_water_amount as "rentalClientCheckinOrder.standardWaterAmount",
 		c.rental_amount as "rentalClientCheckinOrder.rentalAmount",
-		d.name as "rentalClientCheckinOrder.rentalClient.name"
+		d.name as "rentalClientCheckinOrder.rentalClient.name",
+		d.gender as "rentalClientCheckinOrder.rentalClient.gender"
 		from rental_order a
 		left join secure_user b on b.id = a.user_id
 		left join rental_client_checkin_order c on c.id = a.rental_client_checkin_order_id

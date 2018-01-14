@@ -49,8 +49,19 @@ public class RentalOrderLogic extends RentalOrder {
 			}
 		}
 	}
-
-
+	public String getClientDisplay()
+	{
+		StringBuilder sbuff = new StringBuilder();
+		if (super.getRentalClientCheckinOrder() != null && super.getRentalClientCheckinOrder().getRentalClient() != null)
+		{
+			if (super.getRentalClientCheckinOrder().getRentalClient().getGender() != null)
+			{
+				sbuff.append(super.getRentalClientCheckinOrder().getRentalClient().getGender() == 0 ? "♂" : "♀");
+			}
+			sbuff.append(super.getRentalClientCheckinOrder().getRentalClient().getName());
+		}
+		return sbuff.toString();
+	}
 
 	public static Map<String, Object> toJqGridData(Page<RentalOrder> page) {
 		Map<String, Object> dataMap = new HashMap<>();

@@ -18,7 +18,10 @@
 			
 		    <a href="#" data-role="button" data-rel="back" data-icon="back" >返回</a>
 		    <h1>我的收租宝</h1>
-		    
+		    <c:if test="${rentalHouseResource.buildStructureType eq 0 }">
+		    	<a href="${ctx }/RentalHouseResource/form?operator=addroom&parentHouseID=${rentalHouseResource.id}" data-role="button"
+				class="ui-btn-right" data-icon="plus">添加房间</a>
+		    </c:if>
 		</div>
 
 		<div data-role="content">

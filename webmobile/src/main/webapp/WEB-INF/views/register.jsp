@@ -26,7 +26,10 @@
 
 	<div data-role="page" id="page" data-dom-cache="false" >
 		
-		<%@ include file="include/header.jsp"%>
+		<div data-role="header" data-position="fixed" >
+		    <a href="${ctx }/login" data-role="button" data-icon="back" >返回</a>
+		    <h1>我的收租宝</h1>
+		</div> 
 		
 		<div data-role="content">
 			<form action="${ctx }/doRegister" method="post" onsubmit="return submitValidate(this);" >

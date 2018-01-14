@@ -29,10 +29,20 @@ public class RentalClient extends BaseEntity {
 	private String idCardNo;
 	// 房源ID
 	private Integer houseId;
+	// 0--男 1--女
+	private Integer gender;
 
 	private RentalHouseResource rentalHouseResource;
 	// 当前正在入住的住房记录
 	private RentalClientCheckinOrder currentRentalClientCheckinOrder;
+	
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
 
 	public RentalClientCheckinOrder getCurrentRentalClientCheckinOrder() {
 		return currentRentalClientCheckinOrder;
