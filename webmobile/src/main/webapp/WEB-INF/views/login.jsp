@@ -12,8 +12,8 @@
 <body >
 	<script type="text/javascript">
 		// 弹出提示信息
-		<c:if test="${not empty param.errorMsg}">
-			alert("${param.errorMsg}");
+		<c:if test="${not empty errorMsg}">
+			alert("${errorMsg}");
 		</c:if>
 	</script>
 	<div data-role="page" id="page" data-dom-cache="false" class="loginbg" >

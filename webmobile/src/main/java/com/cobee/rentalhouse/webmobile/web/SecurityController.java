@@ -56,13 +56,13 @@ public class SecurityController extends AbstractController {
             {
             	logger.error("", e);
             	responsePage = "redirect:/login";
-            	redirectAttributes.addAttribute("errorMsg", "用户名或密码错误");
+            	redirectAttributes.addFlashAttribute("errorMsg", "用户名或密码错误");
             }
             catch (Exception e)
             {
             	logger.error("", e);
             	responsePage = "redirect:/login";
-            	redirectAttributes.addAttribute("errorMsg", e.getMessage());
+            	redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
             }
             
         }
