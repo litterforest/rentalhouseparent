@@ -10,11 +10,16 @@
 <%@ include file="include/pageResources.jsp"%>
 </head>
 <body >
-
+	<script type="text/javascript">
+		// 弹出提示信息
+		<c:if test="${not empty param.errorMsg}">
+			alert("${param.errorMsg}");
+		</c:if>
+	</script>
 	<div data-role="page" id="page" data-dom-cache="false" class="loginbg" >
 		
 		<div data-role="content">
-			<form action="${ctx }/doLogin" method="post">
+			<form action="${ctx }/doLogin" method="post" data-ajax="false" >
 				<input type="hidden" name="_csrf" value="${_csrf.token}">
 				<div data-role="fieldcontain">
 					<label for="username" >用户名：</label>
