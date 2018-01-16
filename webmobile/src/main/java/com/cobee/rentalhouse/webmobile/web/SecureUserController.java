@@ -1,5 +1,8 @@
 package com.cobee.rentalhouse.webmobile.web;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +39,23 @@ public class SecureUserController extends AbstractController {
 	}
 	
 	@RequestMapping("/save")
-	public String form(SecureUser baseUser, RedirectAttributes redirectAttributes)
+	public String form(SecureUser baseUser, String oldPassword, RedirectAttributes redirectAttributes)
 	{
+		
 		try {
+			
+			// 1，检查原密码是否正确
+			if (StringUtils.isNotBlank(oldPassword))
+			{
+				SecureUser dbSecureUser = baseUserService.get(baseUser.getId());
+				ByteSource salt = ByteSource.Util.bytes(baseUser.getUsername());
+				SimpleHash simpleHash = new SimpleHash("MD5", oldPassword, salt, 128);
+				if (!StringUtils.equals(simpleHash.toString(), dbSecureUser.getPassword()))
+				{
+					redirectAttributes.addAttribute("errorMsg", "原密码错误");
+					return "redirect:userInfo/" + baseUser.getId();
+				}
+			}
 			
 			baseUserService.save(baseUser);
 			redirectAttributes.addAttribute("msg", "用户修改成功");
