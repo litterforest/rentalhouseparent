@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class RentalHouseResourceController extends AbstractController {
 	public String list(@ModelAttribute("rentalHouseResourceQuery") RentalHouseResource rentalHouseResourceQuery, Model model)
 	{
 		PageRequest pageRequest = new PageRequest();
-		pageRequest.setOrderByClause(" order by a.status ");
+		pageRequest.setOrderByClause(" order by a.status, a.full_name ");
 		rentalHouseResourceQuery.setPageRequest(pageRequest);
 		List<RentalHouseResource> rentalHouseResourceList = rentalHouseResourceService.list(rentalHouseResourceQuery);
 		model.addAttribute("rentalHouseResourceList", rentalHouseResourceList);
@@ -62,10 +63,19 @@ public class RentalHouseResourceController extends AbstractController {
 	}
 	
 	@PostMapping("/save")
-	public String save(RentalHouseResource rentalHouseResource)
+	public String save(RentalHouseResource rentalHouseResource, String operator, Integer parentHouseID)
 	{
-		rentalHouseResource.setCityId(rentalHouseResource.getBaseArea().getTrueCityId());
-		rentalHouseResourceService.save(rentalHouseResource);
+		if (StringUtils.equals(operator, "addroom"))
+		{
+			rentalHouseResourceService.saveRoom(rentalHouseResource, parentHouseID);
+		}
+		else
+		{
+			rentalHouseResource.setCityId(rentalHouseResource.getBaseArea().getTrueCityId());
+			rentalHouseResource.setFullName(rentalHouseResource.getName());
+			rentalHouseResourceService.save(rentalHouseResource);
+		}
+		
 		return "redirect:list";
 	}
 	
@@ -92,13 +102,24 @@ public class RentalHouseResourceController extends AbstractController {
 	}
 	
 	@GetMapping("/form")
-	public String form(Integer id, Model model)
+	public String form(Integer id, String operator, Integer parentHouseID, Model model)
 	{
-		if (id != null)
+		
+		// 添加房间时，要展示的添加表单
+		if (StringUtils.equals(operator, "addroom"))
+		{
+			// 1,查找父类房子的数据
+			//RentalHouseResource parentRentalHouseResource = rentalHouseResourceService.get(parentHouseID);
+			model.addAttribute("operator", operator);
+			model.addAttribute("parentHouseID", parentHouseID);
+		}
+		// 展示房源数据修改表单
+		else if (id != null)
 		{
 			RentalHouseResource rentalHouseResource = rentalHouseResourceService.get(id);
 			model.addAttribute("rentalHouseResource", rentalHouseResource);
 		}
+		
 		return "rentalHouseResourceForm";
 	}
 	

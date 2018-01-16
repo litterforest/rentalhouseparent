@@ -22,6 +22,7 @@
 		a.standard_elect_amount,
 		a.standard_water_amount,
 		a.build_structure_type,
+		a.full_name,
 		b.fullname as "baseArea.fullname",
 		c.id as "rentalClient.id",
 		c.name as "rentalClient.name",
@@ -159,6 +160,9 @@
 				<if test="buildStructureType != null">
 					build_structure_type,
 				</if>
+				<if test="fullName != null">
+					full_name,
+				</if>
 				
 			</trim>
 		) values (
@@ -217,6 +221,9 @@
 				</if>
 				<if test="buildStructureType != null">
 					#{buildStructureType},
+				</if>
+				<if test="fullName != null">
+					#{fullName},
 				</if>
 			</trim>
 		)
@@ -283,6 +290,9 @@
 				</if>
 				<if test="buildStructureType != null">
 					build_structure_type = #{buildStructureType},
+				</if>
+				<if test="fullName != null">
+					full_name = #{fullName},
 				</if>
 			</trim>
 		

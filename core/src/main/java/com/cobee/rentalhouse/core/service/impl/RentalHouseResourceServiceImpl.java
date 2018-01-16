@@ -51,4 +51,20 @@ public class RentalHouseResourceServiceImpl extends PagingAndSortingService<Rent
 		
 	}
 
+	@Transactional(readOnly = false)
+	@Override
+	public void saveRoom(RentalHouseResource rentalHouseResource, Integer parentHouseID) {
+		// 1,查找父类房源数据
+		RentalHouseResource parentRentalHouseResource = get(parentHouseID);
+		rentalHouseResource.setCityId(parentRentalHouseResource.getCityId());
+		rentalHouseResource.setAddress(parentRentalHouseResource.getAddress());
+		rentalHouseResource.setStandardElectAmount(parentRentalHouseResource.getStandardElectAmount());
+		rentalHouseResource.setStandardWaterAmount(parentRentalHouseResource.getStandardWaterAmount());
+		rentalHouseResource.setBuildStructureType(1);
+		rentalHouseResource.setParentId(parentHouseID);
+		rentalHouseResource.setFullName(parentRentalHouseResource.getName() + "-" + rentalHouseResource.getName());
+		// 2，保存房间数据
+		save(rentalHouseResource);
+	}
+
 }

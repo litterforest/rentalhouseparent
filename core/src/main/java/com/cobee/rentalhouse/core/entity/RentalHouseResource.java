@@ -33,11 +33,21 @@ public class RentalHouseResource extends BaseEntity {
 	private Double standardWaterAmount;
 	// 建筑结构类型  0--整栋  1--房间
 	private Integer buildStructureType;
+	// 房源全名
+	private String fullName;
 
 	// 所属地区关联对象
 	private BaseArea baseArea;
 
 	private RentalClient rentalClient;
+	
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 
 	public Integer getBuildStructureType() {
 		return buildStructureType;
@@ -46,7 +56,7 @@ public class RentalHouseResource extends BaseEntity {
 	public void setBuildStructureType(Integer buildStructureType) {
 		this.buildStructureType = buildStructureType;
 	}
-
+	
 	public RentalClient getRentalClient() {
 		return rentalClient;
 	}

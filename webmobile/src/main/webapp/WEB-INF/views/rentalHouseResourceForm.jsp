@@ -6,7 +6,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>新增房源</title>
+<title>
+<c:choose>
+	<c:when test="${operator eq 'addroom' }">
+		新增房间
+	</c:when>
+	<c:otherwise>
+		新增房源
+	</c:otherwise>
+</c:choose>
+</title>
 <%@ include file="include/pageResources.jsp" %>
 </head>
 <body>
@@ -20,17 +29,36 @@
 			<form action="${ctx }/RentalHouseResource/save" method="post" data-ajax="false" >
 				
 				<input type="hidden" name="_csrf" value="${_csrf.token}" >
-				<input type="hidden" name="parentId" value="${param.parentHouseID}" >
+				<input type="hidden" name="parentHouseID" value="${parentHouseID}" >
+				<input type="hidden" name="operator" value="${operator}" >
 				
 				<div data-role="fieldcontain">
 				
-					<label for="name" >房源名称：</label>
+					<label for="name" >
+						<c:choose>
+							<c:when test="${operator eq 'addroom' }">
+								房间名称：
+							</c:when>
+							<c:otherwise>
+								房源名称：
+							</c:otherwise>
+						</c:choose>
+					</label>
 					<input id="name" name="name" type="text" value="${rentalHouseResource.name }" placeholder="房源名称..." required="required" >
 					
-					<label for="houseCode" >房源编号：</label>
+					<label for="houseCode" >
+						<c:choose>
+							<c:when test="${operator eq 'addroom' }">
+								房间编号：
+							</c:when>
+							<c:otherwise>
+								房源编号：
+							</c:otherwise>
+						</c:choose>
+					</label>
 					<input id="houseCode" name="houseCode" type="text" value="${rentalHouseResource.name }" placeholder="房源编号..." >
 					
-					<c:if test="${param.operator ne 'addroom' }">
+					<c:if test="${operator ne 'addroom' }">
 						<fieldset data-role="controlgroup">
 							<legend>所在区域：</legend>
 							<app:areaselect provinceName="baseArea.provinceCityId" cityName="baseArea.cityCityId" areaName="baseArea.areaCityId" cityId="${rentalHouseResource.cityId }" ></app:areaselect>
@@ -49,11 +77,13 @@
 					<label for="decorationSituation" >装修情况：</label>
 					<textarea id="decorationSituation" name="decorationSituation" placeholder="装修情况..." required="required" >${rentalHouseResource.decorationSituation }</textarea>
 					
-					<label for="standardElectAmount" >标准电费：</label>
-					<input id="standardElectAmount" name="standardElectAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准电费..." step="0.01" required="required" >
-					
-					<label for="standardWaterAmount" >标准水费：</label>
-					<input id="standardWaterAmount" name="standardWaterAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准水费..." step="0.01" required="required" >
+					<c:if test="${operator ne 'addroom' }">
+						<label for="standardElectAmount" >标准电费：</label>
+						<input id="standardElectAmount" name="standardElectAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准电费..." step="0.01" required="required" >
+						
+						<label for="standardWaterAmount" >标准水费：</label>
+						<input id="standardWaterAmount" name="standardWaterAmount" type="number" value="${rentalHouseResource.standardElectAmount }" placeholder="标准水费..." step="0.01" required="required" >
+					</c:if>
 					
 					<%-- <label for="status" >出租状态：</label>
 					<select  id="status" name="status" >

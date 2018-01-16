@@ -88,10 +88,10 @@
 			
 			<c:choose>
 				<c:when test="${rentalHouseResource.status ne 0 }">
-					<button data-corners="false" disabled="disabled" >出租</button>
+					<button data-corners="false" disabled="disabled" >${rentalHouseResource.lendBtnDesc}</button>
 				</c:when>
 				<c:otherwise>
-					<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-corners="false" >出租</a>
+					<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-corners="false" >${rentalHouseResource.lendBtnDesc}</a>
 				</c:otherwise>
 			</c:choose>
 			

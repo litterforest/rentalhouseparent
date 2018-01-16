@@ -54,6 +54,27 @@ public class RentalHouseResourceLogic extends RentalHouseResource {
 		}
 		
 	}
+	
+	/**
+	 * 获取页面上“出租”按钮的描述
+	 * @return
+	 */
+	public String getLendBtnDesc()
+	{
+		if (super.getBuildStructureType() == null)
+		{
+			return "";
+		}
+		else if (NumericUtils.equal(getBuildStructureType(), 0))
+		{
+			return "整栋出租";
+		}
+		else if (NumericUtils.equal(getBuildStructureType(), 1))
+		{
+			return "出租";
+		}
+		return "";
+	}
 
 	/**
 	 * 获取房源地址

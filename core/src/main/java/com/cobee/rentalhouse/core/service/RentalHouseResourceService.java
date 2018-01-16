@@ -8,4 +8,6 @@ public interface RentalHouseResourceService extends BaseService<RentalHouseResou
 	
 	void checkin(RentalClientCheckinOrder rentalClientCheckinOrder);
 	
+	void saveRoom(RentalHouseResource rentalHouseResource, Integer parentHouseID);
+	
 }

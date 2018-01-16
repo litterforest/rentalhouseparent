@@ -44,7 +44,7 @@
 					</c:choose>
 					
 					<li ><a href="${ctx }/RentalHouseResource/detail/${rentalHouseResource.id}" >
-					<h2>${rentalHouseResource.name }</h2>
+					<h2>${rentalHouseResource.fullName }</h2>
 					<p>${rentalHouseResource.baseArea.fullname }${rentalHouseResource.address }，${rentalHouseResource.rentPrice }，${rentalHouseResource.statusDesc }</p>
 					</a></li>
 				</c:forEach>
