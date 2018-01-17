@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="include/taglib.jsp"%>
+<%@ include file="include/globals.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,7 @@
 			<div data-role="header" data-position="fixed">
 				<!-- <a href="#" data-role="button" data-rel="back" data-icon="back" >返回</a> -->
 				<h1>
-					我的收租宝
+					${appName }
 				</h1>
 				<a href="${ctx }/logout" data-role="button" class="ui-btn-right" data-icon="alert" >退出</a>
 			</div>
@@ -57,8 +58,10 @@
 	        			<input type="password" name="password" id="password" placeholder="新密码" required="required" >
 						<label for="password1"  >确认新密码：</label>
 	        			<input type="password" name="password1" id="password1" placeholder="确认新密码" required="required"  >
-						<label for="mobile"  >手机号码：</label>
-	        			<input type="number" name="mobile" id="mobile" placeholder="手机号码" required="required" value="${user.mobile }" >
+	        			
+						<%-- <label for="mobile"  >手机号码：</label>
+	        			<input type="number" name="mobile" id="mobile" placeholder="手机号码" required="required" value="${user.mobile }" > --%>
+	        			
 	        			<br />
 	        			<button type="submit"  >保 存</button>
 	        			

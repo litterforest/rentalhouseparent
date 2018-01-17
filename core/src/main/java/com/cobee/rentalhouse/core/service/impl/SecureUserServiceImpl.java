@@ -37,6 +37,7 @@ public class SecureUserServiceImpl extends AbstractService<SecureUser, SecureUse
 	@Transactional(readOnly = false)
 	public void register(SecureUser baseUser) {
 		
+		baseUser.setUsername(baseUser.getMobile());
 		String password = baseUser.getPassword();
 		ByteSource salt = ByteSource.Util.bytes(baseUser.getUsername());
 		SimpleHash simpleHash = new SimpleHash("MD5", password, salt, 128);
@@ -44,19 +45,19 @@ public class SecureUserServiceImpl extends AbstractService<SecureUser, SecureUse
 		super.save(baseUser);
 		
 		// 创建sysvariables数据
-		SysVariables sysVariables = new SysVariables();
-		sysVariables.setUserId(baseUser.getId());
-		List<SysVariables> sysVariablesList = sysVariablesService.list(sysVariables);
-		if (CollectionUtils.isEmpty(sysVariablesList))
-		{
-			SysVariables newSysVariables = new SysVariables();
-			newSysVariables.setUserId(baseUser.getId());
-			newSysVariables.setCurrentBerthPowerConsumption(0.0D);
-			newSysVariables.setCurrentRentingPowerConsumption(0.0D);
-			newSysVariables.setStandardBerthElectricity(0.0D);
-			newSysVariables.setStandardRentingElectricity(0.0D);
-			sysVariablesService.save(newSysVariables);
-		}
+//		SysVariables sysVariables = new SysVariables();
+//		sysVariables.setUserId(baseUser.getId());
+//		List<SysVariables> sysVariablesList = sysVariablesService.list(sysVariables);
+//		if (CollectionUtils.isEmpty(sysVariablesList))
+//		{
+//			SysVariables newSysVariables = new SysVariables();
+//			newSysVariables.setUserId(baseUser.getId());
+//			newSysVariables.setCurrentBerthPowerConsumption(0.0D);
+//			newSysVariables.setCurrentRentingPowerConsumption(0.0D);
+//			newSysVariables.setStandardBerthElectricity(0.0D);
+//			newSysVariables.setStandardRentingElectricity(0.0D);
+//			sysVariablesService.save(newSysVariables);
+//		}
 		
 	}
 	

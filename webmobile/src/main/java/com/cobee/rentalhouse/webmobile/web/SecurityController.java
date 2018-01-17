@@ -1,5 +1,12 @@
 package com.cobee.rentalhouse.webmobile.web;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -8,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cobee.rentalhouse.core.entity.SecureUser;
@@ -21,6 +30,10 @@ public class SecurityController extends AbstractController {
 	
 	@Autowired
 	private SecureUserService baseUserService;
+	@Autowired
+	private com.cobee.rentalhouse.core.component.sms.SmsAware smsAware;
+	
+	private Random random = new Random();
 	
 	@GetMapping(value="/login")
 	public String login()
@@ -76,23 +89,64 @@ public class SecurityController extends AbstractController {
 	}
 	
 	@PostMapping(value="/doRegister")
-	public String doRegister(SecureUser baseUser, RedirectAttributes redirectAttributes)
+	public String doRegister(HttpSession session, SecureUser baseUser, String verificationCode, RedirectAttributes redirectAttributes)
 	{
 		
 		String resultPage = "redirect:/login";
 		try
 		{
+			String sessionVerificationCode = (String) session.getAttribute("Register_VerificationCode");
+			session.removeAttribute("Register_VerificationCode");
+			if (!StringUtils.equals(verificationCode, sessionVerificationCode))
+			{
+				redirectAttributes.addFlashAttribute("errorMsg", "验证码不正确，请重新操作");
+				return "redirect:/register";
+			}
 			baseUserService.register(baseUser);
-			redirectAttributes.addAttribute("msg", "注册成功，请登录使用");
+			redirectAttributes.addFlashAttribute("msg", "注册成功，请登录使用");
 		}
 		catch(Exception e)
 		{
 			logger.error("", e);
-			redirectAttributes.addAttribute("errorMsg", e.getMessage());
+			redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
 			resultPage = "redirect:/register";
 		}
 		
 		return resultPage;
+	}
+	
+	@RequestMapping(value="/sendVerificationCode")
+	@ResponseBody
+	public Map<String, Object> sendVerificationCode(String mobile, HttpSession session)
+	{
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			// 创建一个6位的随机数
+			StringBuilder sbuff = new StringBuilder();
+			for (int i = 0; i < 6; i++)
+			{
+				sbuff.append(random.nextInt(10));
+			}
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("code", sbuff.toString());
+			// 发送短信消息
+			boolean flag = smsAware.sendSms(mobile, "SMS_122290087", params);
+			if (flag)
+			{
+				session.setAttribute("Register_VerificationCode", sbuff.toString());
+				resultMap.put("status", "success");
+			}
+			else
+			{
+				resultMap.put("status", "fail");
+				resultMap.put("msg", "网络繁忙，短信发送失败");
+			}
+		} catch (Exception e) {
+			logger.error("", e);
+			resultMap.put("status", "fail");
+			resultMap.put("msg", e.getMessage());
+		}
+		return resultMap;
 	}
 	
 }

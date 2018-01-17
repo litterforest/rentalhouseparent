@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="taglib.jsp"%>
+<%@ include file="globals.jsp"%>
 <div data-role="header" data-position="fixed" >
 	<%--
 	<div data-role="navbar" >
@@ -11,5 +12,5 @@
     </div>
     --%>
     <a href="#" data-role="button" data-rel="back" data-icon="back" >返回</a>
-    <h1>我的收租宝</h1>
+    <h1>${appName }</h1>
 </div> 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="include/taglib.jsp"%>
+<%@ include file="include/globals.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
 	<div data-role="page" id="page">
 		
         <div data-role="header" data-position="fixed" >
-		    <h1>我的收租宝</h1>
+		    <h1>${appName }</h1>
 		</div>
         
 		<div data-role="content" class="ui-content" >

@@ -54,6 +54,7 @@
                 /doLogin = anon
                 /register = anon
                 /doRegister = anon
+                /sendVerificationCode = anon
                 /resources/** = anon
                 /logout = logout
                 <!-- /home = user
