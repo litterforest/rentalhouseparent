@@ -22,7 +22,9 @@
 		a.status,
 		a.is_fist_order,
 		a.standard_elect_amount,
-		a.standard_water_amount
+		a.standard_water_amount,
+		a.lease_start_time,
+		a.lease_end_time
 		from rental_client_checkin_order a
 	</sql>
 	
@@ -175,6 +177,14 @@
 					standard_water_amount,
 				</if>
 				
+				<if test="leaseStartTime != null">
+					lease_start_time,
+				</if>
+				
+				<if test="leaseEndTime != null">
+					lease_end_time,
+				</if>
+				
 				
 				
 			</trim>
@@ -240,6 +250,14 @@
 				
 				<if test="standardWaterAmount != null">
 					#{standardWaterAmount},
+				</if>
+				
+				<if test="leaseStartTime != null">
+					#{leaseStartTime},
+				</if>
+				
+				<if test="leaseEndTime != null">
+					#{leaseEndTime},
 				</if>
 				
 			</trim>
@@ -322,6 +340,14 @@
 				
 				<if test="standardWaterAmount != null">
 					standard_water_amount = #{standardWaterAmount},
+				</if>
+				
+				<if test="leaseStartTime != null">
+					lease_start_time = #{leaseStartTime},
+				</if>
+				
+				<if test="leaseEndTime != null">
+					lease_end_time = #{leaseEndTime},
 				</if>
 				
 			</trim>

@@ -1,9 +1,15 @@
 package com.cobee.rentalhouse.webmobile.web.support;
 
 import java.beans.PropertyEditorSupport;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.shiro.SecurityUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +60,13 @@ public abstract class AbstractController {
 			}
 		});
 
-		binder.addCustomFormatter(new DateFormatter("yyyy-MM-dd"));
-		binder.addCustomFormatter(new DateFormatter("yyyy-MM-dd HH:mm:ss"));
-
+		binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+			
+			@Override
+			public void setAsText(String text) {
+				setValue(DateTime.parse(text).toDate());
+			}
+		});
 	}
 
 }

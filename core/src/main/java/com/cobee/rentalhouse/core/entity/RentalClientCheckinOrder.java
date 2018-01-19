@@ -28,11 +28,31 @@ public class RentalClientCheckinOrder extends BaseEntity {
 	private Double standardElectAmount;
 	// 标准水费
 	private Double standardWaterAmount;
+	// 租约开始时间
+	private Date leaseStartTime;
+	// 租约结束时间
+	private Date leaseEndTime;
 
 	private RentalHouseResource rentalHouseResource;
 	
 	private RentalClient rentalClient;
 	
+	public Date getLeaseStartTime() {
+		return leaseStartTime;
+	}
+
+	public void setLeaseStartTime(Date leaseStartTime) {
+		this.leaseStartTime = leaseStartTime;
+	}
+
+	public Date getLeaseEndTime() {
+		return leaseEndTime;
+	}
+
+	public void setLeaseEndTime(Date leaseEndTime) {
+		this.leaseEndTime = leaseEndTime;
+	}
+
 	public RentalClient getRentalClient() {
 		return rentalClient;
 	}

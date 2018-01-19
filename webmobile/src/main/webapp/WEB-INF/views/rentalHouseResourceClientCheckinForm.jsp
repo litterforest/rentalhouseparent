@@ -41,9 +41,15 @@
 					<label for="depositAmount" >押金：</label>
 					<input id="depositAmount" name="depositAmount" type="number" value="" placeholder="押金..." step="0.01" >
 					
+					<fieldset data-role="controlgroup" >
+				        <legend>租期：</legend>
+				        <input id="leaseStartTime" name="leaseStartTime" type="date" value="" >
+				        <input id="leaseEndTime" name="leaseEndTime" type="date" value="" >
+				    </fieldset>
+					
 					<label for="remarks" >备注：</label>
 					<textarea id="remarks" name="remarks" placeholder="备注..." ></textarea>
-					
+					<hr />
 					<button type="submit" >提交</button>
 					
 				</div>
