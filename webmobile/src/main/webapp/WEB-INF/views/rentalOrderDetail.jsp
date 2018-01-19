@@ -24,7 +24,7 @@
 				</tr>
 				<tr>
 					<td>出租类型：</td>
-					<td>${rentalOrder.rentalTypeDesc }</td>
+					<td>${rentalOrder.rentalClientCheckinOrder.rentalHouseResource.houseTypeDesc }</td>
 				</tr>
 				<tr>
 					<td>月租金：</td>
@@ -93,7 +93,7 @@
 				</tr>
 
 				<tr>
-					<td>电费标准(度/元)：</td>
+					<td>水费标准(度/元)：</td>
 					<td><fmt:formatNumber
 							value="${rentalOrder.rentalClientCheckinOrder.standardWaterAmount }"
 							groupingUsed="false" maxFractionDigits="2" minFractionDigits="2"></fmt:formatNumber>

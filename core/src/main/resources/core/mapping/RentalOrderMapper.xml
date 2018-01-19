@@ -25,16 +25,18 @@
 		a.rental_client_checkin_order_id,
 		a.last_power_consumption,
 		a.last_water_consumption,
-		b.realname as "baseUser.realname",
+		b.realname as "secureUser.realname",
 		c.standard_elect_amount as "rentalClientCheckinOrder.standardElectAmount",
 		c.standard_water_amount as "rentalClientCheckinOrder.standardWaterAmount",
 		c.rental_amount as "rentalClientCheckinOrder.rentalAmount",
 		d.name as "rentalClientCheckinOrder.rentalClient.name",
-		d.gender as "rentalClientCheckinOrder.rentalClient.gender"
+		d.gender as "rentalClientCheckinOrder.rentalClient.gender",
+		e.house_type as "rentalClientCheckinOrder.rentalHouseResource.houseType"
 		from rental_order a
 		left join secure_user b on b.id = a.user_id
 		left join rental_client_checkin_order c on c.id = a.rental_client_checkin_order_id
 		left join rental_client d on d.id = c.rental_client_id
+		left join rental_house_resource e on e.id = c.house_id
 	</sql>
 	
 	<sql id="whereClause">
