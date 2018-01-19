@@ -52,6 +52,14 @@
 					and a.name like concat('%', #{name}, '%')
 				</if>
 				
+				<if test="parentId != null">
+					and a.parent_id = #{parentId}
+				</if>
+				
+				<if test="status != null">
+					and a.status = #{status}
+				</if>
+				
 			</trim>
 		</where>
 	</sql>

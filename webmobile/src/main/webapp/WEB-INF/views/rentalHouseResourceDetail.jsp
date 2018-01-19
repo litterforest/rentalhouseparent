@@ -87,11 +87,15 @@
 			</table>
 			
 			<c:choose>
-				<c:when test="${rentalHouseResource.status ne 0 }">
-					<button data-corners="false" disabled="disabled" >${rentalHouseResource.lendBtnDesc}</button>
+				<%-- 整栋未出租，并且子房间都没出租，这时可以整栋出租 --%>
+				<c:when test="${rentalHouseResource.status eq 0 and rentalHouseResource.buildStructureType eq 0 and rentalHouseResource.wholeRentalFlag eq 1 }">
+					<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-corners="false" >${rentalHouseResource.lendBtnDesc}</a>
+				</c:when>
+				<c:when test="${rentalHouseResource.status eq 0 and rentalHouseResource.buildStructureType eq 1 }">
+					<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-corners="false" >${rentalHouseResource.lendBtnDesc}</a>
 				</c:when>
 				<c:otherwise>
-					<a href="${ctx }/RentalHouseResource/rentalHouseResourceClientCheckinForm?rentalHouseResourceID=${rentalHouseResource.id}" data-role="button" data-corners="false" >${rentalHouseResource.lendBtnDesc}</a>
+					<button data-corners="false" disabled="disabled" >${rentalHouseResource.lendBtnDesc}</button>
 				</c:otherwise>
 			</c:choose>
 			

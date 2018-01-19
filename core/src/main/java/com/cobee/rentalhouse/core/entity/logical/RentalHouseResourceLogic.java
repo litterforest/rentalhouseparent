@@ -19,9 +19,19 @@ public class RentalHouseResourceLogic extends RentalHouseResource {
 	 * 
 	 */
 	private static final long serialVersionUID = 6748005233756308822L;
+	// 0--不可以整栋出租  1--可以整栋出租
+	private Integer wholeRentalFlag;
 	
-	
-	
+	public Integer getWholeRentalFlag() {
+		return wholeRentalFlag;
+	}
+
+
+	public void setWholeRentalFlag(Integer wholeRentalFlag) {
+		this.wholeRentalFlag = wholeRentalFlag;
+	}
+
+
 	@Override
 	public String getStatusDesc() {
 		if (getStatus() == null)

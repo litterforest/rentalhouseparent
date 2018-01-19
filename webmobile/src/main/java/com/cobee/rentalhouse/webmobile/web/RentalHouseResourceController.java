@@ -24,6 +24,7 @@ import com.cobee.rentalhouse.core.entity.RentalHouseResource;
 import com.cobee.rentalhouse.core.entity.logical.RentalHouseResourceLogic;
 import com.cobee.rentalhouse.core.service.RentalClientService;
 import com.cobee.rentalhouse.core.service.RentalHouseResourceService;
+import com.cobee.rentalhouse.core.util.NumericUtils;
 import com.cobee.rentalhouse.webmobile.web.support.AbstractController;
 
 @Controller
@@ -58,7 +59,24 @@ public class RentalHouseResourceController extends AbstractController {
 	public String detail(@PathVariable Integer id, Model model)
 	{
 		RentalHouseResource rentalHouseResource = rentalHouseResourceService.get(id);
-		model.addAttribute("rentalHouseResource", rentalHouseResource);
+		// 设置是否可以整栋出租的标志
+		RentalHouseResourceLogic rentalHouseResourceLogic = (RentalHouseResourceLogic) rentalHouseResource;
+		
+		// 整栋房类型
+		if (NumericUtils.equal(rentalHouseResourceLogic.getBuildStructureType(), 0))
+		{
+			// 查询是否有房间已经出租了
+			RentalHouseResource rentalHouseResourceQuery = new RentalHouseResource();
+			rentalHouseResourceQuery.setParentId(rentalHouseResourceLogic.getId());
+			rentalHouseResourceQuery.setStatus(1);
+			Integer count = rentalHouseResourceService.queryByCount(rentalHouseResourceQuery);
+			if (count == null || count == 0)
+			{
+				rentalHouseResourceLogic.setWholeRentalFlag(1);
+			}
+		}
+		
+		model.addAttribute("rentalHouseResource", rentalHouseResourceLogic);
 		return "rentalHouseResourceDetail";
 	}
 	
