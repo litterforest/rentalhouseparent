@@ -3,15 +3,33 @@
 <mapper namespace="com.cobee.rentalhouse.core.dao.impl.SecureRoleMapper">
 	
 	<select id="list" resultType="SecureRole" >
-	
-		select a.* from secure_role a
+		select 
+			a.id,
+			a.enname,
+			a.name,
+			a.create_date,
+			a.create_by,
+			a.update_date,
+			a.update_by,
+			a.remarks,
+			a.del_flag
+		from secure_role a
 		where a.del_flag = 0
-	
 	</select>
 	
 	<select id="get" resultType="SecureRole" parameterType="integer" >
 	
-		select a.* from secure_role a where a.id = #{id}
+		select 
+			a.id,
+			a.enname,
+			a.name,
+			a.create_date,
+			a.create_by,
+			a.update_date,
+			a.update_by,
+			a.remarks,
+			a.del_flag
+		from secure_role a where a.id = #{id}
 		
 	</select>
 	

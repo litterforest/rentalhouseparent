@@ -61,7 +61,7 @@
 				${pageRequest.orderByClause}
 			</when>
 			<otherwise>
-				
+				order by a.update_date desc
 			</otherwise>
 		</choose>
 		

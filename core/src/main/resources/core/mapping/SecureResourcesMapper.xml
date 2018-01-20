@@ -3,7 +3,21 @@
 <mapper namespace="com.cobee.rentalhouse.core.dao.impl.SecureResourcesMapper">
 	
 	<select id="list" resultType="SecureResources" >
-		select a.* from secure_resources a
+		select 
+			a.id,
+			a.parent_id,
+			a.create_date,
+			a.create_by,
+			a.update_date,
+			a.update_by,
+			a.remarks,
+			a.del_flag,
+			a.name,
+			a.sort,
+			a.srcurl,
+			a.permission,
+			a.is_menu
+		from secure_resources a
 		where a.del_flag = 0
 				
 		<if test="isMenu != null">
@@ -19,7 +33,7 @@
 				${pageRequest.orderByClause}
 			</when>
 			<otherwise>
-				
+				order by a.update_date desc
 			</otherwise>
 		</choose>
 		

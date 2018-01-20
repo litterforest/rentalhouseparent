@@ -4,7 +4,21 @@
 	
 	<select id="list" resultType="SecureUser" >
 	
-		select a.* from secure_user a 
+		select 
+			a.id,
+			a.create_Date,
+			a.create_By,
+			a.update_Date,
+			a.update_By,
+			a.remarks,
+			a.username,
+			a.password,
+			a.mobile,
+			a.del_flag,
+			a.realname,
+			a.is_admin,
+			a.user_type
+		from secure_user a 
 		where a.del_flag = 0
 		
 		<if test="username != null" >
@@ -15,7 +29,21 @@
 	
 	<select id="get" resultType="SecureUser" parameterType="integer" >
 	
-		select a.* from secure_user a where a.id = #{id}
+		select 
+			a.id,
+			a.create_Date,
+			a.create_By,
+			a.update_Date,
+			a.update_By,
+			a.remarks,
+			a.username,
+			a.password,
+			a.mobile,
+			a.del_flag,
+			a.realname,
+			a.is_admin,
+			a.user_type
+		from secure_user a where a.id = #{id}
 		
 	</select>
 	
