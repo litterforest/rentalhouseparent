@@ -33,7 +33,7 @@
 		d.gender as "rentalClientCheckinOrder.rentalClient.gender",
 		e.house_type as "rentalClientCheckinOrder.rentalHouseResource.houseType"
 		from rental_order a
-		left join secure_user b on b.id = a.user_id
+		left join secure_user b on b.id = a.create_by
 		left join rental_client_checkin_order c on c.id = a.rental_client_checkin_order_id
 		left join rental_client d on d.id = c.rental_client_id
 		left join rental_house_resource e on e.id = c.house_id

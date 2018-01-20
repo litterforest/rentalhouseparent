@@ -2,6 +2,7 @@ package com.cobee.rentalhouse.core.entity;
 
 import java.util.Date;
 
+import com.cobee.rentalhouse.core.entity.logical.RentalHouseResourceLogic;
 import com.cobee.rentalhouse.core.entity.support.BaseEntity;
 
 public class RentalClientCheckinOrder extends BaseEntity {
@@ -33,7 +34,7 @@ public class RentalClientCheckinOrder extends BaseEntity {
 	// 租约结束时间
 	private Date leaseEndTime;
 
-	private RentalHouseResource rentalHouseResource;
+	private RentalHouseResourceLogic rentalHouseResource;
 	
 	private RentalClient rentalClient;
 	
@@ -77,11 +78,11 @@ public class RentalClientCheckinOrder extends BaseEntity {
 		this.standardWaterAmount = standardWaterAmount;
 	}
 
-	public RentalHouseResource getRentalHouseResource() {
+	public RentalHouseResourceLogic getRentalHouseResource() {
 		return rentalHouseResource;
 	}
 
-	public void setRentalHouseResource(RentalHouseResource rentalHouseResource) {
+	public void setRentalHouseResource(RentalHouseResourceLogic rentalHouseResource) {
 		this.rentalHouseResource = rentalHouseResource;
 	}
 
